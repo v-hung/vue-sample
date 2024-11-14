@@ -1,3 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
 
-<template>home</template>
+const a = ref(0)
+</script>
+
+<template>
+  <div>
+    {{ a }}
+  </div>
+</template>
