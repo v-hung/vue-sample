@@ -1,0 +1,1 @@
+<template>access-denied</template>

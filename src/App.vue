@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import { Button } from 'ant-design-vue'
+import ProcessIndicator from './components/UI/ProcessIndicator.vue'
+import PageLoading from './components/UI/PageLoading.vue'
+import { useAccountStore } from './stores/account'
+
+const accountStore = useAccountStore()
 </script>
 
 <template>
-  <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </nav>
-    <Button>dasd</Button>
-  </header>
+  <template v-if="accountStore.loading">
+    <PageLoading />
+  </template>
 
-  <RouterView />
+  <template v-else>
+    <RouterView />
+  </template>
+
+  <ProcessIndicator class="fixed left-0 top-0 z-50" />
 </template>

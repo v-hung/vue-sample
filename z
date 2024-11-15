@@ -1,0 +1,121 @@
+1. Quản lý Chấm Công (Attendance Management)
+/attendance: Danh sách chấm công
+/attendance/create: Thêm mới chấm công
+/attendance/
+: Chỉnh sửa thông tin chấm công
+/attendance/shift-schedules: Quản lý ca làm việc
+/attendance/overtime: Quản lý tăng ca
+/attendance/reports: Báo cáo chấm công (theo tháng, theo nhân viên, v.v.)
+2. Quản lý Cuộc Họp (Meeting Management)
+/meeting: Danh sách phòng họp
+/meeting/create: Tạo phòng họp mới
+/meeting/
+: Chi tiết phòng họp
+/meeting/
+/edit: Chỉnh sửa phòng họp
+/meeting/book: Đặt phòng họp
+/meeting/reports: Báo cáo cuộc họp (theo phòng, theo thời gian, v.v.)
+3. Quản lý Thiết Bị (Device Management)
+/devices: Danh sách thiết bị
+/devices/create: Thêm thiết bị mới
+/devices/
+: Chi tiết thiết bị
+/devices/
+/edit: Chỉnh sửa thiết bị
+/devices/maintenance: Quản lý bảo trì thiết bị
+/devices/reports: Báo cáo thiết bị (sự cố, bảo trì, sử dụng)
+4. Quản lý Nhân Viên (Employee Management)
+/employees: Danh sách nhân viên
+/employees/create: Thêm nhân viên mới
+/employees/
+: Chi tiết nhân viên
+/employees/
+/edit: Chỉnh sửa thông tin nhân viên
+/employees/roles: Quản lý quyền hạn và vai trò nhân viên
+/employees/leave: Quản lý phép năm, nghỉ phép
+/employees/attendance: Quản lý chấm công của nhân viên
+/employees/reports: Báo cáo nhân viên (theo phòng ban, chức vụ, v.v.)
+5. Quản lý Phòng Ban (Department Management)
+/departments: Danh sách phòng ban
+/departments/create: Thêm phòng ban mới
+/departments/
+: Chi tiết phòng ban
+/departments/
+/edit: Chỉnh sửa phòng ban
+/departments/employees: Quản lý nhân viên trong phòng ban
+/departments/reports: Báo cáo phòng ban (sự phân bổ nguồn lực, hiệu quả công việc)
+6. Quản lý Quyền (Permission Management)
+/permissions: Danh sách quyền
+/permissions/create: Thêm quyền mới
+/permissions/
+: Chi tiết quyền
+/permissions/
+/edit: Chỉnh sửa quyền
+7. Quản lý Tài Khoản (Account Management)
+/account/profile: Hồ sơ người dùng
+/account/settings: Cài đặt tài khoản
+/account/security: Cài đặt bảo mật (mật khẩu, 2FA)
+/account/activity: Lịch sử hoạt động
+8. Quản lý Tài Chính (Financial Management)
+/finance: Tổng quan tài chính công ty
+/finance/invoices: Quản lý hóa đơn
+/finance/payments: Quản lý thanh toán
+/finance/expenses: Quản lý chi phí
+/finance/reports: Báo cáo tài chính (doanh thu, chi phí, lợi nhuận)
+9. Quản lý Dự Án (Project Management)
+/projects: Danh sách dự án
+/projects/create: Tạo dự án mới
+/projects/
+: Chi tiết dự án
+/projects/
+/edit: Chỉnh sửa dự án
+/projects/tasks: Quản lý công việc trong dự án
+/projects/reports: Báo cáo dự án (tiến độ, ngân sách)
+10. Quản lý Tuyển Dụng (Recruitment Management)
+/recruitment: Quản lý ứng viên
+/recruitment/create: Đăng tin tuyển dụng
+/recruitment/applications: Danh sách ứng viên
+/recruitment/interviews: Quản lý lịch phỏng vấn
+/recruitment/hiring-reports: Báo cáo tuyển dụng
+11. Quản lý Vật Tư (Inventory Management)
+/inventory: Quản lý hàng hóa
+/inventory/create: Thêm vật tư mới
+/inventory/
+: Chi tiết vật tư
+/inventory/
+/edit: Chỉnh sửa vật tư
+/inventory/stock: Quản lý tồn kho
+/inventory/transactions: Quản lý giao dịch vật tư
+/inventory/reports: Báo cáo vật tư (nhập xuất, tồn kho)
+12. Quản lý Hợp Đồng (Contract Management)
+/contracts: Quản lý hợp đồng
+/contracts/create: Tạo hợp đồng mới
+/contracts/
+: Chi tiết hợp đồng
+/contracts/
+/edit: Chỉnh sửa hợp đồng
+/contracts/renewals: Quản lý gia hạn hợp đồng
+/contracts/reports: Báo cáo hợp đồng (thời gian, giá trị hợp đồng)
+13. Quản lý Email và Thông Báo (Email & Notification Management)
+/notifications: Quản lý thông báo hệ thống
+/notifications/create: Tạo thông báo mới
+/notifications/
+: Chi tiết thông báo
+/notifications/
+/edit: Chỉnh sửa thông báo
+/notifications/settings: Cài đặt thông báo (email, SMS)
+14. Quản lý Lịch (Calendar Management)
+/calendar: Lịch công ty
+/calendar/create: Thêm sự kiện mới
+/calendar/
+: Chi tiết sự kiện
+/calendar/
+/edit: Chỉnh sửa sự kiện
+/calendar/holidays: Quản lý ngày nghỉ lễ
+15. Quản lý Báo Cáo (Reporting & Analytics)
+/reports: Báo cáo tổng quan
+/reports/attendance: Báo cáo chấm công
+/reports/meetings: Báo cáo cuộc họp
+/reports/employees: Báo cáo nhân viên
+/reports/projects: Báo cáo dự án
+/reports/finance: Báo cáo tài chính
