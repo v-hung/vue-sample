@@ -10,11 +10,11 @@ const formState = reactive({
   remember: true,
 })
 
-const onFinish = async (values: any) => {
+const onFinish = async (values: unknown) => {
   console.log('Success:', values)
 }
 
-const onFinishFailed = async (errorInfo: any) => {
+const onFinishFailed = async (errorInfo: unknown) => {
   console.log('Failed:', errorInfo)
 }
 </script>

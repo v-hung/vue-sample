@@ -1,31 +1,166 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useAppStore } from '@/stores/app'
+import { UserOutlined } from '@ant-design/icons-vue'
+import MenuItemBadge from '../UI/MenuItemBadge.vue'
+import Simplebar from 'simplebar-vue'
+import 'simplebar-vue/dist/simplebar.min.css'
+import { useRouter } from 'vue-router'
+import MenuIcon from '@/assets/MenuIcon.vue'
+import XIcon from '@/assets/XIcon.vue'
 
-const selectedKeys = ref(['1'])
-const openKeys = ref(['sub1'])
-
+const router = useRouter()
 const appStore = useAppStore()
+
+const selectedKeys = ref([router.currentRoute.value.path])
+const openKeys = ref([''])
+
+watch(
+  () => router.currentRoute.value.path,
+  path => {
+    selectedKeys.value = [path]
+    const parts = path.split('/').filter(Boolean)
+    openKeys.value = parts.map(
+      (_, index) => `/${parts.slice(0, index + 1).join('/')}`,
+    )
+  },
+)
+
+watch([selectedKeys, openKeys], path => {
+  console.log(path)
+})
+
+// menu mobile
+const isShowMenu = ref(false)
+
+const handelToggleMenu = (show?: boolean) => {
+  isShowMenu.value = show != undefined ? show : !isShowMenu.value
+}
 </script>
 
 <template>
-  <div class="h-screen w-64">
-    <div class="flex">asd</div>
-    <a-menu
-      v-model:openKeys="openKeys"
-      v-model:selectedKeys="selectedKeys"
-      mode="inline"
-      :items="appStore.accessibleMenus"
-    />
+  <div
+    class="invisible absolute left-0 top-0 z-10 h-full w-full bg-black/50 opacity-0 transition-all duration-300 lg:!invisible lg:!opacity-0"
+    :class="{ '!visible !opacity-100': isShowMenu }"
+    @click.self="handelToggleMenu(false)"
+  ></div>
+  <div
+    class="fixed z-10 h-screen w-64 -translate-x-full bg-white transition-transform duration-300 lg:static lg:translate-x-0 lg:bg-transparent"
+    :class="{ '!translate-x-0': isShowMenu }"
+  >
+    <Simplebar class="fixed h-full w-full px-3 py-2">
+      <a-dropdown
+        :trigger="['click']"
+        placement="bottomLeft"
+        :arrow="{ pointAtCenter: false }"
+      >
+        <div
+          class="sticky top-2 z-10 flex cursor-pointer gap-4 rounded border border-solid border-gray-200 bg-white p-2 shadow-sm"
+        >
+          <a-avatar shape="square" :size="40">
+            <template #icon><UserOutlined /></template>
+          </a-avatar>
+          <div class="h-10 whitespace-nowrap">
+            <h1 class="mb-0 text-base font-semibold">Việt Hùng</h1>
+            <p class="mb-0 text-xs text-gray-600">Developer / Employee</p>
+          </div>
+        </div>
+        <template #overlay>
+          <DropdownUser />
+        </template>
+      </a-dropdown>
+      <a-menu
+        v-model:openKeys="openKeys"
+        v-model:selectedKeys="selectedKeys"
+        mode="inline"
+        @click="e => router.push(e.key.toString())"
+      >
+        <template
+          v-for="(menu, index) in appStore.accessibleMenus"
+          :key="index"
+        >
+          <template v-if="menu.type == 'group'">
+            <a-menu-item-group :title="menu.title" />
+          </template>
+          <template v-else-if="menu.children && menu.children.length > 0">
+            <a-sub-menu :icon="menu.icon" :title="menu.title">
+              <template
+                v-for="(child, childIndex) in menu.children"
+                :key="'child-' + childIndex"
+              >
+                <MenuItemBadge :menu="child" />
+              </template>
+            </a-sub-menu>
+          </template>
+          <template v-else>
+            <MenuItemBadge :menu="menu" />
+          </template>
+        </template>
+      </a-menu>
+    </Simplebar>
+
+    <div class="absolute left-full top-1/2 -translate-x-1 lg:hidden">
+      <a-button type="primary" @click.prevent="handelToggleMenu()" class="px-1">
+        <component :is="!isShowMenu ? MenuIcon : XIcon"></component>
+      </a-button>
+    </div>
   </div>
 </template>
 
-<style scoped>
-:deep(.ant-menu-light) {
+<style>
+.ant-menu-light {
   background-color: transparent;
 }
 
-:deep(.ant-menu-light .ant-menu-item-selected) {
-  @apply border border-solid border-blue-200;
+.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border: none;
+}
+
+.ant-menu-light.ant-menu-inline .ant-menu-item,
+.ant-menu-light.ant-menu-inline .ant-menu-submenu-title {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 500;
+  width: 100%;
+}
+
+/* .ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background-color: theme('colors.blue.50');
+} */
+
+.ant-menu-light.ant-menu-inline .ant-menu-submenu .ant-menu-item {
+  padding-left: 48px !important;
+}
+
+.ant-menu-light.ant-menu-inline .ant-menu-item-selected,
+.ant-menu-light.ant-menu-inline
+  .ant-menu-submenu-selected
+  .ant-menu-submenu-title {
+  color: #1677ff;
+}
+
+.ant-menu-light .ant-menu-item-selected {
+  border: 1px solid theme('colors.blue.100');
+  background-color: theme('colors.blue.100');
+}
+
+.ant-menu-light .ant-menu-item-group-title {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+}
+
+.ant-menu-item-icon {
+  opacity: 0.6;
+}
+
+.ant-menu-light .ant-menu-item-group {
+  margin-top: 16px;
+}
+
+.simplebar-scrollbar:before {
+  background-color: theme('colors.gray.600');
 }
 </style>

@@ -1,90 +1,100 @@
 import type { MenuItem } from '@/types/app'
 import { h } from 'vue'
-import {
-  MailOutlined,
-  CalendarOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-} from '@ant-design/icons-vue'
+import GroupIcon from '@/assets/GroupIcon.vue'
+import HomeIcon from '@/assets/HomeIcon.vue'
+import TimeIcon from '@/assets/TimeIcon.vue'
+import InboxIcon from '@/assets/InboxIcon.vue'
+import ChalkboardIcon from '@/assets/ChalkboardIcon.vue'
+import UserCircleIcon from '@/assets/UserCircleIcon.vue'
+import PieChartIcon from '@/assets/PieChartIcon.vue'
+import SelectionIcon from '@/assets/SelectionIcon.vue'
+import LockIcon from '@/assets/LockIcon.vue'
+import PackageIcon from '@/assets/PackageIcon.vue'
+import CogIcon from '@/assets/CogIcon.vue'
+import MailSendIcon from '@/assets/MailSendIcon.vue'
 
 export const MENUS_DEFAULT: MenuItem[] = [
   {
     type: 'group',
-    label: 'Dashboard',
+    title: 'Menu',
   },
   {
-    key: '/',
-    icon: () => h(MailOutlined),
-    label: 'Dashboard',
+    path: '/',
+    icon: () => h(HomeIcon),
+    title: 'Home',
   },
   {
-    key: '2',
-    icon: () => h(CalendarOutlined),
-    label: 'Navigation Two',
+    path: '/inbox',
+    icon: () => h(InboxIcon),
+    title: 'Inbox',
+    badge: 4,
   },
   {
-    type: 'divider',
+    path: '/timesheet',
+    icon: () => h(TimeIcon),
+    title: 'Timesheet',
   },
   {
-    key: 'sub1',
-    icon: () => h(AppstoreOutlined),
-    label: 'Navigation Three',
+    path: '/mettings',
+    icon: () => h(ChalkboardIcon),
+    title: 'Mettings',
+  },
+  {
+    type: 'group',
+    title: 'Manager',
+  },
+  {
+    path: '/projects',
+    icon: () => h(SelectionIcon),
+    title: 'Projects',
+  },
+  {
+    path: '/teams',
+    icon: () => h(GroupIcon),
+    title: 'Teams',
+  },
+  {
+    path: '/members',
+    icon: () => h(UserCircleIcon),
+    title: 'Members',
+  },
+  {
+    path: '/permisstion',
+    icon: () => h(LockIcon),
+    title: 'Permisstion',
     children: [
       {
-        key: '3',
-        label: 'Option 3',
-        title: 'Option 3',
+        path: '/permisstion/role',
+        title: 'Members',
       },
       {
-        key: '4',
-        label: 'Option 4',
-        title: 'Option 4',
-      },
-      {
-        key: 'sub1-2',
-        label: 'Submenu',
-        title: 'Submenu',
-        children: [
-          {
-            key: '5',
-            label: 'Option 5',
-            title: 'Option 5',
-          },
-          {
-            key: '6',
-            label: 'Option 6',
-            title: 'Option 6',
-          },
-        ],
+        path: '/permisstion/permisstion',
+        title: 'Members',
       },
     ],
   },
   {
-    key: 'sub2',
-    icon: () => h(SettingOutlined),
-    label: 'Navigation Four',
-    title: 'Navigation Four',
-    children: [
-      {
-        key: '7',
-        label: 'Option 7',
-        title: 'Option 7',
-      },
-      {
-        key: '8',
-        label: 'Option 8',
-        title: 'Option 8',
-      },
-      {
-        key: '9',
-        label: 'Option 9',
-        title: 'Option 9',
-      },
-      {
-        key: '10',
-        label: 'Option 10',
-        title: 'Option 10',
-      },
-    ],
+    path: '/inventory',
+    icon: () => h(PackageIcon),
+    title: 'Inventory',
+  },
+  {
+    type: 'group',
+    title: 'System',
+  },
+  {
+    path: '/settings',
+    icon: () => h(CogIcon),
+    title: 'Settings',
+  },
+  {
+    path: '/send-mail',
+    icon: () => h(MailSendIcon),
+    title: 'Send Mail',
+  },
+  {
+    path: '/report',
+    icon: () => h(PieChartIcon),
+    title: 'Report',
   },
 ]

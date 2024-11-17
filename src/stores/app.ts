@@ -14,7 +14,7 @@ export const useAppStore = defineStore('app', () => {
   }
 
   // menus
-  const menus = ref<MenuItem[]>(MENUS_DEFAULT as MenuItem[])
+  const menus = ref<MenuItem[]>(MENUS_DEFAULT)
 
   const accountStore = useAccountStore()
 

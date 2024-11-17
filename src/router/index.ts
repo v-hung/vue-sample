@@ -20,12 +20,12 @@ const router = createRouter({
           },
         },
         {
-          path: 'about',
-          name: 'about',
-          component: () => import('../views/AboutView.vue'),
+          path: 'timesheet',
+          name: 'timesheet',
+          component: () => import('../views/TimesheetView.vue'),
           meta: {
             requiresAuth: true,
-            roles: ['about_read'],
+            roles: ['timesheet_read'],
           },
         },
       ],
@@ -40,6 +40,12 @@ const router = createRouter({
       name: 'access-denied',
       component: () => import('../views/AccessDeniedView.vue'),
     },
+
+    // {
+    //   path: '/:pathMatch(.*)*', // Đây là cách để khớp tất cả các route không xác định
+    //   name: '404',
+    //   component: PageNotFound,
+    // },
   ],
 })
 
@@ -61,7 +67,7 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
   useAppStore().setRouterLoading(false)
 })
 

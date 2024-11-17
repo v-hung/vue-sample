@@ -34,13 +34,14 @@ watch(appStore.$state, state => {
         if (!lineProcess.value) return
 
         lineProcess.value.style.width = '0'
-        lineProcess.value.style.transition = null as any
+        lineProcess.value.style.transition = null as never
       }, 100)
     }
   } else {
     if (!lineProcess.value) return
+    clearTimeout(timer)
 
-    lineProcess.value.style.transition = null as any
+    lineProcess.value.style.transition = null as never
     lineProcess.value.style.width = '0'
 
     timer = setTimeout(() => {
