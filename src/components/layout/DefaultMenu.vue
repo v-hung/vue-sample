@@ -36,11 +36,16 @@ const isShowMenu = ref(false)
 const handelToggleMenu = (show?: boolean) => {
   isShowMenu.value = show != undefined ? show : !isShowMenu.value
 }
+
+const handelMenuClick = (route: string) => {
+  handelToggleMenu(false)
+  router.push(route)
+}
 </script>
 
 <template>
   <div
-    class="invisible absolute left-0 top-0 z-10 h-full w-full bg-black/50 opacity-0 transition-all duration-300 lg:!invisible lg:!opacity-0"
+    class="invisible fixed left-0 top-0 z-10 h-full w-full bg-black/50 opacity-0 transition-all duration-300 lg:!invisible lg:!opacity-0"
     :class="{ '!visible !opacity-100': isShowMenu }"
     @click.self="handelToggleMenu(false)"
   ></div>
@@ -73,7 +78,7 @@ const handelToggleMenu = (show?: boolean) => {
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
         mode="inline"
-        @click="e => router.push(e.key.toString())"
+        @click="e => handelMenuClick(e.key.toString())"
       >
         <template
           v-for="(menu, index) in appStore.accessibleMenus"

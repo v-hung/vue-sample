@@ -126,3 +126,9 @@ const data = [
   },
 ]
 </script>
+
+<style>
+.ant-page-header-heading-sub-title {
+  @apply hidden md:inline;
+}
+</style>
