@@ -1,11 +1,15 @@
 import 'ant-design-vue/dist/reset.css'
-import './assets/main.css'
+import './main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+
+dayjs.extend(duration)
 
 const app = createApp(App)
 
