@@ -20,7 +20,7 @@ const onFinishFailed = async (errorInfo: unknown) => {
 </script>
 
 <template>
-  <div class="px-4">
+  <div class="min-h-screen bg-gray-50 px-4 py-10">
     <a-form
       :model="formState"
       name="basic"
@@ -29,7 +29,7 @@ const onFinishFailed = async (errorInfo: unknown) => {
       autocomplete="off"
       @finish="onFinish"
       @finishFailed="onFinishFailed"
-      class="mx-auto mt-10 w-full max-w-sm rounded border border-solid border-gray-300 p-4 shadow"
+      class="mx-auto w-full max-w-sm rounded border border-solid border-gray-300 bg-white p-4 shadow"
     >
       <a-form-item
         label="Username"

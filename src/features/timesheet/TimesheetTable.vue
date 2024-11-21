@@ -3,7 +3,7 @@
     <a-date-picker picker="month" />
     <a-button
       :icon="h(CalendarCheckIcon, { class: 'w-5' })"
-      class="mr-auto"
+      class="mr-auto !text-gray-600 text-sky-500"
     ></a-button>
     <a-dropdown :trigger="['click']" placement="bottomLeft">
       <a-button class="flex items-center text-sm" type="text">

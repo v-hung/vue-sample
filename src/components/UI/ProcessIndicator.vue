@@ -2,7 +2,7 @@
   <div class="h-1 w-full">
     <div
       ref="lineProcess"
-      class="absolute h-full w-0 rounded-r-full bg-blue-600 ease-in-out"
+      class="fixed left-0 top-0 z-50 h-full w-0 rounded-r-full bg-blue-600 ease-in-out"
     ></div>
   </div>
 </template>
@@ -20,6 +20,8 @@ let isLoading = false
 const appStore = useAppStore()
 
 watch(appStore.$state, state => {
+  clearTimeout(timer)
+
   if (!state.routerLoading) {
     clearTimeout(timerEnd)
 
@@ -39,7 +41,6 @@ watch(appStore.$state, state => {
     }
   } else {
     if (!lineProcess.value) return
-    clearTimeout(timer)
 
     lineProcess.value.style.transition = null as never
     lineProcess.value.style.width = '0'
