@@ -22,5 +22,10 @@ export const useAppStore = defineStore('app', () => {
     return menus.value
   })
 
-  return { routerLoading, setRouterLoading, menus, accessibleMenus }
+  return {
+    routerLoading,
+    setRouterLoading,
+    menus,
+    accessibleMenus,
+  }
 })
