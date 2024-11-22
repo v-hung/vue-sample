@@ -9,7 +9,7 @@ const accountStore = useAccountStore()
 
 <template>
   <a-config-provider :locale="enUS">
-    <template v-if="accountStore.loading">
+    <template v-if="accountStore.isLogged">
       <PageLoading />
     </template>
 

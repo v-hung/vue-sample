@@ -38,7 +38,7 @@ class CustomFetchHttpLibrary implements HttpLibrary {
       method: method,
       body: body as any,
       headers: headers,
-      credentials: 'same-origin',
+      credentials: 'include',
     }).then(async resp => {
       const responseheaders: { [name: string]: string } = {}
       resp.headers.forEach((value: string, name: string) => {
@@ -52,7 +52,7 @@ class CustomFetchHttpLibrary implements HttpLibrary {
           method: method,
           body: body as any,
           headers: headers,
-          credentials: 'same-origin',
+          credentials: 'include',
         })
 
         const retryheaders: { [name: string]: string } = {}

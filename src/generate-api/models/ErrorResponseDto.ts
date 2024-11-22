@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { Role } from '../models/Role';
 import { HttpFile } from '../http/http';
 
-export class UserDto {
-    'id'?: number;
-    'name'?: string;
-    'username'?: string;
-    'email'?: string;
-    'roles'?: Set<Role>;
+export class ErrorResponseDto {
+    'status'?: number;
+    'message'?: string;
+    'timestamp'?: string;
+    'details'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -26,38 +24,32 @@ export class UserDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "status",
+            "baseName": "status",
             "type": "number",
-            "format": "int64"
+            "format": "int32"
         },
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "message",
+            "baseName": "message",
             "type": "string",
             "format": ""
         },
         {
-            "name": "username",
-            "baseName": "username",
+            "name": "timestamp",
+            "baseName": "timestamp",
             "type": "string",
             "format": ""
         },
         {
-            "name": "email",
-            "baseName": "email",
+            "name": "details",
+            "baseName": "details",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "roles",
-            "baseName": "roles",
-            "type": "Set<Role>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return UserDto.attributeTypeMap;
+        return ErrorResponseDto.attributeTypeMap;
     }
 
     public constructor() {

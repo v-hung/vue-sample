@@ -10,54 +10,49 @@
  * Do not edit the class manually.
  */
 
-import { Permission } from './Permission'
-import { HttpFile } from '../http/http'
+import { Permission } from '../models/Permission';
+import { HttpFile } from '../http/http';
 
 export class Role {
-  'id'?: number
-  'name'?: string
-  'admin'?: boolean
-  'permissions'?: Set<Permission>
+    'id'?: number;
+    'name'?: string;
+    'admin'?: boolean;
+    'permissions'?: Set<Permission>;
 
-  static readonly discriminator: string | undefined = undefined
+    static readonly discriminator: string | undefined = undefined;
 
-  static readonly mapping: { [index: string]: string } | undefined = undefined
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
 
-  static readonly attributeTypeMap: Array<{
-    name: string
-    baseName: string
-    type: string
-    format: string
-  }> = [
-    {
-      name: 'id',
-      baseName: 'id',
-      type: 'number',
-      format: 'int64',
-    },
-    {
-      name: 'name',
-      baseName: 'name',
-      type: 'string',
-      format: '',
-    },
-    {
-      name: 'admin',
-      baseName: 'admin',
-      type: 'boolean',
-      format: '',
-    },
-    {
-      name: 'permissions',
-      baseName: 'permissions',
-      type: 'Set<Permission>',
-      format: '',
-    },
-  ]
+    static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "number",
+            "format": "int64"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "admin",
+            "baseName": "admin",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "permissions",
+            "baseName": "permissions",
+            "type": "Set<Permission>",
+            "format": ""
+        }    ];
 
-  static getAttributeTypeMap() {
-    return Role.attributeTypeMap
-  }
+    static getAttributeTypeMap() {
+        return Role.attributeTypeMap;
+    }
 
-  public constructor() {}
+    public constructor() {
+    }
 }

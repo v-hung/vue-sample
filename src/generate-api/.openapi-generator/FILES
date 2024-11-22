@@ -1,6 +1,5 @@
 .gitattributes
 .gitignore
-.openapi-generator-ignore
 AccountControllerApi.md
 BookControllerApi.md
 README.md

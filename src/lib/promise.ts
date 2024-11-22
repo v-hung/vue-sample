@@ -1,16 +1,21 @@
+import { ApiException } from '@/generate-api'
 import { notification } from 'ant-design-vue'
 
 type SuccessResult<T> = T | null
+type CallbackType<T> =
+  | (() => Promise<T | undefined | void>)
+  | Promise<T | undefined | void>
 
 export const useNotifyPromise = async <T>({
   callback,
   successTitle,
 }: {
-  callback: () => Promise<T | undefined | void>
+  callback: CallbackType<T>
   successTitle?: string
 }): Promise<SuccessResult<T>> => {
   try {
-    const data = await callback()
+    const data =
+      typeof callback === 'function' ? await callback() : await callback
 
     if (successTitle) {
       notification.success({
@@ -22,7 +27,9 @@ export const useNotifyPromise = async <T>({
     return (data ?? null) as SuccessResult<T>
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : 'Oups! Something went wrong!'
+      error instanceof ApiException
+        ? JSON.parse(error.body)?.message || 'Oups! Something went wrong!'
+        : 'Oups! Something went wrong!'
 
     notification.error({
       message: 'ERROR',

@@ -10,47 +10,42 @@
  * Do not edit the class manually.
  */
 
-import { UserDto } from './UserDto'
-import { HttpFile } from '../http/http'
+import { UserDto } from '../models/UserDto';
+import { HttpFile } from '../http/http';
 
 export class LoginResponse {
-  'user'?: UserDto
-  'token'?: string
-  'refreshToken'?: string
+    'user'?: UserDto;
+    'token'?: string;
+    'refreshToken'?: string;
 
-  static readonly discriminator: string | undefined = undefined
+    static readonly discriminator: string | undefined = undefined;
 
-  static readonly mapping: { [index: string]: string } | undefined = undefined
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
 
-  static readonly attributeTypeMap: Array<{
-    name: string
-    baseName: string
-    type: string
-    format: string
-  }> = [
-    {
-      name: 'user',
-      baseName: 'user',
-      type: 'UserDto',
-      format: '',
-    },
-    {
-      name: 'token',
-      baseName: 'token',
-      type: 'string',
-      format: '',
-    },
-    {
-      name: 'refreshToken',
-      baseName: 'refreshToken',
-      type: 'string',
-      format: '',
-    },
-  ]
+    static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "user",
+            "baseName": "user",
+            "type": "UserDto",
+            "format": ""
+        },
+        {
+            "name": "token",
+            "baseName": "token",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "refreshToken",
+            "baseName": "refreshToken",
+            "type": "string",
+            "format": ""
+        }    ];
 
-  static getAttributeTypeMap() {
-    return LoginResponse.attributeTypeMap
-  }
+    static getAttributeTypeMap() {
+        return LoginResponse.attributeTypeMap;
+    }
 
-  public constructor() {}
+    public constructor() {
+    }
 }

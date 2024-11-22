@@ -8,6 +8,10 @@ import 'simplebar-vue/dist/simplebar.min.css'
 import { useRouter } from 'vue-router'
 import MenuIcon from '@/assets/MenuIcon.vue'
 import XIcon from '@/assets/XIcon.vue'
+import { useAccountStore } from '@/stores/account'
+
+// account
+const accountStore = useAccountStore()
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -66,7 +70,9 @@ const handelMenuClick = (route: string) => {
             <template #icon><UserOutlined /></template>
           </a-avatar>
           <div class="h-10 whitespace-nowrap">
-            <h1 class="mb-0 text-base font-semibold">Việt Hùng</h1>
+            <h1 class="mb-0 text-base font-semibold">
+              {{ accountStore.user?.name }}
+            </h1>
             <p class="mb-0 text-xs text-gray-600">Developer / Employee</p>
           </div>
         </div>

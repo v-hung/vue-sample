@@ -20,12 +20,75 @@ const router = createRouter({
           },
         },
         {
+          path: 'inbox',
+          name: 'inbox',
+          component: () => import('../views/InboxView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['inbox_read'],
+          },
+        },
+        {
           path: 'timesheet',
           name: 'timesheet',
           component: () => import('../views/TimesheetView.vue'),
           meta: {
             requiresAuth: true,
             roles: ['timesheet_read'],
+          },
+        },
+        {
+          path: 'metting',
+          name: 'metting',
+          component: () => import('../views/MettingView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['metting_read'],
+          },
+        },
+        {
+          path: 'project',
+          name: 'project',
+          component: () => import('../views/ProjectView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['project_read'],
+          },
+        },
+        {
+          path: 'team',
+          name: 'team',
+          component: () => import('../views/TeamView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['team_read'],
+          },
+        },
+        {
+          path: 'employee',
+          name: 'employee',
+          component: () => import('../views/EmployeeView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['employee_read'],
+          },
+        },
+        {
+          path: 'inventory',
+          name: 'inventory',
+          component: () => import('../views/InventoryView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['inventory_read'],
+          },
+        },
+        {
+          path: 'setting',
+          name: 'setting',
+          component: () => import('../views/SettingView.vue'),
+          meta: {
+            requiresAuth: true,
+            roles: ['setting_read'],
           },
         },
       ],
@@ -52,10 +115,10 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const accountStore = useAccountStore()
 
-  if (accountStore.loading) {
+  if (accountStore.isLogged) {
     await accountStore.logged()
 
-    accountStore.loading = false
+    accountStore.isLogged = false
   }
 
   if (to.meta.requiresAuth && !accountStore.user) {

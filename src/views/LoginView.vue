@@ -1,21 +1,49 @@
-<script setup lang="ts">
+<script lang="ts">
 import { useAccountStore } from '@/stores/account'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const accountStore = useAccountStore()
+export default {
+  setup() {
+    const router = useRouter()
+    const accountStore = useAccountStore()
 
-const formState = reactive({
-  username: '',
-  password: '',
-  remember: true,
-})
+    const formState = reactive({
+      username: '',
+      password: '',
+      remember: true,
+    })
 
-const onFinish = async (values: unknown) => {
-  console.log('Success:', values)
-}
+    const loading = ref(false)
 
-const onFinishFailed = async (errorInfo: unknown) => {
-  console.log('Failed:', errorInfo)
+    const onFinish = async () => {
+      loading.value = true
+      await accountStore.login(formState, res => {
+        if (res) router.push('/')
+      })
+      loading.value = false
+    }
+
+    const onFinishFailed = async (errorInfo: unknown) => {
+      // console.log('Failed:', errorInfo)
+    }
+
+    return {
+      formState,
+      loading,
+      onFinish,
+      onFinishFailed,
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    const accountStore = useAccountStore()
+
+    if (accountStore.user) {
+      next('/')
+    } else {
+      next()
+    }
+  },
 }
 </script>
 
@@ -51,7 +79,9 @@ const onFinishFailed = async (errorInfo: unknown) => {
         >
       </a-form-item>
       <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-        <a-button type="primary" html-type="submit">Submit</a-button>
+        <a-button type="primary" html-type="submit" :loading="loading"
+          >Submit</a-button
+        >
       </a-form-item>
     </a-form>
   </div>

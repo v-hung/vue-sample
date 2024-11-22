@@ -1,8 +1,8 @@
 <template>
-  <div class="h-1 w-full">
+  <div class="fixed left-0 top-0 z-50 h-1 w-full">
     <div
       ref="lineProcess"
-      class="fixed left-0 top-0 z-50 h-full w-0 rounded-r-full bg-blue-600 ease-in-out"
+      class="h-full w-0 rounded-r-full bg-blue-600 ease-in-out"
     ></div>
   </div>
 </template>

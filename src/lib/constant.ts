@@ -35,28 +35,28 @@ export const MENUS_DEFAULT: MenuItem[] = [
     title: 'Timesheet',
   },
   {
-    path: '/mettings',
+    path: '/metting',
     icon: () => h(ChalkboardIcon),
-    title: 'Mettings',
+    title: 'Metting',
   },
   {
     type: 'group',
     title: 'Manager',
   },
   {
-    path: '/projects',
+    path: '/project',
     icon: () => h(SelectionIcon),
-    title: 'Projects',
+    title: 'Project',
   },
   {
-    path: '/teams',
+    path: '/team',
     icon: () => h(GroupIcon),
-    title: 'Teams',
+    title: 'Team',
   },
   {
-    path: '/members',
+    path: '/employee',
     icon: () => h(UserCircleIcon),
-    title: 'Members',
+    title: 'Employee',
   },
   {
     path: '/permisstion',
@@ -83,9 +83,9 @@ export const MENUS_DEFAULT: MenuItem[] = [
     title: 'System',
   },
   {
-    path: '/settings',
+    path: '/setting',
     icon: () => h(CogIcon),
-    title: 'Settings',
+    title: 'Setting',
   },
   {
     path: '/send-mail',
