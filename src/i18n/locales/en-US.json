@@ -1,0 +1,11 @@
+{
+  "menus": {
+    "menu": "Menu",
+    "home": "Home",
+    "inbox": "Inbox"
+  },
+  "locale": {
+    "vi-VN": "Vietnamese",
+    "en-US": "English"
+  }
+}

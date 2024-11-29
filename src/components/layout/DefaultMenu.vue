@@ -91,10 +91,10 @@ const handelMenuClick = (route: string) => {
           :key="index"
         >
           <template v-if="menu.type == 'group'">
-            <a-menu-item-group :title="menu.title" />
+            <a-menu-item-group :title="$t(menu.title)" />
           </template>
           <template v-else-if="menu.children && menu.children.length > 0">
-            <a-sub-menu :icon="menu.icon" :title="menu.title">
+            <a-sub-menu :icon="menu.icon" :title="$t(menu.title)">
               <template
                 v-for="(child, childIndex) in menu.children"
                 :key="'child-' + childIndex"
@@ -150,12 +150,12 @@ const handelMenuClick = (route: string) => {
 .ant-menu-light.ant-menu-inline
   .ant-menu-submenu-selected
   .ant-menu-submenu-title {
-  color: #1677ff;
+  color: theme('colors.primary.600');
 }
 
 .ant-menu-light .ant-menu-item-selected {
-  border: 1px solid theme('colors.blue.100');
-  background-color: theme('colors.blue.100');
+  border: 1px solid theme('colors.primary.100');
+  background-color: theme('colors.primary.100');
 }
 
 .ant-menu-light .ant-menu-item-group-title {

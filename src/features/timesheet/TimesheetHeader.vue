@@ -21,20 +21,34 @@
           class="pointer-events-none flex items-center gap-2"
           >{{ timeString }}</a-button
         >
-        <a-button
-          @click="() => (!timesheetStore.startTime ? checkIn() : checkOut())"
-          :loading="loading"
-          :danger="timesheetStore.startTime != undefined"
-          :disabled="timesheetStore.endTime != undefined"
-          class="flex items-center"
-        >
-          <template v-if="!timesheetStore.startTime">
+        <template v-if="!timesheetStore.startTime">
+          <a-button
+            @click="checkIn"
+            :loading="loading"
+            class="flex items-center"
+          >
             <PlayIcon class="text-cyan-600" />
-          </template>
-          <template v-else>
-            <PauseIcon />
-          </template>
-        </a-button>
+          </a-button>
+        </template>
+        <template v-else>
+          <a-popconfirm
+            title="Are you sure you want to checkout?"
+            ok-text="Yes"
+            placement="bottomRight"
+            cancel-text="No"
+            @confirm="checkOut"
+            :disabled="timesheetStore.endTime != undefined"
+          >
+            <a-button
+              :loading="loading"
+              :danger="true"
+              :disabled="timesheetStore.endTime != undefined"
+              class="flex items-center"
+            >
+              <PauseIcon />
+            </a-button>
+          </a-popconfirm>
+        </template>
       </a-button-group>
     </template>
   </a-page-header>
@@ -87,9 +101,3 @@ onMounted(() => {
 
 onUnmounted(() => clearInterval(timmer))
 </script>
-
-<style>
-.ant-page-header-heading-sub-title {
-  @apply hidden md:inline;
-}
-</style>

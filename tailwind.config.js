@@ -1,3 +1,5 @@
+import { sky } from 'tailwindcss/colors'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -5,7 +7,11 @@ export default {
     preflight: false,
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: sky,
+      },
+    },
     screens: {
       xs: '480px',
       sm: '576px',

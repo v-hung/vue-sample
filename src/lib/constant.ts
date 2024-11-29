@@ -16,17 +16,17 @@ import MailSendIcon from '@/assets/MailSendIcon.vue'
 export const MENUS_DEFAULT: MenuItem[] = [
   {
     type: 'group',
-    title: 'Menu',
+    title: 'menus.menu',
   },
   {
     path: '/',
     icon: () => h(HomeIcon),
-    title: 'Home',
+    title: 'menus.home',
   },
   {
     path: '/inbox',
     icon: () => h(InboxIcon),
-    title: 'Inbox',
+    title: 'menus.inbox',
     badge: 4,
   },
   {

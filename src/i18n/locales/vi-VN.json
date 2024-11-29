@@ -1,0 +1,11 @@
+{
+  "menus": {
+    "menu": "Danh mục",
+    "home": "Trang chủ",
+    "inbox": "Tin mới"
+  },
+  "locale": {
+    "vi-VN": "Tiếng việt",
+    "en-US": "Tiếng anh"
+  }
+}

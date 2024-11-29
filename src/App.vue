@@ -8,7 +8,14 @@ const accountStore = useAccountStore()
 </script>
 
 <template>
-  <a-config-provider :locale="enUS">
+  <a-config-provider
+    :locale="enUS"
+    :theme="{
+      token: {
+        colorPrimary: '#0284c7',
+      },
+    }"
+  >
     <template v-if="accountStore.isLogged">
       <PageLoading />
     </template>
