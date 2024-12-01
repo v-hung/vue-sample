@@ -122,7 +122,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.meta.requiresAuth && !accountStore.user) {
-    next('login')
+    return next('login')
   }
 
   useAppStore().setRouterLoading(true)

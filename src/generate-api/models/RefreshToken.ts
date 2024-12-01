@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-import { Permission } from '../models/Permission';
 import { HttpFile } from '../http/http';
 
-export class Role {
-    'id'?: number;
-    'name'?: string;
-    'admin'?: boolean;
-    'permissions'?: Set<Permission>;
+export class RefreshToken {
+    'token'?: string;
+    'remember'?: boolean;
+    'expiryTime': Date;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -25,32 +23,26 @@ export class Role {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
+            "name": "token",
+            "baseName": "token",
             "type": "string",
             "format": ""
         },
         {
-            "name": "admin",
-            "baseName": "admin",
+            "name": "remember",
+            "baseName": "remember",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Set<Permission>",
-            "format": ""
+            "name": "expiryTime",
+            "baseName": "expiryTime",
+            "type": "Date",
+            "format": "date-time"
         }    ];
 
     static getAttributeTypeMap() {
-        return Role.attributeTypeMap;
+        return RefreshToken.attributeTypeMap;
     }
 
     public constructor() {

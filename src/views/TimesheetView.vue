@@ -1,16 +1,16 @@
 <template>
   <div>
-    <TimesheetHeader />
+    <TimeSheetHeader />
 
     <div class="mx-6 mb-4 h-0 border-0 border-b border-solid border-gray-200" />
 
     <div class="px-6">
-      <TimesheetTable />
+      <TimeSheetTable />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import TimesheetHeader from '@/features/timesheet/TimesheetHeader.vue'
-import TimesheetTable from '@/features/timesheet/TimesheetTable.vue'
+import TimeSheetHeader from '@/features/timesheet/TimeSheetHeader.vue'
+import TimeSheetTable from '@/features/timesheet/TimeSheetTable.vue'
 </script>

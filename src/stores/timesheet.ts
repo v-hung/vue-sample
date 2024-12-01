@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useTimesheetStore = defineStore('timesheet', () => {
+export const useTimeSheetStore = defineStore('timeSheet', () => {
   const startTime = ref<Date>()
   const endTime = ref<Date>()
 

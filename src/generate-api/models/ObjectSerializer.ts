@@ -1,19 +1,29 @@
 export * from '../models/Book';
+export * from '../models/GrantedAuthority';
+export * from '../models/LocalTime';
 export * from '../models/LoginRequest';
 export * from '../models/LoginResponse';
 export * from '../models/Permission';
 export * from '../models/RefreshRequest';
 export * from '../models/RefreshResponse';
+export * from '../models/RefreshToken';
 export * from '../models/Role';
+export * from '../models/TimeSheet';
+export * from '../models/User';
 export * from '../models/UserDto';
 
 import { Book } from '../models/Book';
+import { GrantedAuthority } from '../models/GrantedAuthority';
+import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { Permission  , PermissionPermissionTypeEnum    } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
+import { RefreshToken } from '../models/RefreshToken';
 import { Role } from '../models/Role';
+import { TimeSheet } from '../models/TimeSheet';
+import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 
 /* tslint:disable:no-unused-variable */
@@ -34,12 +44,17 @@ let enumsMap: Set<string> = new Set<string>([
 
 let typeMap: {[index: string]: any} = {
     "Book": Book,
+    "GrantedAuthority": GrantedAuthority,
+    "LocalTime": LocalTime,
     "LoginRequest": LoginRequest,
     "LoginResponse": LoginResponse,
     "Permission": Permission,
     "RefreshRequest": RefreshRequest,
     "RefreshResponse": RefreshResponse,
+    "RefreshToken": RefreshToken,
     "Role": Role,
+    "TimeSheet": TimeSheet,
+    "User": User,
     "UserDto": UserDto,
 }
 

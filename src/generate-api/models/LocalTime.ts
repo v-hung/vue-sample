@@ -10,14 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { Permission } from '../models/Permission';
 import { HttpFile } from '../http/http';
 
-export class Role {
-    'id'?: number;
-    'name'?: string;
-    'admin'?: boolean;
-    'permissions'?: Set<Permission>;
+export class LocalTime {
+    'hour'?: number;
+    'minute'?: number;
+    'second'?: number;
+    'nano'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -25,32 +24,32 @@ export class Role {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "hour",
+            "baseName": "hour",
             "type": "number",
             "format": "int32"
         },
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
+            "name": "minute",
+            "baseName": "minute",
+            "type": "number",
+            "format": "int32"
         },
         {
-            "name": "admin",
-            "baseName": "admin",
-            "type": "boolean",
-            "format": ""
+            "name": "second",
+            "baseName": "second",
+            "type": "number",
+            "format": "int32"
         },
         {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Set<Permission>",
-            "format": ""
+            "name": "nano",
+            "baseName": "nano",
+            "type": "number",
+            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {
-        return Role.attributeTypeMap;
+        return LocalTime.attributeTypeMap;
     }
 
     public constructor() {

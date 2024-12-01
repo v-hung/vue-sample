@@ -2,12 +2,17 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration'
 
 import { Book } from '../models/Book';
+import { GrantedAuthority } from '../models/GrantedAuthority';
+import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
+import { RefreshToken } from '../models/RefreshToken';
 import { Role } from '../models/Role';
+import { TimeSheet } from '../models/TimeSheet';
+import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 import { ObservableAccountControllerApi } from './ObservableAPI';
 
@@ -99,6 +104,83 @@ export class PromiseBookControllerApi {
      */
     public getAllBooks(_options?: Configuration): Promise<Array<Book>> {
         const result = this.api.getAllBooks(_options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableTimeSheetControllerApi } from './ObservableAPI';
+
+import { TimeSheetControllerApiRequestFactory, TimeSheetControllerApiResponseProcessor} from "../apis/TimeSheetControllerApi";
+export class PromiseTimeSheetControllerApi {
+    private api: ObservableTimeSheetControllerApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TimeSheetControllerApiRequestFactory,
+        responseProcessor?: TimeSheetControllerApiResponseProcessor
+    ) {
+        this.api = new ObservableTimeSheetControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     */
+    public checkInWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheet>> {
+        const result = this.api.checkInWithHttpInfo(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public checkIn(_options?: Configuration): Promise<TimeSheet> {
+        const result = this.api.checkIn(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public checkOutWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheet>> {
+        const result = this.api.checkOutWithHttpInfo(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public checkOut(_options?: Configuration): Promise<TimeSheet> {
+        const result = this.api.checkOut(_options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param [month]
+     */
+    public getMonthlyTimeSheetsWithHttpInfo(month?: string, _options?: Configuration): Promise<HttpInfo<Array<TimeSheet>>> {
+        const result = this.api.getMonthlyTimeSheetsWithHttpInfo(month, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param [month]
+     */
+    public getMonthlyTimeSheets(month?: string, _options?: Configuration): Promise<Array<TimeSheet>> {
+        const result = this.api.getMonthlyTimeSheets(month, _options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getTodayTimeSheetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheet>> {
+        const result = this.api.getTodayTimeSheetWithHttpInfo(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getTodayTimeSheet(_options?: Configuration): Promise<TimeSheet> {
+        const result = this.api.getTodayTimeSheet(_options);
         return result.toPromise();
     }
 

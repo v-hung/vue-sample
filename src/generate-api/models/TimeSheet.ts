@@ -10,14 +10,17 @@
  * Do not edit the class manually.
  */
 
-import { Permission } from '../models/Permission';
+import { LocalTime } from '../models/LocalTime';
+import { User } from '../models/User';
 import { HttpFile } from '../http/http';
 
-export class Role {
-    'id'?: number;
-    'name'?: string;
-    'admin'?: boolean;
-    'permissions'?: Set<Permission>;
+export class TimeSheet {
+    'id'?: string;
+    'date'?: string;
+    'startTime'?: LocalTime;
+    'endTime'?: LocalTime;
+    'workMinutes'?: number;
+    'user'?: User;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -27,30 +30,42 @@ export class Role {
         {
             "name": "id",
             "baseName": "id",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "date",
+            "baseName": "date",
+            "type": "string",
+            "format": "date"
+        },
+        {
+            "name": "startTime",
+            "baseName": "startTime",
+            "type": "LocalTime",
+            "format": ""
+        },
+        {
+            "name": "endTime",
+            "baseName": "endTime",
+            "type": "LocalTime",
+            "format": ""
+        },
+        {
+            "name": "workMinutes",
+            "baseName": "workMinutes",
             "type": "number",
             "format": "int32"
         },
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "admin",
-            "baseName": "admin",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Set<Permission>",
+            "name": "user",
+            "baseName": "user",
+            "type": "User",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Role.attributeTypeMap;
+        return TimeSheet.attributeTypeMap;
     }
 
     public constructor() {

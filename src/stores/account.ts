@@ -30,17 +30,17 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   async function logged() {
-    user.value = {
-      name: 'Việt Hùng',
-    }
-    return
+    // user.value = {
+    //   name: 'Việt Hùng',
+    // }
+    // return
 
-    // return accountApi
-    //   .getCurrentUser()
-    //   .then(res => {
-    //     user.value = res
-    //   })
-    //   .catch(error => console.log(error))
+    return accountApi
+      .getCurrentUser()
+      .then(res => {
+        user.value = res
+      })
+      .catch(error => console.log(error))
   }
 
   return { isLogged, user, login, logged }

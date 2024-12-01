@@ -3,12 +3,17 @@ import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
 import { Book } from '../models/Book';
+import { GrantedAuthority } from '../models/GrantedAuthority';
+import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
+import { RefreshToken } from '../models/RefreshToken';
 import { Role } from '../models/Role';
+import { TimeSheet } from '../models/TimeSheet';
+import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -155,6 +160,134 @@ export class ObservableBookControllerApi {
      */
     public getAllBooks(_options?: Configuration): Observable<Array<Book>> {
         return this.getAllBooksWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<Book>>) => apiResponse.data));
+    }
+
+}
+
+import { TimeSheetControllerApiRequestFactory, TimeSheetControllerApiResponseProcessor} from "../apis/TimeSheetControllerApi";
+export class ObservableTimeSheetControllerApi {
+    private requestFactory: TimeSheetControllerApiRequestFactory;
+    private responseProcessor: TimeSheetControllerApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TimeSheetControllerApiRequestFactory,
+        responseProcessor?: TimeSheetControllerApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new TimeSheetControllerApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new TimeSheetControllerApiResponseProcessor();
+    }
+
+    /**
+     */
+    public checkInWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimeSheet>> {
+        const requestContextPromise = this.requestFactory.checkIn(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.checkInWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public checkIn(_options?: Configuration): Observable<TimeSheet> {
+        return this.checkInWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimeSheet>) => apiResponse.data));
+    }
+
+    /**
+     */
+    public checkOutWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimeSheet>> {
+        const requestContextPromise = this.requestFactory.checkOut(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.checkOutWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public checkOut(_options?: Configuration): Observable<TimeSheet> {
+        return this.checkOutWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimeSheet>) => apiResponse.data));
+    }
+
+    /**
+     * @param [month]
+     */
+    public getMonthlyTimeSheetsWithHttpInfo(month?: string, _options?: Configuration): Observable<HttpInfo<Array<TimeSheet>>> {
+        const requestContextPromise = this.requestFactory.getMonthlyTimeSheets(month, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getMonthlyTimeSheetsWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param [month]
+     */
+    public getMonthlyTimeSheets(month?: string, _options?: Configuration): Observable<Array<TimeSheet>> {
+        return this.getMonthlyTimeSheetsWithHttpInfo(month, _options).pipe(map((apiResponse: HttpInfo<Array<TimeSheet>>) => apiResponse.data));
+    }
+
+    /**
+     */
+    public getTodayTimeSheetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimeSheet>> {
+        const requestContextPromise = this.requestFactory.getTodayTimeSheet(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTodayTimeSheetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public getTodayTimeSheet(_options?: Configuration): Observable<TimeSheet> {
+        return this.getTodayTimeSheetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimeSheet>) => apiResponse.data));
     }
 
 }

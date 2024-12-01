@@ -1,11 +1,11 @@
 <template>
   <a-page-header
-    title="Timesheet"
+    title="TimeSheet"
     sub-title="Track your work hours effectively"
   >
-    <template v-if="timesheetStore.startTime" #tags>
-      <a-tag :color="!timesheetStore.endTime ? 'blue' : 'red'">{{
-        !timesheetStore.endTime ? 'Running' : 'Stopped'
+    <template v-if="timeSheetStore.startTime" #tags>
+      <a-tag :color="!timeSheetStore.endTime ? 'blue' : 'red'">{{
+        !timeSheetStore.endTime ? 'Running' : 'Stopped'
       }}</a-tag>
     </template>
     <template #extra>
@@ -15,13 +15,13 @@
         <a-button
           :icon="
             h(StopWatchIcon, {
-              class: timesheetStore.startTime ? 'text-cyan-600' : '',
+              class: timeSheetStore.startTime ? 'text-cyan-600' : '',
             })
           "
           class="pointer-events-none flex items-center gap-2"
           >{{ timeString }}</a-button
         >
-        <template v-if="!timesheetStore.startTime">
+        <template v-if="!timeSheetStore.startTime">
           <a-button
             @click="checkIn"
             :loading="loading"
@@ -37,12 +37,12 @@
             placement="bottomRight"
             cancel-text="No"
             @confirm="checkOut"
-            :disabled="timesheetStore.endTime != undefined"
+            :disabled="timeSheetStore.endTime != undefined"
           >
             <a-button
               :loading="loading"
               :danger="true"
-              :disabled="timesheetStore.endTime != undefined"
+              :disabled="timeSheetStore.endTime != undefined"
               class="flex items-center"
             >
               <PauseIcon />
@@ -59,42 +59,42 @@ import PauseIcon from '@/assets/PauseIcon.vue'
 import PlayIcon from '@/assets/PlayIcon.vue'
 import StopWatchIcon from '@/assets/StopWatchIcon.vue'
 import { formatDurationTime } from '@/lib/utils'
-import { useTimesheetStore } from '@/stores/timesheet'
+import { useTimeSheetStore } from '@/stores/timeSheet'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { h } from 'vue'
 
-const timesheetStore = useTimesheetStore()
+const timeSheetStore = useTimeSheetStore()
 
-const timeString = ref(formatDurationTime(timesheetStore.startTime))
+const timeString = ref(formatDurationTime(timeSheetStore.startTime))
 
 let timmer: ReturnType<typeof setInterval> | undefined = undefined
 
 const updateElapsedTime = () => {
-  timeString.value = formatDurationTime(timesheetStore.startTime)
+  timeString.value = formatDurationTime(timeSheetStore.startTime)
 }
 
 const loading = ref(false)
 
 const checkIn = async () => {
   loading.value = true
-  await timesheetStore.checkIn()
+  await timeSheetStore.checkIn()
   loading.value = false
 
-  if (timesheetStore.startTime) {
+  if (timeSheetStore.startTime) {
     timmer = setInterval(updateElapsedTime, 1000)
   }
 }
 
 const checkOut = async () => {
   loading.value = true
-  await timesheetStore.checkOut()
+  await timeSheetStore.checkOut()
 
   loading.value = false
   clearInterval(timmer)
 }
 
 onMounted(() => {
-  if (timesheetStore.startTime) {
+  if (timeSheetStore.startTime) {
     timmer = setInterval(updateElapsedTime, 1000)
   }
 })

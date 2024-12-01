@@ -1,7 +1,9 @@
 import {
   AccountControllerApi,
   ResponseContext,
+  TimeSheetControllerApi,
   createConfiguration,
+  server1,
   server2,
   type HttpLibrary,
   type RequestContext,
@@ -21,7 +23,7 @@ import 'whatwg-fetch'
 //     }
 // }
 
-const baseServer = server2
+const baseServer = server1
 
 class CustomFetchHttpLibrary implements HttpLibrary {
   private accountApi = new AccountControllerApi(
@@ -40,9 +42,9 @@ class CustomFetchHttpLibrary implements HttpLibrary {
       headers: headers,
       credentials: 'include',
     }).then(async resp => {
-      const responseheaders: { [name: string]: string } = {}
+      const responseHeaders: { [name: string]: string } = {}
       resp.headers.forEach((value: string, name: string) => {
-        responseheaders[name] = value
+        responseHeaders[name] = value
       })
 
       if (resp.status == 401) {
@@ -55,9 +57,9 @@ class CustomFetchHttpLibrary implements HttpLibrary {
           credentials: 'include',
         })
 
-        const retryheaders: { [name: string]: string } = {}
+        const retryHeaders: { [name: string]: string } = {}
         retryResp.headers.forEach((value: string, name: string) => {
-          retryheaders[name] = value
+          retryHeaders[name] = value
         })
 
         const retryBody = {
@@ -65,14 +67,14 @@ class CustomFetchHttpLibrary implements HttpLibrary {
           binary: () => retryResp.blob(),
         }
 
-        return new ResponseContext(resp.status, retryheaders, retryBody)
+        return new ResponseContext(resp.status, retryHeaders, retryBody)
       }
 
       const responseBody = {
         text: () => resp.text(),
         binary: () => resp.blob(),
       }
-      return new ResponseContext(resp.status, responseheaders, responseBody)
+      return new ResponseContext(resp.status, responseHeaders, responseBody)
     })
 
     return from<Promise<ResponseContext>>(resultPromise)
@@ -92,5 +94,6 @@ const config = createConfiguration(configurationParameters)
 
 // Use configuration with your_api
 const accountApi = new AccountControllerApi(config)
+const timeSheetApi = new TimeSheetControllerApi(config)
 
-export { accountApi }
+export { accountApi, timeSheetApi }
