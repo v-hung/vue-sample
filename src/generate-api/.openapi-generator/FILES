@@ -30,6 +30,7 @@ models/Role.ts
 models/TimeSheet.ts
 models/User.ts
 models/UserDto.ts
+models/WorkTime.ts
 models/all.ts
 package.json
 rxjsStub.ts

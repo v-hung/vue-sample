@@ -15,6 +15,7 @@ import { Role } from '../models/Role';
 import { TimeSheet } from '../models/TimeSheet';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
+import { WorkTime } from '../models/WorkTime';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
 export class ObservableAccountControllerApi {
@@ -261,6 +262,33 @@ export class ObservableTimeSheetControllerApi {
      */
     public getMonthlyTimeSheets(month?: string, _options?: Configuration): Observable<Array<TimeSheet>> {
         return this.getMonthlyTimeSheetsWithHttpInfo(month, _options).pipe(map((apiResponse: HttpInfo<Array<TimeSheet>>) => apiResponse.data));
+    }
+
+    /**
+     */
+    public getTimesWithHttpInfo(_options?: Configuration): Observable<HttpInfo<WorkTime>> {
+        const requestContextPromise = this.requestFactory.getTimes(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTimesWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public getTimes(_options?: Configuration): Observable<WorkTime> {
+        return this.getTimesWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<WorkTime>) => apiResponse.data));
     }
 
     /**

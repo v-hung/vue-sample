@@ -121,7 +121,7 @@ router.beforeEach(async (to, from, next) => {
     accountStore.isLogged = false
   }
 
-  if (to.meta.requiresAuth && !accountStore.user) {
+  if (to.meta.requiresAuth && !accountStore.user && from.name != 'login') {
     return next('login')
   }
 

@@ -47,7 +47,7 @@ class CustomFetchHttpLibrary implements HttpLibrary {
         responseHeaders[name] = value
       })
 
-      if (resp.status == 401) {
+      if (resp.status == 403) {
         const token = await this.accountApi.refreshToken({})
 
         const retryResp = await fetch(url, {

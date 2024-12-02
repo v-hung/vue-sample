@@ -1,20 +1,30 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { timeSheetApi } from '@/lib/api'
+import { useNotifyPromise } from '@/lib/promise'
+import { convertLocalTimeToDates } from '@/utils/dateUtil'
 
 export const useTimeSheetStore = defineStore('timeSheet', () => {
   const startTime = ref<Date>()
+  const timeDifference = ref(0)
   const endTime = ref<Date>()
 
   const checkIn = async () => {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    startTime.value = new Date()
+    const data = await useNotifyPromise({
+      callback: timeSheetApi.checkIn(),
+    })
+
+    startTime.value = convertLocalTimeToDates(data?.startTime)
+    timeDifference.value = startTime.value.getTime() - new Date().getTime()
   }
 
   const checkOut = async () => {
-    await new Promise(resolve => setTimeout(resolve, 500))
+    const data = await useNotifyPromise({
+      callback: timeSheetApi.checkOut(),
+    })
 
-    endTime.value = new Date()
+    endTime.value = convertLocalTimeToDates(data?.endTime)
   }
 
-  return { startTime, endTime, checkIn, checkOut }
+  return { startTime, endTime, timeDifference, checkIn, checkOut }
 })

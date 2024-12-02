@@ -14,6 +14,7 @@ import { GrantedAuthority } from '../models/GrantedAuthority';
 import { RefreshToken } from '../models/RefreshToken';
 import { Role } from '../models/Role';
 import { TimeSheet } from '../models/TimeSheet';
+import { WorkTime } from '../models/WorkTime';
 import { HttpFile } from '../http/http';
 
 export class User {
@@ -25,11 +26,12 @@ export class User {
     'timeSheets'?: Set<TimeSheet>;
     'roles'?: Set<Role>;
     'refreshTokens'?: Set<RefreshToken>;
+    'workTime'?: WorkTime;
     'authorities'?: Array<GrantedAuthority>;
     'enabled'?: boolean;
-    'accountNonLocked'?: boolean;
     'credentialsNonExpired'?: boolean;
     'accountNonExpired'?: boolean;
+    'accountNonLocked'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -85,6 +87,12 @@ export class User {
             "format": ""
         },
         {
+            "name": "workTime",
+            "baseName": "workTime",
+            "type": "WorkTime",
+            "format": ""
+        },
+        {
             "name": "authorities",
             "baseName": "authorities",
             "type": "Array<GrantedAuthority>",
@@ -97,12 +105,6 @@ export class User {
             "format": ""
         },
         {
-            "name": "accountNonLocked",
-            "baseName": "accountNonLocked",
-            "type": "boolean",
-            "format": ""
-        },
-        {
             "name": "credentialsNonExpired",
             "baseName": "credentialsNonExpired",
             "type": "boolean",
@@ -111,6 +113,12 @@ export class User {
         {
             "name": "accountNonExpired",
             "baseName": "accountNonExpired",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "accountNonLocked",
+            "baseName": "accountNonLocked",
             "type": "boolean",
             "format": ""
         }    ];

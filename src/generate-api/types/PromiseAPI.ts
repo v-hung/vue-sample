@@ -14,6 +14,7 @@ import { Role } from '../models/Role';
 import { TimeSheet } from '../models/TimeSheet';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
+import { WorkTime } from '../models/WorkTime';
 import { ObservableAccountControllerApi } from './ObservableAPI';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -167,6 +168,20 @@ export class PromiseTimeSheetControllerApi {
      */
     public getMonthlyTimeSheets(month?: string, _options?: Configuration): Promise<Array<TimeSheet>> {
         const result = this.api.getMonthlyTimeSheets(month, _options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getTimesWithHttpInfo(_options?: Configuration): Promise<HttpInfo<WorkTime>> {
+        const result = this.api.getTimesWithHttpInfo(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getTimes(_options?: Configuration): Promise<WorkTime> {
+        const result = this.api.getTimes(_options);
         return result.toPromise();
     }
 

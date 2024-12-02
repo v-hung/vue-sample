@@ -49,7 +49,7 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
     }
 }
 
-export const server1 = new ServerConfiguration<{  }>("http://localhost:8080", {  })
-export const server2 = new ServerConfiguration<{  }>("https://vigilant-fiesta-vgpwvq94pvwc666p-8080.app.github.dev", {  })
+export const server1 = new ServerConfiguration<{  }>("http://localhost:8081", {  })
+export const server2 = new ServerConfiguration<{  }>("https://vigilant-fiesta-vgpwvq94pvwc666p-8081.app.github.dev", {  })
 
 export const servers = [server1, server2];

@@ -14,6 +14,7 @@ import { Role } from '../models/Role';
 import { TimeSheet } from '../models/TimeSheet';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
+import { WorkTime } from '../models/WorkTime';
 
 import { ObservableAccountControllerApi } from "./ObservableAPI";
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -138,6 +139,9 @@ export interface TimeSheetControllerApiGetMonthlyTimeSheetsRequest {
     month?: string
 }
 
+export interface TimeSheetControllerApiGetTimesRequest {
+}
+
 export interface TimeSheetControllerApiGetTodayTimeSheetRequest {
 }
 
@@ -188,6 +192,20 @@ export class ObjectTimeSheetControllerApi {
      */
     public getMonthlyTimeSheets(param: TimeSheetControllerApiGetMonthlyTimeSheetsRequest = {}, options?: Configuration): Promise<Array<TimeSheet>> {
         return this.api.getMonthlyTimeSheets(param.month,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getTimesWithHttpInfo(param: TimeSheetControllerApiGetTimesRequest = {}, options?: Configuration): Promise<HttpInfo<WorkTime>> {
+        return this.api.getTimesWithHttpInfo( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getTimes(param: TimeSheetControllerApiGetTimesRequest = {}, options?: Configuration): Promise<WorkTime> {
+        return this.api.getTimes( options).toPromise();
     }
 
     /**

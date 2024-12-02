@@ -11,6 +11,7 @@ export * from '../models/Role';
 export * from '../models/TimeSheet';
 export * from '../models/User';
 export * from '../models/UserDto';
+export * from '../models/WorkTime';
 
 import { Book } from '../models/Book';
 import { GrantedAuthority } from '../models/GrantedAuthority';
@@ -25,6 +26,7 @@ import { Role } from '../models/Role';
 import { TimeSheet } from '../models/TimeSheet';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
+import { WorkTime } from '../models/WorkTime';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -56,6 +58,7 @@ let typeMap: {[index: string]: any} = {
     "TimeSheet": TimeSheet,
     "User": User,
     "UserDto": UserDto,
+    "WorkTime": WorkTime,
 }
 
 type MimeTypeDescriptor = {
