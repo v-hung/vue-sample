@@ -4,13 +4,13 @@ import {
   TimeSheetControllerApi,
   createConfiguration,
   server1,
-  server2,
   type HttpLibrary,
   type RequestContext,
 } from '@/generate-api'
 import type { ConfigurationParameters } from '@/generate-api/configuration'
 import { from, type Observable } from '@/generate-api/rxjsStub'
 import 'whatwg-fetch'
+import { IsomorphicFetchHttpLibrary } from './isomorphic-fetch'
 
 // Covers all auth methods included in your OpenAPI yaml definition
 // const authConfig: AuthMethodsConfiguration = {
@@ -26,8 +26,11 @@ import 'whatwg-fetch'
 const baseServer = server1
 
 class CustomFetchHttpLibrary implements HttpLibrary {
-  private accountApi = new AccountControllerApi(
-    createConfiguration({ baseServer: baseServer }),
+  private readonly accountApi = new AccountControllerApi(
+    createConfiguration({
+      baseServer: baseServer,
+      httpApi: new IsomorphicFetchHttpLibrary(),
+    }),
   )
 
   public send(request: RequestContext): Observable<ResponseContext> {
@@ -48,7 +51,7 @@ class CustomFetchHttpLibrary implements HttpLibrary {
       })
 
       if (resp.status == 403) {
-        const token = await this.accountApi.refreshToken({})
+        await this.accountApi.refreshToken({})
 
         const retryResp = await fetch(url, {
           method: method,

@@ -90,9 +90,9 @@ export class ObservableAccountControllerApi {
     }
 
     /**
-     * @param refreshRequest
+     * @param [refreshRequest]
      */
-    public refreshTokenWithHttpInfo(refreshRequest: RefreshRequest, _options?: Configuration): Observable<HttpInfo<RefreshResponse>> {
+    public refreshTokenWithHttpInfo(refreshRequest?: RefreshRequest, _options?: Configuration): Observable<HttpInfo<RefreshResponse>> {
         const requestContextPromise = this.requestFactory.refreshToken(refreshRequest, _options);
 
         // build promise chain
@@ -112,9 +112,9 @@ export class ObservableAccountControllerApi {
     }
 
     /**
-     * @param refreshRequest
+     * @param [refreshRequest]
      */
-    public refreshToken(refreshRequest: RefreshRequest, _options?: Configuration): Observable<RefreshResponse> {
+    public refreshToken(refreshRequest?: RefreshRequest, _options?: Configuration): Observable<RefreshResponse> {
         return this.refreshTokenWithHttpInfo(refreshRequest, _options).pipe(map((apiResponse: HttpInfo<RefreshResponse>) => apiResponse.data));
     }
 

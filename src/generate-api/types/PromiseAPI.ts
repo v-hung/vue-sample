@@ -60,17 +60,17 @@ export class PromiseAccountControllerApi {
     }
 
     /**
-     * @param refreshRequest
+     * @param [refreshRequest]
      */
-    public refreshTokenWithHttpInfo(refreshRequest: RefreshRequest, _options?: Configuration): Promise<HttpInfo<RefreshResponse>> {
+    public refreshTokenWithHttpInfo(refreshRequest?: RefreshRequest, _options?: Configuration): Promise<HttpInfo<RefreshResponse>> {
         const result = this.api.refreshTokenWithHttpInfo(refreshRequest, _options);
         return result.toPromise();
     }
 
     /**
-     * @param refreshRequest
+     * @param [refreshRequest]
      */
-    public refreshToken(refreshRequest: RefreshRequest, _options?: Configuration): Promise<RefreshResponse> {
+    public refreshToken(refreshRequest?: RefreshRequest, _options?: Configuration): Promise<RefreshResponse> {
         const result = this.api.refreshToken(refreshRequest, _options);
         return result.toPromise();
     }

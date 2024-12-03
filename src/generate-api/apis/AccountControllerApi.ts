@@ -96,13 +96,8 @@ export class AccountControllerApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param refreshRequest 
      */
-    public async refreshToken(refreshRequest: RefreshRequest, _options?: Configuration): Promise<RequestContext> {
+    public async refreshToken(refreshRequest?: RefreshRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
-
-        // verify required parameter 'refreshRequest' is not null or undefined
-        if (refreshRequest === null || refreshRequest === undefined) {
-            throw new RequiredError("AccountControllerApi", "refreshToken", "refreshRequest");
-        }
 
 
         // Path Params

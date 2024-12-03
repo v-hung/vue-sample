@@ -13,7 +13,8 @@
 import { HttpFile } from '../http/http';
 
 export class RefreshToken {
-    'token'?: string;
+    'id'?: number;
+    'token': string;
     'remember'?: boolean;
     'expiryTime': Date;
 
@@ -22,6 +23,12 @@ export class RefreshToken {
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "number",
+            "format": "int64"
+        },
         {
             "name": "token",
             "baseName": "token",

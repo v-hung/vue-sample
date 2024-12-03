@@ -37,7 +37,7 @@ export interface AccountControllerApiRefreshTokenRequest {
      * @type RefreshRequest
      * @memberof AccountControllerApirefreshToken
      */
-    refreshRequest: RefreshRequest
+    refreshRequest?: RefreshRequest
 }
 
 export class ObjectAccountControllerApi {
@@ -78,14 +78,14 @@ export class ObjectAccountControllerApi {
     /**
      * @param param the request object
      */
-    public refreshTokenWithHttpInfo(param: AccountControllerApiRefreshTokenRequest, options?: Configuration): Promise<HttpInfo<RefreshResponse>> {
+    public refreshTokenWithHttpInfo(param: AccountControllerApiRefreshTokenRequest = {}, options?: Configuration): Promise<HttpInfo<RefreshResponse>> {
         return this.api.refreshTokenWithHttpInfo(param.refreshRequest,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public refreshToken(param: AccountControllerApiRefreshTokenRequest, options?: Configuration): Promise<RefreshResponse> {
+    public refreshToken(param: AccountControllerApiRefreshTokenRequest = {}, options?: Configuration): Promise<RefreshResponse> {
         return this.api.refreshToken(param.refreshRequest,  options).toPromise();
     }
 

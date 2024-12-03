@@ -29,8 +29,8 @@ export class User {
     'workTime'?: WorkTime;
     'authorities'?: Array<GrantedAuthority>;
     'enabled'?: boolean;
-    'credentialsNonExpired'?: boolean;
     'accountNonExpired'?: boolean;
+    'credentialsNonExpired'?: boolean;
     'accountNonLocked'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -105,14 +105,14 @@ export class User {
             "format": ""
         },
         {
-            "name": "credentialsNonExpired",
-            "baseName": "credentialsNonExpired",
+            "name": "accountNonExpired",
+            "baseName": "accountNonExpired",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "accountNonExpired",
-            "baseName": "accountNonExpired",
+            "name": "credentialsNonExpired",
+            "baseName": "credentialsNonExpired",
             "type": "boolean",
             "format": ""
         },
