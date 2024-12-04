@@ -1,24 +1,32 @@
 import type { LocalTime } from '@/generate-api'
-import dayjs from 'dayjs'
+import type { SupportedLocale } from '@/i18n/translation'
+import { format, type Locale } from 'date-fns'
+import { enUS, vi } from 'date-fns/locale'
 
-export function formatDurationTime(startTime?: Date, endTime?: Date) {
-  if (!startTime) return '00:00:00'
+const LOCALE_MAP: Record<SupportedLocale, Locale> = {
+  'en-US': enUS,
+  'vi-VN': vi,
+}
 
-  const duration = new Date().getTime() - startTime.getTime()
-  return dayjs.duration(duration).format('HH:mm:ss')
+export function formatDate(date: Date, formatStr: string = 'PP'): string {
+  const storedLocale =
+    (localStorage.getItem('locale') as SupportedLocale) || undefined
+  const locale = LOCALE_MAP[storedLocale as SupportedLocale] || enUS
+
+  return format(date, formatStr, {
+    locale,
+  })
 }
 
 export function localTimeToDate(localTime: LocalTime) {
-  const date = new Date()
-  date.setHours(
+  const baseDate = new Date(1970, 0, 1)
+
+  baseDate.setHours(
     localTime.hour ?? 0,
     localTime.minute ?? 0,
     localTime.second ?? 0,
     (localTime.nano ?? 0) / 1000000,
   )
-  return date
-}
 
-export function localTimeToTime(localTime: LocalTime) {
-  return localTimeToDate(localTime).getTime()
+  return baseDate
 }

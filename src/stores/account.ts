@@ -1,8 +1,14 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { LoginRequest, LoginResponse, UserDto } from '@/generate-api'
-import { accountApi } from '@/lib/api'
+import {
+  AccountControllerApi,
+  type LoginRequest,
+  type LoginResponse,
+  type UserDto,
+} from '@/generate-api'
+import { accountApi, config, configWithRefreshToken } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
+import { AccountControllerApiResponseProcessor } from '@/generate-api/apis/AccountControllerApi'
 
 export const useAccountStore = defineStore('account', () => {
   const isLogged = ref(true)
@@ -35,7 +41,7 @@ export const useAccountStore = defineStore('account', () => {
     // }
     // return
 
-    return accountApi
+    return new AccountControllerApi(configWithRefreshToken)
       .getCurrentUser()
       .then(res => {
         user.value = res

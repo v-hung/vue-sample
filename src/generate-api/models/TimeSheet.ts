@@ -30,7 +30,7 @@ export class TimeSheet {
             "name": "id",
             "baseName": "id",
             "type": "string",
-            "format": "uuid"
+            "format": ""
         },
         {
             "name": "date",

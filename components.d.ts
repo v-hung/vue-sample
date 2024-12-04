@@ -25,8 +25,6 @@ declare module 'vue' {
     AMenuItemGroup: typeof import('ant-design-vue/es')['MenuItemGroup']
     APageHeader: typeof import('ant-design-vue/es')['PageHeader']
     APopconfirm: typeof import('ant-design-vue/es')['Popconfirm']
-    ASkeleton: typeof import('ant-design-vue/es')['Skeleton']
-    ASkeletonButton: typeof import('ant-design-vue/es')['SkeletonButton']
     ASkeletonInput: typeof import('ant-design-vue/es')['SkeletonInput']
     ASpin: typeof import('ant-design-vue/es')['Spin']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']

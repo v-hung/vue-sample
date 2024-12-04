@@ -6,7 +6,7 @@
     <template v-if="timeSheetStore.startTime" #tags>
       <a-tag :color="!timeSheetStore.endTime ? 'blue' : 'red'">{{
         !timeSheetStore.endTime
-          ? `Started at ${formatDurationTime(timeSheetStore.startTime)}`
+          ? `Started at ${formatDate(timeSheetStore.startTime)}`
           : 'Stopped'
       }}</a-tag>
     </template>
@@ -66,7 +66,7 @@ import PauseIcon from '@/assets/PauseIcon.vue'
 import PlayIcon from '@/assets/PlayIcon.vue'
 import StopWatchIcon from '@/assets/StopWatchIcon.vue'
 import { useTimeSheetStore } from '@/stores/timesheet'
-import { formatDurationTime } from '@/utils/dateUtil'
+import { formatDate } from '@/utils/dateUtil'
 import { onMounted, onUnmounted, ref, computed, watch, h } from 'vue'
 
 // Store
@@ -80,19 +80,19 @@ const intervalId = ref<ReturnType<typeof setInterval> | null>(null)
 
 // Computed
 const timeString = ref(
-  timeSheetStore.startTime
-    ? formatDurationTime(timeSheetStore.startTime)
-    : '--:--',
+  timeSheetStore.startTime ? formatDate(timeSheetStore.startTime) : '--:--',
 )
 
 // Methods
 const startTimer = () => {
   if (!intervalId.value) {
-    timeString.value = formatDurationTime(timeSheetStore.startTime)
+    timeString.value = timeSheetStore.startTime
+      ? formatDate(timeSheetStore.startTime)
+      : '--:--'
 
     intervalId.value = setInterval(() => {
       if (timeSheetStore.startTime) {
-        timeString.value = formatDurationTime(timeSheetStore.startTime)
+        timeString.value = formatDate(timeSheetStore.startTime)
       }
     }, 1000)
   }

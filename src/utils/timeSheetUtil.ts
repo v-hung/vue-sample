@@ -1,54 +1,80 @@
-import type { WorkTime } from "@/generate-api";
-import { localTimeToDate } from "./dateUtil";
+import type { WorkTime } from '@/generate-api'
+import { localTimeToDate } from './dateUtil'
+import { add, differenceInMinutes, isAfter, isBefore, toDate } from 'date-fns'
 
-export function calculateWorkDay(startTime: Date, endTime: Date, workTime: WorkTime) {
+export function calculateWorkDay(
+  startTime: Date,
+  endTime: Date,
+  workTime: WorkTime,
+) {
+  let totalWorkingMinutes = 0
 
+  const startTimeMorning = localTimeToDate(workTime.startTimeMorning)
+  const endTimeMorning = localTimeToDate(workTime.endTimeMorning)
+  const startTimeAfternoon = localTimeToDate(workTime.startTimeAfternoon)
+  const endTimeAfternoon = localTimeToDate(workTime.endTimeAfternoon)
 
-    let totalWorkingMinutes = 0;
+  if (
+    isInvalidTimeRange(startTime, endTime, startTimeMorning, endTimeAfternoon)
+  ) {
+    return totalWorkingMinutes
+  }
 
-		if (!startTime || !endTime || startTime.getTime() > endTime.getTime()) {
+  if (isAfter(startTime, startTimeMorning)) {
+    let lateMinutes = differenceInMinutes(startTimeMorning, startTime)
+    let adjustedMinutes = Math.min(workTime.allowedLateMinutes, lateMinutes)
 
-			return totalWorkingMinutes;
+    return add(endTimeAfternoon, { minutes: adjustedMinutes })
+  }
 
-		}
+  // Calculate morning work minutes
+  if (isBefore(startTime, endTimeMorning)) {
+    let validMorningStart = isBefore(startTime, startTimeMorning)
+      ? startTimeMorning
+      : startTime
+    let validMorningEnd = isAfter(endTime, endTimeMorning)
+      ? endTimeMorning
+      : endTime
 
-		// Calculate morning work minutes
-		if (startTime.getTime() < localTimeToDate(workTime.endTimeMorning!)!.getTime()) {
-      if (starTime.getTime .isBefore(workTime.getEndTimeMorning())) {
+    if (isBefore(validMorningStart, validMorningEnd)) {
+      totalWorkingMinutes += differenceInMinutes(
+        validMorningStart,
+        validMorningEnd,
+      )
+    }
+  }
 
-			LocalTime validMorningStart = startTime.isBefore(workTime.getStartTimeMorning())
-				? workTime.getStartTimeMorning()
-				: startTime;
-			LocalTime validMorningEnd = endTime.isAfter(workTime.getEndTimeMorning())
-				? workTime.getEndTimeMorning()
-				: endTime;
+  // Calculate afternoon work minutes
+  if (isAfter(endTime, endTimeMorning)) {
+    let validAfternoonStart = isBefore(startTime, startTimeAfternoon)
+      ? startTime
+      : startTimeAfternoon
+    let validAfternoonEnd = isAfter(endTime, endTimeAfternoon)
+      ? endTimeAfternoon
+      : endTime
 
-			if (validMorningStart.isBefore(validMorningEnd)) {
+    if (isBefore(validAfternoonStart, validAfternoonEnd)) {
+      totalWorkingMinutes += differenceInMinutes(
+        validAfternoonStart,
+        validAfternoonEnd,
+      )
+    }
+  }
 
-				totalWorkingMinutes += minutesBetween(validMorningStart, validMorningEnd);
+  return totalWorkingMinutes
+}
 
-			}
-
-		}
-
-		// Calculate afternoon work minutes
-		if (endTime.isAfter(workTime.getStartTimeAfternoon())) {
-
-			LocalTime validAfternoonStart = startTime.isAfter(workTime.getStartTimeAfternoon())
-				? startTime
-				: workTime.getStartTimeAfternoon();
-			LocalTime validAfternoonEnd = endTime.isAfter(workTime.getEndTimeAfternoon())
-				? workTime.getEndTimeAfternoon()
-				: endTime;
-			// LocalTime validAfternoonEnd = endTime; //NOSONAR
-
-			if (validAfternoonStart.isBefore(validAfternoonEnd)) {
-
-				totalWorkingMinutes += minutesBetween(validAfternoonStart, validAfternoonEnd);
-
-			}
-
-		}
-
-		return totalWorkingMinutes;
+function isInvalidTimeRange(
+  startTime: Date,
+  endTime: Date,
+  startTimeMorning: Date,
+  endTimeAfternoon: Date,
+) {
+  return (
+    !startTime ||
+    !endTime ||
+    isAfter(startTime, endTime) ||
+    isAfter(startTime, endTimeAfternoon) ||
+    isBefore(endTime, startTimeMorning)
+  )
 }

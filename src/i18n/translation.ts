@@ -6,13 +6,13 @@ import { nextTick } from 'vue'
 export type MessageSchema = typeof enUS
 
 export const SUPPORT_LOCALES = ['en-US', 'vi-VN'] as const
-export type SupportedLocales = (typeof SUPPORT_LOCALES)[number]
+export type SupportedLocale = (typeof SUPPORT_LOCALES)[number]
 
-const defaultLocale: SupportedLocales =
-  (localStorage.getItem('locale') as SupportedLocales) || 'en-US'
+const defaultLocale: SupportedLocale =
+  (localStorage.getItem('locale') as SupportedLocale) || 'en-US'
 
 type Messages = {
-  [locale in SupportedLocales]: MessageSchema
+  [locale in SupportedLocale]: MessageSchema
 }
 
 let i18nInstance: I18n<Messages, any, any, string, true>
@@ -20,14 +20,13 @@ let i18nInstance: I18n<Messages, any, any, string, true>
 // Define the i18n instance with strong typing
 export async function setupI18n() {
   if (!i18nInstance) {
-    i18nInstance = createI18n<[MessageSchema], SupportedLocales>({
+    i18nInstance = createI18n<[MessageSchema], SupportedLocale>({
       locale: defaultLocale,
       fallbackLocale: 'en-US',
       messages: { 'en-US': enUS } as any,
     })
 
     if (defaultLocale != 'en-US') {
-
       await loadLocaleMessages(i18nInstance, defaultLocale)
     }
     setI18nLanguage(i18nInstance, defaultLocale)
@@ -35,11 +34,11 @@ export async function setupI18n() {
   return i18nInstance
 }
 
-export function setI18nLanguage(i18n: I18n, locale: SupportedLocales): void {
+export function setI18nLanguage(i18n: I18n, locale: SupportedLocale): void {
   if (i18n.mode === 'legacy') {
     i18n.global.locale = locale
   } else {
-    ;(i18n.global.locale as { value: SupportedLocales }).value = locale
+    ;(i18n.global.locale as { value: SupportedLocale }).value = locale
   }
 
   localStorage.setItem('locale', locale)
@@ -48,7 +47,7 @@ export function setI18nLanguage(i18n: I18n, locale: SupportedLocales): void {
 
 export async function loadLocaleMessages(
   i18n: I18n,
-  locale: SupportedLocales,
+  locale: SupportedLocale,
 ): Promise<void> {
   // Load locale messages with dynamic import
   const messages = await import(`@/i18n/locales/${locale}.json`)
@@ -59,7 +58,7 @@ export async function loadLocaleMessages(
   return nextTick()
 }
 
-export const switchLocale = async (locale: SupportedLocales) => {
+export const switchLocale = async (locale: SupportedLocale) => {
   const i18n = await setupI18n()
 
   // load locale messages

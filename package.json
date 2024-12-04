@@ -19,6 +19,7 @@
         "@openapitools/openapi-generator-cli": "^2.15.3",
         "@vueuse/core": "^11.2.0",
         "ant-design-vue": "4.x",
+        "date-fns": "^4.1.0",
         "dayjs": "^1.11.13",
         "petite-vue-i18n": "^10.0.4",
         "pinia": "^2.2.4",

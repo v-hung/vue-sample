@@ -14,7 +14,9 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
       callback: timeSheetApi.checkIn(),
     })
 
-    startTime.value = localTimeToDate(data?.startTime)
+    startTime.value = data?.startTime
+      ? localTimeToDate(data.startTime)
+      : undefined
     timeDifference.value = startTime.value!.getTime() - new Date().getTime()
   }
 
@@ -23,14 +25,16 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
       callback: timeSheetApi.checkOut(),
     })
 
-    endTime.value = localTimeToDate(data?.endTime)
+    endTime.value = data?.endTime ? localTimeToDate(data.endTime) : undefined
   }
 
   const today = async () => {
     const data = await timeSheetApi.getTodayTimeSheet()
 
-    startTime.value = localTimeToDate(data?.startTime)
-    endTime.value = localTimeToDate(data?.endTime)
+    startTime.value = data?.startTime
+      ? localTimeToDate(data.startTime)
+      : undefined
+    endTime.value = data?.endTime ? localTimeToDate(data.endTime) : undefined
   }
 
   return { startTime, endTime, timeDifference, checkIn, checkOut, today }

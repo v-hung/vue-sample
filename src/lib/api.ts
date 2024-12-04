@@ -28,8 +28,8 @@ const configurationParameters: ConfigurationParameters = {
 }
 
 // Convert to actual configuration
-const config = createConfiguration(configurationParameters)
-const configWithRefreshToken = createConfiguration({
+export const config = createConfiguration(configurationParameters)
+export const configWithRefreshToken = createConfiguration({
   ...configurationParameters,
   httpApi: new FetchWithRefreshTokenHttpLibrary(),
 })

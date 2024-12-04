@@ -16,10 +16,11 @@ import { HttpFile } from '../http/http';
 export class WorkTime {
     'id'?: number;
     'title'?: string;
-    'startTimeMorning'?: LocalTime;
-    'endTimeMorning'?: LocalTime;
-    'startTimeAfternoon'?: LocalTime;
-    'endTimeAfternoon'?: LocalTime;
+    'startTimeMorning': LocalTime;
+    'endTimeMorning': LocalTime;
+    'startTimeAfternoon': LocalTime;
+    'endTimeAfternoon': LocalTime;
+    'allowedLateMinutes': number;
     'userId'?: number;
 
     static readonly discriminator: string | undefined = undefined;
@@ -62,6 +63,12 @@ export class WorkTime {
             "baseName": "endTimeAfternoon",
             "type": "LocalTime",
             "format": ""
+        },
+        {
+            "name": "allowedLateMinutes",
+            "baseName": "allowedLateMinutes",
+            "type": "number",
+            "format": "int32"
         },
         {
             "name": "userId",
