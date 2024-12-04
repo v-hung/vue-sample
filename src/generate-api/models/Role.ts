@@ -16,6 +16,7 @@ import { HttpFile } from '../http/http';
 export class Role {
     'id'?: number;
     'name'?: string;
+    'description'?: string;
     'admin'?: boolean;
     'permissions'?: Set<Permission>;
 
@@ -33,6 +34,12 @@ export class Role {
         {
             "name": "name",
             "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "description",
+            "baseName": "description",
             "type": "string",
             "format": ""
         },

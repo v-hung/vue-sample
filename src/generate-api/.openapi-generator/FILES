@@ -17,7 +17,6 @@ http/isomorphic-fetch.ts
 index.ts
 middleware.ts
 models/Book.ts
-models/GrantedAuthority.ts
 models/LocalTime.ts
 models/LoginRequest.ts
 models/LoginResponse.ts
@@ -25,10 +24,8 @@ models/ObjectSerializer.ts
 models/Permission.ts
 models/RefreshRequest.ts
 models/RefreshResponse.ts
-models/RefreshToken.ts
 models/Role.ts
 models/TimeSheet.ts
-models/User.ts
 models/UserDto.ts
 models/WorkTime.ts
 models/all.ts

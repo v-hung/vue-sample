@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { timeSheetApi } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
-import { convertLocalTimeToDates } from '@/utils/dateUtil'
+import { localTimeToDate } from '@/utils/dateUtil'
 
 export const useTimeSheetStore = defineStore('timeSheet', () => {
   const startTime = ref<Date>()
@@ -14,8 +14,8 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
       callback: timeSheetApi.checkIn(),
     })
 
-    startTime.value = convertLocalTimeToDates(data?.startTime)
-    timeDifference.value = startTime.value.getTime() - new Date().getTime()
+    startTime.value = localTimeToDate(data?.startTime)
+    timeDifference.value = startTime.value!.getTime() - new Date().getTime()
   }
 
   const checkOut = async () => {
@@ -23,8 +23,15 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
       callback: timeSheetApi.checkOut(),
     })
 
-    endTime.value = convertLocalTimeToDates(data?.endTime)
+    endTime.value = localTimeToDate(data?.endTime)
   }
 
-  return { startTime, endTime, timeDifference, checkIn, checkOut }
+  const today = async () => {
+    const data = await timeSheetApi.getTodayTimeSheet()
+
+    startTime.value = localTimeToDate(data?.startTime)
+    endTime.value = localTimeToDate(data?.endTime)
+  }
+
+  return { startTime, endTime, timeDifference, checkIn, checkOut, today }
 })

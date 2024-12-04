@@ -14,9 +14,8 @@ import { HttpFile } from '../http/http';
 
 export class Permission {
     'id'?: number;
-    'resource'?: string;
-    'permissionType'?: PermissionPermissionTypeEnum;
     'name'?: string;
+    'roleId'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -30,22 +29,16 @@ export class Permission {
             "format": "int64"
         },
         {
-            "name": "resource",
-            "baseName": "resource",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "permissionType",
-            "baseName": "permissionType",
-            "type": "PermissionPermissionTypeEnum",
-            "format": ""
-        },
-        {
             "name": "name",
             "baseName": "name",
             "type": "string",
             "format": ""
+        },
+        {
+            "name": "roleId",
+            "baseName": "roleId",
+            "type": "number",
+            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {
@@ -55,11 +48,3 @@ export class Permission {
     public constructor() {
     }
 }
-
-export enum PermissionPermissionTypeEnum {
-    Read = 'READ',
-    Create = 'CREATE',
-    Update = 'UPDATE',
-    Delete = 'DELETE'
-}
-

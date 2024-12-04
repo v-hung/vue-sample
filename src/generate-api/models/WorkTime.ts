@@ -11,7 +11,6 @@
  */
 
 import { LocalTime } from '../models/LocalTime';
-import { User } from '../models/User';
 import { HttpFile } from '../http/http';
 
 export class WorkTime {
@@ -21,7 +20,7 @@ export class WorkTime {
     'endTimeMorning'?: LocalTime;
     'startTimeAfternoon'?: LocalTime;
     'endTimeAfternoon'?: LocalTime;
-    'user'?: Set<User>;
+    'userId'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -65,10 +64,10 @@ export class WorkTime {
             "format": ""
         },
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "Set<User>",
-            "format": ""
+            "name": "userId",
+            "baseName": "userId",
+            "type": "number",
+            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {

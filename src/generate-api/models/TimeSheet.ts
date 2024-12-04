@@ -11,7 +11,6 @@
  */
 
 import { LocalTime } from '../models/LocalTime';
-import { User } from '../models/User';
 import { HttpFile } from '../http/http';
 
 export class TimeSheet {
@@ -20,7 +19,7 @@ export class TimeSheet {
     'startTime'?: LocalTime;
     'endTime'?: LocalTime;
     'workMinutes'?: number;
-    'user'?: User;
+    'userId'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -58,10 +57,10 @@ export class TimeSheet {
             "format": "int32"
         },
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "User",
-            "format": ""
+            "name": "userId",
+            "baseName": "userId",
+            "type": "number",
+            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {

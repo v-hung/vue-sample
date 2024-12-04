@@ -3,17 +3,14 @@ import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
 import { Book } from '../models/Book';
-import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
-import { RefreshToken } from '../models/RefreshToken';
 import { Role } from '../models/Role';
 import { TimeSheet } from '../models/TimeSheet';
-import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 import { WorkTime } from '../models/WorkTime';
 

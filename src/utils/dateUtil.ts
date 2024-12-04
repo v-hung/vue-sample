@@ -8,9 +8,7 @@ export function formatDurationTime(startTime?: Date, endTime?: Date) {
   return dayjs.duration(duration).format('HH:mm:ss')
 }
 
-export function convertLocalTimeToDates(localTime?: LocalTime) {
-  if (!localTime) return new Date()
-
+export function localTimeToDate(localTime: LocalTime) {
   const date = new Date()
   date.setHours(
     localTime.hour ?? 0,
@@ -19,4 +17,8 @@ export function convertLocalTimeToDates(localTime?: LocalTime) {
     (localTime.nano ?? 0) / 1000000,
   )
   return date
+}
+
+export function localTimeToTime(localTime: LocalTime) {
+  return localTimeToDate(localTime).getTime()
 }
