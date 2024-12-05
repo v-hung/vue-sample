@@ -80,7 +80,9 @@ const intervalId = ref<ReturnType<typeof setInterval> | null>(null)
 
 // Computed
 const timeString = ref(
-  timeSheetStore.startTime ? formatDate(timeSheetStore.startTime) : '--:--',
+  timeSheetStore.startTime
+    ? formatDate(timeSheetStore.startTime)
+    : '--:-- <> --:--:--',
 )
 
 // Methods
@@ -88,7 +90,7 @@ const startTimer = () => {
   if (!intervalId.value) {
     timeString.value = timeSheetStore.startTime
       ? formatDate(timeSheetStore.startTime)
-      : '--:--'
+      : '--:-- <> --:--:--'
 
     intervalId.value = setInterval(() => {
       if (timeSheetStore.startTime) {

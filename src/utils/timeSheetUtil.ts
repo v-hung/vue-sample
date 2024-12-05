@@ -1,13 +1,13 @@
 import type { WorkTime } from '@/generate-api'
 import { localTimeToDate } from './dateUtil'
-import { add, differenceInMinutes, isAfter, isBefore, toDate } from 'date-fns'
+import { add, differenceInSeconds, isAfter, isBefore, toDate } from 'date-fns'
 
 export function calculateWorkDay(
   startTime: Date,
   endTime: Date,
   workTime: WorkTime,
 ) {
-  let totalWorkingMinutes = 0
+  let totalWorkingSeconds = 0
 
   const startTimeMorning = localTimeToDate(workTime.startTimeMorning)
   const endTimeMorning = localTimeToDate(workTime.endTimeMorning)
@@ -17,14 +17,17 @@ export function calculateWorkDay(
   if (
     isInvalidTimeRange(startTime, endTime, startTimeMorning, endTimeAfternoon)
   ) {
-    return totalWorkingMinutes
+    return totalWorkingSeconds
   }
 
   if (isAfter(startTime, startTimeMorning)) {
-    let lateMinutes = differenceInMinutes(startTimeMorning, startTime)
-    let adjustedMinutes = Math.min(workTime.allowedLateMinutes, lateMinutes)
+    let lateSeconds = differenceInSeconds(startTimeMorning, startTime)
+    let adjustedSeconds = Math.min(
+      workTime.allowedLateMinutes * 60,
+      lateSeconds,
+    )
 
-    return add(endTimeAfternoon, { minutes: adjustedMinutes })
+    return add(endTimeAfternoon, { seconds: adjustedSeconds })
   }
 
   // Calculate morning work minutes
@@ -37,7 +40,7 @@ export function calculateWorkDay(
       : endTime
 
     if (isBefore(validMorningStart, validMorningEnd)) {
-      totalWorkingMinutes += differenceInMinutes(
+      totalWorkingSeconds += differenceInSeconds(
         validMorningStart,
         validMorningEnd,
       )
@@ -54,14 +57,14 @@ export function calculateWorkDay(
       : endTime
 
     if (isBefore(validAfternoonStart, validAfternoonEnd)) {
-      totalWorkingMinutes += differenceInMinutes(
+      totalWorkingSeconds += differenceInSeconds(
         validAfternoonStart,
         validAfternoonEnd,
       )
     }
   }
 
-  return totalWorkingMinutes
+  return Math.floor(totalWorkingSeconds / 60)
 }
 
 function isInvalidTimeRange(
