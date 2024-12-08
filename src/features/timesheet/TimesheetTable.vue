@@ -1,9 +1,73 @@
+<script lang="ts" setup>
+import { DownOutlined, UserOutlined } from '@ant-design/icons-vue'
+import ListIcon from '@/assets/ListIcon.vue'
+import { h, onMounted, ref, watch } from 'vue'
+import CalendarCheckIcon from '@/assets/CalendarCheckIcon.vue'
+import DatePicker from 'ant-design-vue/es/date-picker/date-fns'
+import { timeSheetApi } from '@/lib/api'
+import { useNotifyPromise } from '@/lib/promise'
+import type { TimeSheetDto } from '@/generate-api'
+import { useElementSize } from '@vueuse/core'
+import { isSameMonth } from 'date-fns'
+import { formatDate } from '@/utils/dateUtil'
+const columns = [
+  { title: 'Date', dataIndex: 'date', key: 'date' },
+  { title: 'User', dataIndex: 'user', key: 'user' },
+  { title: 'Start Time', dataIndex: 'startTime', key: 'startTime' },
+  { title: 'End Time', key: 'endTime', dataIndex: 'endTime' },
+  { title: 'Total Work', key: 'workMinutes', dataIndex: 'workMinutes' },
+  { title: 'Requests', key: 'requests', dataIndex: 'requests' },
+  { title: 'Action', key: 'action', width: 200 },
+]
+
+// States
+const el = ref(null)
+const { height } = useElementSize(el)
+const loading = ref(true)
+const month = ref(new Date())
+
+const data = ref<TimeSheetDto[]>([])
+
+// Methods
+
+const onDateChange = (date: Date) => {}
+
+watch(month, async newMonth => {
+  loading.value = true
+
+  const timeSheets = await useNotifyPromise({
+    callback: timeSheetApi.getMonthlyTimeSheets(
+      formatDate(newMonth, 'yyyy-MM'),
+    ),
+  })
+
+  data.value = timeSheets ? timeSheets : []
+
+  loading.value = false
+})
+
+// Lifecycle
+onMounted(async () => {
+  loading.value = true
+
+  const timeSheets = await useNotifyPromise({
+    callback: timeSheetApi.getMonthlyTimeSheets(),
+  })
+
+  data.value = timeSheets ? timeSheets : []
+
+  loading.value = false
+})
+</script>
+
 <template>
-  <div class="mb-2 flex justify-between gap-2">
-    <a-date-picker picker="month" />
+  <div class="mb-2 flex flex-none justify-between gap-2 px-6">
+    <DatePicker v-model:value="month" picker="month" />
     <a-button
       :icon="h(CalendarCheckIcon, { class: 'w-5' })"
-      class="mr-auto !text-gray-600 text-sky-500"
+      class="mr-auto text-gray-600"
+      :class="{ '!text-sky-500': isSameMonth(month, new Date()) }"
+      @click.prevent="month = new Date()"
     ></a-button>
     <a-dropdown :trigger="['click']" placement="bottomLeft">
       <a-button class="flex items-center text-sm" type="text">
@@ -25,93 +89,54 @@
     </a-dropdown>
   </div>
 
-  <a-table
-    :columns="columns"
-    :data-source="data"
-    :scroll="{ x: 768 }"
-    :pagination="false"
-  >
-    <template #bodyCell="{ column, record }">
-      <template v-if="column.key === 'requests'">
-        <span>
-          <a-tag
-            v-for="request in record.requests"
-            :key="request"
-            :color="
-              request === 'loser'
-                ? 'volcano'
-                : request.length > 5
-                  ? 'geekblue'
-                  : 'green'
-            "
-          >
-            {{ request.toUpperCase() }}
-          </a-tag>
-        </span>
-      </template>
-      <template v-else-if="column.key === 'action'">
-        <span>
-          <a>Repair</a>
-          <a-divider type="vertical" />
-          <a>Overtime</a>
-        </span>
-      </template>
-    </template>
-  </a-table>
+  <div ref="el" class="min-h-0 flex-grow px-6">
+    <a-skeleton v-if="loading" />
+
+    <div v-else>
+      <a-table
+        :columns="columns"
+        :data-source="data"
+        :scroll="{ x: 768, y: height - 55 }"
+        :pagination="false"
+      >
+        <template #bodyCell="{ column, record }">
+          <template v-if="column.key === 'user'">
+            <div class="inline-flex gap-3">
+              <a-avatar shape="square" :size="40">
+                <template #icon><UserOutlined /></template>
+              </a-avatar>
+              <div>
+                <p class="font-semibold">{{ record.user.name }}</p>
+                <p class="text-gray-600">{{ record.user.email }}</p>
+              </div>
+            </div>
+          </template>
+          <template v-if="column.key === 'requests'">
+            <span>
+              <a-tag
+                v-for="request in record.requests"
+                :key="request"
+                :color="
+                  request === 'loser'
+                    ? 'volcano'
+                    : request.length > 5
+                      ? 'geekblue'
+                      : 'green'
+                "
+              >
+                {{ request.toUpperCase() }}
+              </a-tag>
+            </span>
+          </template>
+          <template v-else-if="column.key === 'action'">
+            <span>
+              <a>Repair</a>
+              <a-divider type="vertical" />
+              <a>Overtime</a>
+            </span>
+          </template>
+        </template>
+      </a-table>
+    </div>
+  </div>
 </template>
-
-<script lang="ts" setup>
-import { DownOutlined } from '@ant-design/icons-vue'
-import ListIcon from '@/assets/ListIcon.vue'
-import { h } from 'vue'
-import CalendarCheckIcon from '@/assets/CalendarCheckIcon.vue'
-const columns = [
-  {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-  },
-  {
-    title: 'Employee',
-    dataIndex: 'employee',
-    key: 'employee',
-  },
-  {
-    title: 'Start Time',
-    dataIndex: 'startTime',
-    key: 'startTime',
-  },
-  {
-    title: 'End Time',
-    key: 'endTime',
-    dataIndex: 'endTime',
-  },
-  {
-    title: 'Total Work',
-    key: 'totalWork',
-    dataIndex: 'totalWork',
-  },
-  {
-    title: 'Requests',
-    key: 'requests',
-    dataIndex: 'requests',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    width: 200,
-  },
-]
-
-const data = [
-  {
-    key: '1',
-    date: '2017-01-01',
-    employee: 'John Brown',
-    startTime: '08:00',
-    endTime: '16:00',
-    totalWork: '8 hours',
-    requests: ['Leave'],
-  },
-]
-</script>

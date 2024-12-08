@@ -14,8 +14,7 @@ import { HttpFile } from '../http/http';
 
 export class Permission {
     'id'?: number;
-    'name'?: string;
-    'roleId'?: number;
+    'name': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -33,12 +32,6 @@ export class Permission {
             "baseName": "name",
             "type": "string",
             "format": ""
-        },
-        {
-            "name": "roleId",
-            "baseName": "roleId",
-            "type": "number",
-            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {

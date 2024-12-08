@@ -15,9 +15,10 @@ import { HttpFile } from '../http/http';
 
 export class Role {
     'id'?: number;
-    'name'?: string;
+    'name': string;
     'description'?: string;
-    'admin'?: boolean;
+    'admin': boolean;
+    'level': number;
     'permissions'?: Set<Permission>;
 
     static readonly discriminator: string | undefined = undefined;
@@ -48,6 +49,12 @@ export class Role {
             "baseName": "admin",
             "type": "boolean",
             "format": ""
+        },
+        {
+            "name": "level",
+            "baseName": "level",
+            "type": "number",
+            "format": "int32"
         },
         {
             "name": "permissions",

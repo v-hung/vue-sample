@@ -8,7 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
-import { TimeSheet } from '../models/TimeSheet';
+import { TimeSheetDto } from '../models/TimeSheetDto';
 import { WorkTime } from '../models/WorkTime';
 
 /**
@@ -174,22 +174,22 @@ export class TimeSheetControllerApiResponseProcessor {
      * @params response Response returned by the server for a request to checkIn
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async checkInWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TimeSheet >> {
+     public async checkInWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TimeSheetDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TimeSheet = ObjectSerializer.deserialize(
+            const body: TimeSheetDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TimeSheet", ""
-            ) as TimeSheet;
+                "TimeSheetDto", ""
+            ) as TimeSheetDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TimeSheet = ObjectSerializer.deserialize(
+            const body: TimeSheetDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TimeSheet", ""
-            ) as TimeSheet;
+                "TimeSheetDto", ""
+            ) as TimeSheetDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -203,22 +203,22 @@ export class TimeSheetControllerApiResponseProcessor {
      * @params response Response returned by the server for a request to checkOut
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async checkOutWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TimeSheet >> {
+     public async checkOutWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TimeSheetDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TimeSheet = ObjectSerializer.deserialize(
+            const body: TimeSheetDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TimeSheet", ""
-            ) as TimeSheet;
+                "TimeSheetDto", ""
+            ) as TimeSheetDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TimeSheet = ObjectSerializer.deserialize(
+            const body: TimeSheetDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TimeSheet", ""
-            ) as TimeSheet;
+                "TimeSheetDto", ""
+            ) as TimeSheetDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -232,22 +232,22 @@ export class TimeSheetControllerApiResponseProcessor {
      * @params response Response returned by the server for a request to getMonthlyTimeSheets
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getMonthlyTimeSheetsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<TimeSheet> >> {
+     public async getMonthlyTimeSheetsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<TimeSheetDto> >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<TimeSheet> = ObjectSerializer.deserialize(
+            const body: Array<TimeSheetDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<TimeSheet>", ""
-            ) as Array<TimeSheet>;
+                "Array<TimeSheetDto>", ""
+            ) as Array<TimeSheetDto>;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<TimeSheet> = ObjectSerializer.deserialize(
+            const body: Array<TimeSheetDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<TimeSheet>", ""
-            ) as Array<TimeSheet>;
+                "Array<TimeSheetDto>", ""
+            ) as Array<TimeSheetDto>;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -290,22 +290,22 @@ export class TimeSheetControllerApiResponseProcessor {
      * @params response Response returned by the server for a request to getTodayTimeSheet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getTodayTimeSheetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TimeSheet >> {
+     public async getTodayTimeSheetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TimeSheetDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TimeSheet = ObjectSerializer.deserialize(
+            const body: TimeSheetDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TimeSheet", ""
-            ) as TimeSheet;
+                "TimeSheetDto", ""
+            ) as TimeSheetDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TimeSheet = ObjectSerializer.deserialize(
+            const body: TimeSheetDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TimeSheet", ""
-            ) as TimeSheet;
+                "TimeSheetDto", ""
+            ) as TimeSheetDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

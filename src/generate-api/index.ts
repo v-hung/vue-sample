@@ -8,5 +8,5 @@ export * from "./servers";
 export { RequiredError } from "./apis/baseapi";
 
 export type { PromiseMiddleware as Middleware } from './middleware';
-export { PromiseAccountControllerApi as AccountControllerApi,  PromiseBookControllerApi as BookControllerApi,  PromiseTimeSheetControllerApi as TimeSheetControllerApi } from './types/PromiseAPI';
+export { PromiseAccountControllerApi as AccountControllerApi,  PromiseTimeSheetControllerApi as TimeSheetControllerApi } from './types/PromiseAPI';
 

@@ -6,6 +6,10 @@
   #app {
     @apply overflow-x-hidden;
   }
+
+  p {
+    @apply mb-0;
+  }
 }
 
 .ant-page-header-heading-sub-title {

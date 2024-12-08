@@ -1,7 +1,6 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http';
 import { Configuration} from '../configuration'
 
-import { Book } from '../models/Book';
 import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
@@ -9,7 +8,7 @@ import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
-import { TimeSheet } from '../models/TimeSheet';
+import { TimeSheetDto } from '../models/TimeSheetDto';
 import { UserDto } from '../models/UserDto';
 import { WorkTime } from '../models/WorkTime';
 import { ObservableAccountControllerApi } from './ObservableAPI';
@@ -77,39 +76,6 @@ export class PromiseAccountControllerApi {
 
 
 
-import { ObservableBookControllerApi } from './ObservableAPI';
-
-import { BookControllerApiRequestFactory, BookControllerApiResponseProcessor} from "../apis/BookControllerApi";
-export class PromiseBookControllerApi {
-    private api: ObservableBookControllerApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: BookControllerApiRequestFactory,
-        responseProcessor?: BookControllerApiResponseProcessor
-    ) {
-        this.api = new ObservableBookControllerApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     */
-    public getAllBooksWithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<Book>>> {
-        const result = this.api.getAllBooksWithHttpInfo(_options);
-        return result.toPromise();
-    }
-
-    /**
-     */
-    public getAllBooks(_options?: Configuration): Promise<Array<Book>> {
-        const result = this.api.getAllBooks(_options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
 import { ObservableTimeSheetControllerApi } from './ObservableAPI';
 
 import { TimeSheetControllerApiRequestFactory, TimeSheetControllerApiResponseProcessor} from "../apis/TimeSheetControllerApi";
@@ -126,28 +92,28 @@ export class PromiseTimeSheetControllerApi {
 
     /**
      */
-    public checkInWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheet>> {
+    public checkInWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
         const result = this.api.checkInWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public checkIn(_options?: Configuration): Promise<TimeSheet> {
+    public checkIn(_options?: Configuration): Promise<TimeSheetDto> {
         const result = this.api.checkIn(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public checkOutWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheet>> {
+    public checkOutWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
         const result = this.api.checkOutWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public checkOut(_options?: Configuration): Promise<TimeSheet> {
+    public checkOut(_options?: Configuration): Promise<TimeSheetDto> {
         const result = this.api.checkOut(_options);
         return result.toPromise();
     }
@@ -155,7 +121,7 @@ export class PromiseTimeSheetControllerApi {
     /**
      * @param [month]
      */
-    public getMonthlyTimeSheetsWithHttpInfo(month?: string, _options?: Configuration): Promise<HttpInfo<Array<TimeSheet>>> {
+    public getMonthlyTimeSheetsWithHttpInfo(month?: string, _options?: Configuration): Promise<HttpInfo<Array<TimeSheetDto>>> {
         const result = this.api.getMonthlyTimeSheetsWithHttpInfo(month, _options);
         return result.toPromise();
     }
@@ -163,7 +129,7 @@ export class PromiseTimeSheetControllerApi {
     /**
      * @param [month]
      */
-    public getMonthlyTimeSheets(month?: string, _options?: Configuration): Promise<Array<TimeSheet>> {
+    public getMonthlyTimeSheets(month?: string, _options?: Configuration): Promise<Array<TimeSheetDto>> {
         const result = this.api.getMonthlyTimeSheets(month, _options);
         return result.toPromise();
     }
@@ -184,14 +150,14 @@ export class PromiseTimeSheetControllerApi {
 
     /**
      */
-    public getTodayTimeSheetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheet>> {
+    public getTodayTimeSheetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
         const result = this.api.getTodayTimeSheetWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public getTodayTimeSheet(_options?: Configuration): Promise<TimeSheet> {
+    public getTodayTimeSheet(_options?: Configuration): Promise<TimeSheetDto> {
         const result = this.api.getTodayTimeSheet(_options);
         return result.toPromise();
     }

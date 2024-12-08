@@ -15,7 +15,7 @@ import { HttpFile } from '../http/http';
 
 export class TimeSheet {
     'id'?: string;
-    'date'?: string;
+    'date': string;
     'startTime'?: LocalTime;
     'endTime'?: LocalTime;
     'workMinutes'?: number;

@@ -8,7 +8,7 @@ const LOCALE_MAP: Record<SupportedLocale, Locale> = {
   'vi-VN': vi,
 }
 
-export function formatDate(date: Date, formatStr: string = 'PP'): string {
+export function formatDate(date: Date, formatStr: string = 'HH:mm:ss'): string {
   const storedLocale =
     (localStorage.getItem('locale') as SupportedLocale) || undefined
   const locale = LOCALE_MAP[storedLocale as SupportedLocale] || enUS

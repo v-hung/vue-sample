@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **checkIn**
-> TimeSheet checkIn()
+> TimeSheetDto checkIn()
 
 
 ### Example
@@ -37,7 +37,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**TimeSheet**
+**TimeSheetDto**
 
 ### Authorization
 
@@ -57,7 +57,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **checkOut**
-> TimeSheet checkOut()
+> TimeSheetDto checkOut()
 
 
 ### Example
@@ -82,7 +82,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**TimeSheet**
+**TimeSheetDto**
 
 ### Authorization
 
@@ -102,7 +102,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getMonthlyTimeSheets**
-> Array<TimeSheet> getMonthlyTimeSheets()
+> Array<TimeSheetDto> getMonthlyTimeSheets()
 
 
 ### Example
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Array<TimeSheet>**
+**Array<TimeSheetDto>**
 
 ### Authorization
 
@@ -199,7 +199,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getTodayTimeSheet**
-> TimeSheet getTodayTimeSheet()
+> TimeSheetDto getTodayTimeSheet()
 
 
 ### Example
@@ -224,7 +224,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**TimeSheet**
+**TimeSheetDto**
 
 ### Authorization
 

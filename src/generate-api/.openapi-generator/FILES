@@ -1,11 +1,9 @@
 .gitattributes
 .gitignore
 AccountControllerApi.md
-BookControllerApi.md
 README.md
 TimeSheetControllerApi.md
 apis/AccountControllerApi.ts
-apis/BookControllerApi.ts
 apis/TimeSheetControllerApi.ts
 apis/baseapi.ts
 apis/exception.ts
@@ -16,7 +14,6 @@ http/http.ts
 http/isomorphic-fetch.ts
 index.ts
 middleware.ts
-models/Book.ts
 models/LocalTime.ts
 models/LoginRequest.ts
 models/LoginResponse.ts
@@ -25,7 +22,7 @@ models/Permission.ts
 models/RefreshRequest.ts
 models/RefreshResponse.ts
 models/Role.ts
-models/TimeSheet.ts
+models/TimeSheetDto.ts
 models/UserDto.ts
 models/WorkTime.ts
 models/all.ts

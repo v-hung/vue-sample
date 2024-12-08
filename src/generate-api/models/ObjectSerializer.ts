@@ -1,4 +1,3 @@
-export * from '../models/Book';
 export * from '../models/LocalTime';
 export * from '../models/LoginRequest';
 export * from '../models/LoginResponse';
@@ -6,11 +5,10 @@ export * from '../models/Permission';
 export * from '../models/RefreshRequest';
 export * from '../models/RefreshResponse';
 export * from '../models/Role';
-export * from '../models/TimeSheet';
+export * from '../models/TimeSheetDto';
 export * from '../models/UserDto';
 export * from '../models/WorkTime';
 
-import { Book } from '../models/Book';
 import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
@@ -18,7 +16,7 @@ import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
-import { TimeSheet } from '../models/TimeSheet';
+import { TimeSheetDto } from '../models/TimeSheetDto';
 import { UserDto } from '../models/UserDto';
 import { WorkTime } from '../models/WorkTime';
 
@@ -38,7 +36,6 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
-    "Book": Book,
     "LocalTime": LocalTime,
     "LoginRequest": LoginRequest,
     "LoginResponse": LoginResponse,
@@ -46,7 +43,7 @@ let typeMap: {[index: string]: any} = {
     "RefreshRequest": RefreshRequest,
     "RefreshResponse": RefreshResponse,
     "Role": Role,
-    "TimeSheet": TimeSheet,
+    "TimeSheetDto": TimeSheetDto,
     "UserDto": UserDto,
     "WorkTime": WorkTime,
 }
