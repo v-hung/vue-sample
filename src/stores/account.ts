@@ -36,12 +36,11 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   async function logged() {
-    // user.value = {
+    // return user.value = {
     //   name: 'Việt Hùng',
     // }
-    // return
 
-    return new AccountControllerApi(configWithRefreshToken)
+    await new AccountControllerApi(configWithRefreshToken)
       .getCurrentUser()
       .then(res => {
         user.value = res

@@ -6,6 +6,7 @@ import {
 import { from, Observable } from '@/generate-api/rxjsStub'
 import 'whatwg-fetch'
 import { accountApi } from './api'
+import router from '@/router'
 
 export class FetchHttpLibrary implements HttpLibrary {
   public send(request: RequestContext): Observable<ResponseContext> {
@@ -53,26 +54,30 @@ export class FetchWithRefreshTokenHttpLibrary implements HttpLibrary {
       })
 
       if (resp.status == 403) {
-        await accountApi.refreshToken()
+        try {
+          await accountApi.refreshToken()
 
-        const retryResp = await fetch(url, {
-          method: method,
-          body: body as any,
-          headers: headers,
-          credentials: 'include',
-        })
+          const retryResp = await fetch(url, {
+            method: method,
+            body: body as any,
+            headers: headers,
+            credentials: 'include',
+          })
 
-        const retryHeaders: { [name: string]: string } = {}
-        retryResp.headers.forEach((value: string, name: string) => {
-          retryHeaders[name] = value
-        })
+          const retryHeaders: { [name: string]: string } = {}
+          retryResp.headers.forEach((value: string, name: string) => {
+            retryHeaders[name] = value
+          })
 
-        const retryBody = {
-          text: () => retryResp.text(),
-          binary: () => retryResp.blob(),
+          const retryBody = {
+            text: () => retryResp.text(),
+            binary: () => retryResp.blob(),
+          }
+
+          return new ResponseContext(resp.status, retryHeaders, retryBody)
+        } catch (e) {
+          router.push('login')
         }
-
-        return new ResponseContext(resp.status, retryHeaders, retryBody)
       }
 
       const responseBody = {

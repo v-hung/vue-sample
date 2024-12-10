@@ -28,10 +28,6 @@ const month = ref(new Date())
 
 const data = ref<TimeSheetDto[]>([])
 
-// Methods
-
-const onDateChange = (date: Date) => {}
-
 watch(month, async newMonth => {
   loading.value = true
 
