@@ -29,12 +29,14 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
   }
 
   const today = async () => {
+    if (startTime.value) return
+
     const data = await timeSheetApi.getTodayTimeSheet()
 
-    startTime.value = data?.startTime
+    startTime.value = data.startTime
       ? localTimeToDate(data.startTime)
       : undefined
-    endTime.value = data?.endTime ? localTimeToDate(data.endTime) : undefined
+    endTime.value = data.endTime ? localTimeToDate(data.endTime) : undefined
   }
 
   return { startTime, endTime, timeDifference, checkIn, checkOut, today }

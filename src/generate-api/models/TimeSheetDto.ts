@@ -10,17 +10,18 @@
  * Do not edit the class manually.
  */
 
-import { LocalTime } from '../models/LocalTime';
 import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
 export class TimeSheetDto {
     'id': string;
     'date': string;
-    'startTime'?: LocalTime;
-    'endTime'?: LocalTime;
+    'startTime'?: string;
+    'endTime'?: string;
     'workMinutes'?: number;
     'user': UserDto;
+    'createdAt'?: Date;
+    'updatedAt'?: Date;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -42,13 +43,13 @@ export class TimeSheetDto {
         {
             "name": "startTime",
             "baseName": "startTime",
-            "type": "LocalTime",
+            "type": "string",
             "format": ""
         },
         {
             "name": "endTime",
             "baseName": "endTime",
-            "type": "LocalTime",
+            "type": "string",
             "format": ""
         },
         {
@@ -62,6 +63,18 @@ export class TimeSheetDto {
             "baseName": "user",
             "type": "UserDto",
             "format": ""
+        },
+        {
+            "name": "createdAt",
+            "baseName": "createdAt",
+            "type": "Date",
+            "format": "date-time"
+        },
+        {
+            "name": "updatedAt",
+            "baseName": "updatedAt",
+            "type": "Date",
+            "format": "date-time"
         }    ];
 
     static getAttributeTypeMap() {

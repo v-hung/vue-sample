@@ -1,4 +1,3 @@
-export * from '../models/LocalTime';
 export * from '../models/LoginRequest';
 export * from '../models/LoginResponse';
 export * from '../models/Permission';
@@ -9,7 +8,6 @@ export * from '../models/TimeSheetDto';
 export * from '../models/UserDto';
 export * from '../models/WorkTime';
 
-import { LocalTime } from '../models/LocalTime';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { Permission } from '../models/Permission';
@@ -36,7 +34,6 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
-    "LocalTime": LocalTime,
     "LoginRequest": LoginRequest,
     "LoginResponse": LoginResponse,
     "Permission": Permission,

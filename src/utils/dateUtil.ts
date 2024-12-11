@@ -1,6 +1,5 @@
-import type { LocalTime } from '@/generate-api'
 import type { SupportedLocale } from '@/i18n/translation'
-import { format, type Locale } from 'date-fns'
+import { format, parse, type Locale } from 'date-fns'
 import { enUS, vi } from 'date-fns/locale'
 
 const LOCALE_MAP: Record<SupportedLocale, Locale> = {
@@ -18,15 +17,10 @@ export function formatDate(date: Date, formatStr: string = 'HH:mm:ss'): string {
   })
 }
 
-export function localTimeToDate(localTime: LocalTime) {
-  const baseDate = new Date(1970, 0, 1)
+export function localTimeToDate(localTime: string) {
+  const defaultDate = '1970-01-01'
+  const dateTimeString = `${defaultDate}T${localTime}`
 
-  baseDate.setHours(
-    localTime.hour ?? 0,
-    localTime.minute ?? 0,
-    localTime.second ?? 0,
-    (localTime.nano ?? 0) / 1000000,
-  )
-
-  return baseDate
+  // Parse chuỗi ngày và giờ
+  return parse(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS", new Date())
 }

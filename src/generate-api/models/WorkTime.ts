@@ -10,17 +10,16 @@
  * Do not edit the class manually.
  */
 
-import { LocalTime } from '../models/LocalTime';
 import { HttpFile } from '../http/http';
 
 export class WorkTime {
     'id'?: number;
     'title': string;
-    'startTimeMorning': LocalTime;
-    'endTimeMorning': LocalTime;
-    'startTimeAfternoon': LocalTime;
-    'endTimeAfternoon': LocalTime;
-    'allowedLateMinutes': number;
+    'startTimeMorning': string;
+    'endTimeMorning': string;
+    'startTimeAfternoon': string;
+    'endTimeAfternoon': string;
+    'allowedLateMinutes': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -42,32 +41,32 @@ export class WorkTime {
         {
             "name": "startTimeMorning",
             "baseName": "startTimeMorning",
-            "type": "LocalTime",
+            "type": "string",
             "format": ""
         },
         {
             "name": "endTimeMorning",
             "baseName": "endTimeMorning",
-            "type": "LocalTime",
+            "type": "string",
             "format": ""
         },
         {
             "name": "startTimeAfternoon",
             "baseName": "startTimeAfternoon",
-            "type": "LocalTime",
+            "type": "string",
             "format": ""
         },
         {
             "name": "endTimeAfternoon",
             "baseName": "endTimeAfternoon",
-            "type": "LocalTime",
+            "type": "string",
             "format": ""
         },
         {
             "name": "allowedLateMinutes",
             "baseName": "allowedLateMinutes",
-            "type": "number",
-            "format": "int32"
+            "type": "string",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

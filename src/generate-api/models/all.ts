@@ -1,4 +1,3 @@
-export * from '../models/LocalTime'
 export * from '../models/LoginRequest'
 export * from '../models/LoginResponse'
 export * from '../models/Permission'

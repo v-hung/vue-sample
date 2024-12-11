@@ -1,5 +1,6 @@
 .gitattributes
 .gitignore
+.openapi-generator-ignore
 AccountControllerApi.md
 README.md
 TimeSheetControllerApi.md
@@ -14,7 +15,6 @@ http/http.ts
 http/isomorphic-fetch.ts
 index.ts
 middleware.ts
-models/LocalTime.ts
 models/LoginRequest.ts
 models/LoginResponse.ts
 models/ObjectSerializer.ts

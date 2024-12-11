@@ -31,7 +31,7 @@ watch(
 )
 
 watch([selectedKeys, openKeys], path => {
-  console.log(path)
+  // console.log(path)
 })
 
 // menu mobile
