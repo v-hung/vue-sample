@@ -44,13 +44,13 @@ export class TimeSheetDto {
             "name": "startTime",
             "baseName": "startTime",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
             "name": "endTime",
             "baseName": "endTime",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
             "name": "workMinutes",

@@ -4,6 +4,7 @@ import PlayIcon from '@/assets/PlayIcon.vue'
 import StopWatchIcon from '@/assets/StopWatchIcon.vue'
 import { useTimeSheetStore } from '@/stores/timesheet'
 import { formatDate } from '@/utils/dateUtil'
+import { calculateWorkDay } from '@/utils/timeSheetUtil'
 import { onMounted, onUnmounted, ref, computed, watch, h } from 'vue'
 
 // Store
@@ -24,16 +25,10 @@ const timeString = ref(
 
 // Methods
 const startTimer = () => {
-  if (!intervalId.value) {
-    timeString.value = timeSheetStore.startTime
-      ? formatDate(timeSheetStore.startTime)
-      : '--:-- <> --:--:--'
+  updateTimeUI()
 
-    intervalId.value = setInterval(() => {
-      if (timeSheetStore.startTime) {
-        timeString.value = formatDate(timeSheetStore.startTime)
-      }
-    }, 1000)
+  if (!timeSheetStore.endTime) {
+    intervalId.value = setInterval(updateTimeUI, 1000)
   }
 }
 
@@ -66,11 +61,33 @@ const checkOut = async () => {
   }
 }
 
+const updateTimeUI = () => {
+  if (!timeSheetStore.startTime) {
+    timeString.value = '--:-- <> --:--:--'
+    return
+  }
+
+  let currentServerTime = new Date(Date.now() - timeSheetStore.timeDifference)
+  let currentServerTimeFormatted = formatDate(currentServerTime, 'HH:mm:ss')
+
+  let durationWork = calculateWorkDay(
+    timeSheetStore.startTime,
+    currentServerTime,
+    timeSheetStore.workTime!,
+  )
+
+  timeString.value = `${durationWork.toFixed(2)} <> ${currentServerTimeFormatted}`
+}
+
 // Lifecycle hooks
 onMounted(async () => {
   try {
-    await timeSheetStore.today()
-    if (timeSheetStore.startTime && !timeSheetStore.endTime) {
+    await Promise.all([
+      timeSheetStore.today(),
+      timeSheetStore.getCurrentWorkTime(),
+    ])
+
+    if (timeSheetStore.startTime) {
       startTimer()
     }
   } finally {
@@ -98,7 +115,9 @@ onUnmounted(() => stopTimer())
         <a-skeleton-input :active="true" class="w-52" />
       </template>
       <template v-else>
-        <a-button key="3">Repair</a-button>
+        <a-button key="3" @click="timeSheetStore.openModelCorrection()"
+          >Correction</a-button
+        >
         <a-button key="2">Leave</a-button>
         <a-button-group>
           <a-button

@@ -10,13 +10,15 @@
  * Do not edit the class manually.
  */
 
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
+import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { HttpFile } from '../http/http';
 
-export class LoginResponse {
-    'user'?: UserWithPermissionDto;
-    'token'?: string;
-    'refreshToken'?: string;
+export class UserWithPermissionDto {
+    'id': number;
+    'name': string;
+    'username': string;
+    'email': string;
+    'roles': Set<RoleWithPermissionDto>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,26 +26,38 @@ export class LoginResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "UserWithPermissionDto",
-            "format": ""
+            "name": "id",
+            "baseName": "id",
+            "type": "number",
+            "format": "int64"
         },
         {
-            "name": "token",
-            "baseName": "token",
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },
         {
-            "name": "refreshToken",
-            "baseName": "refreshToken",
+            "name": "username",
+            "baseName": "username",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "email",
+            "baseName": "email",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "roles",
+            "baseName": "roles",
+            "type": "Set<RoleWithPermissionDto>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return LoginResponse.attributeTypeMap;
+        return UserWithPermissionDto.attributeTypeMap;
     }
 
     public constructor() {

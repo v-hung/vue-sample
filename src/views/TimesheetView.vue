@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import TimeSheetHeader from '@/features/timesheet/TimeSheetHeader.vue'
+import TimeSheetTable from '@/features/timesheet/TimeSheetTable.vue'
+import { defineAsyncComponent } from 'vue'
+
+const TimeSheetModelCorrectionAsync = defineAsyncComponent(
+  () => import('@/features/timesheet/TimeSheetModelCorrection.vue'),
+)
+</script>
+
 <template>
   <div class="flex h-full flex-col pb-6">
     <TimeSheetHeader class="flex-none" />
@@ -8,9 +18,7 @@
 
     <TimeSheetTable />
   </div>
-</template>
 
-<script lang="ts" setup>
-import TimeSheetHeader from '@/features/timeSheet/TimeSheetHeader.vue'
-import TimeSheetTable from '@/features/timesheet/TimeSheetTable.vue'
-</script>
+  <!--/* Models */-->
+  <TimeSheetModelCorrectionAsync />
+</template>

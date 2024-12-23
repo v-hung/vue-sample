@@ -13,13 +13,13 @@
 import { Permission } from '../models/Permission';
 import { HttpFile } from '../http/http';
 
-export class Role {
-    'id'?: number;
+export class RoleWithPermissionDto {
+    'id': number;
     'name': string;
     'description'?: string;
     'admin': boolean;
     'level': number;
-    'permissions'?: Set<Permission>;
+    'permissions': Array<Permission>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -59,12 +59,12 @@ export class Role {
         {
             "name": "permissions",
             "baseName": "permissions",
-            "type": "Set<Permission>",
+            "type": "Array<Permission>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Role.attributeTypeMap;
+        return RoleWithPermissionDto.attributeTypeMap;
     }
 
     public constructor() {

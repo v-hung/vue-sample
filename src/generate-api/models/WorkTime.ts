@@ -19,7 +19,7 @@ export class WorkTime {
     'endTimeMorning': string;
     'startTimeAfternoon': string;
     'endTimeAfternoon': string;
-    'allowedLateMinutes': string;
+    'allowedLateMinutes': number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -42,31 +42,31 @@ export class WorkTime {
             "name": "startTimeMorning",
             "baseName": "startTimeMorning",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
             "name": "endTimeMorning",
             "baseName": "endTimeMorning",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
             "name": "startTimeAfternoon",
             "baseName": "startTimeAfternoon",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
             "name": "endTimeAfternoon",
             "baseName": "endTimeAfternoon",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
             "name": "allowedLateMinutes",
             "baseName": "allowedLateMinutes",
-            "type": "string",
-            "format": ""
+            "type": "number",
+            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {

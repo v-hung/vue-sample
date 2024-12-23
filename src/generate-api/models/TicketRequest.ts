@@ -10,13 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { HttpFile } from '../http/http';
 
-export class LoginResponse {
-    'user'?: UserWithPermissionDto;
-    'token'?: string;
-    'refreshToken'?: string;
+export class TicketRequest {
+    'approverId': number;
+    'type': TicketRequestTypeEnum;
+    'description': string;
+    'date': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,28 +24,42 @@ export class LoginResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "UserWithPermissionDto",
+            "name": "approverId",
+            "baseName": "approverId",
+            "type": "number",
+            "format": "int64"
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "TicketRequestTypeEnum",
             "format": ""
         },
         {
-            "name": "token",
-            "baseName": "token",
+            "name": "description",
+            "baseName": "description",
             "type": "string",
             "format": ""
         },
         {
-            "name": "refreshToken",
-            "baseName": "refreshToken",
+            "name": "date",
+            "baseName": "date",
             "type": "string",
-            "format": ""
+            "format": "date"
         }    ];
 
     static getAttributeTypeMap() {
-        return LoginResponse.attributeTypeMap;
+        return TicketRequest.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
+
+export enum TicketRequestTypeEnum {
+    TimesheetAdjustment = 'TIMESHEET_ADJUSTMENT',
+    LeaveRequest = 'LEAVE_REQUEST',
+    OvertimeRequest = 'OVERTIME_REQUEST',
+    WorkFromHome = 'WORK_FROM_HOME'
+}
+

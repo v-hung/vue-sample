@@ -11,9 +11,9 @@
         "type-check": "vue-tsc --build --force",
         "lint": "eslint . --fix",
         "format": "prettier --write src/",
-        "generate-api": "npx @openapitools/openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript -o ./src/generate-api",
-        "generate-api-axios": "npx @openapitools/openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-axios -o ./src/generate-api-axios",
-        "generate-api-fetch": "npx @openapitools/openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-fetch -o ./src/generate-api-fetch"
+        "generate-api": "npx @openapitools/openapi-generator-cli generate -i http://localhost:8085/v3/api-docs -g typescript -o ./src/generate-api",
+        "generate-api-axios": "npx @openapitools/openapi-generator-cli generate -i http://localhost:8085/v3/api-docs -g typescript-axios -o ./src/generate-api-axios",
+        "generate-api-fetch": "npx @openapitools/openapi-generator-cli generate -i http://localhost:8085/v3/api-docs -g typescript-fetch -o ./src/generate-api-fetch"
     },
     "dependencies": {
         "@headlessui/vue": "^1.7.23",

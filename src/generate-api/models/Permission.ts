@@ -14,7 +14,7 @@ import { HttpFile } from '../http/http';
 
 export class Permission {
     'id'?: number;
-    'name': string;
+    'name': PermissionNameEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -30,7 +30,7 @@ export class Permission {
         {
             "name": "name",
             "baseName": "name",
-            "type": "string",
+            "type": "PermissionNameEnum",
             "format": ""
         }    ];
 
@@ -41,3 +41,14 @@ export class Permission {
     public constructor() {
     }
 }
+
+export enum PermissionNameEnum {
+    UserView = 'USER_VIEW',
+    UserCreate = 'USER_CREATE',
+    UserUpdate = 'USER_UPDATE',
+    UserDelete = 'USER_DELETE',
+    TimesheetView = 'TIMESHEET_VIEW',
+    TimesheetCreate = 'TIMESHEET_CREATE',
+    TimesheetApproval = 'TIMESHEET_APPROVAL'
+}
+

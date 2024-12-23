@@ -10,16 +10,16 @@
  * Do not edit the class manually.
  */
 
-import { Permission } from '../models/Permission';
+import { SortObject } from '../models/SortObject';
 import { HttpFile } from '../http/http';
 
-export class Role {
-    'id'?: number;
-    'name': string;
-    'description'?: string;
-    'admin': boolean;
-    'level': number;
-    'permissions'?: Set<Permission>;
+export class PageableObject {
+    'offset'?: number;
+    'sort'?: Array<SortObject>;
+    'paged'?: boolean;
+    'pageSize'?: number;
+    'pageNumber'?: number;
+    'unpaged'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -27,44 +27,44 @@ export class Role {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "offset",
+            "baseName": "offset",
             "type": "number",
             "format": "int64"
         },
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
+            "name": "sort",
+            "baseName": "sort",
+            "type": "Array<SortObject>",
             "format": ""
         },
         {
-            "name": "description",
-            "baseName": "description",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "admin",
-            "baseName": "admin",
+            "name": "paged",
+            "baseName": "paged",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "level",
-            "baseName": "level",
+            "name": "pageSize",
+            "baseName": "pageSize",
             "type": "number",
             "format": "int32"
         },
         {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Set<Permission>",
+            "name": "pageNumber",
+            "baseName": "pageNumber",
+            "type": "number",
+            "format": "int32"
+        },
+        {
+            "name": "unpaged",
+            "baseName": "unpaged",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Role.attributeTypeMap;
+        return PageableObject.attributeTypeMap;
     }
 
     public constructor() {

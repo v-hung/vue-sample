@@ -10,15 +10,15 @@
  * Do not edit the class manually.
  */
 
-import { Role } from '../models/Role';
+import { RoleDto } from '../models/RoleDto';
 import { HttpFile } from '../http/http';
 
 export class UserDto {
-    'id'?: number;
-    'name'?: string;
-    'username'?: string;
-    'email'?: string;
-    'roles'?: Set<Role>;
+    'id': number;
+    'name': string;
+    'username': string;
+    'email': string;
+    'roles': Set<RoleDto>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -52,7 +52,7 @@ export class UserDto {
         {
             "name": "roles",
             "baseName": "roles",
-            "type": "Set<Role>",
+            "type": "Set<RoleDto>",
             "format": ""
         }    ];
 

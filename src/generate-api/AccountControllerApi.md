@@ -1,6 +1,6 @@
 # .AccountControllerApi
 
-All URIs are relative to *http://localhost:8081*
+All URIs are relative to *http://localhost:8085*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getCurrentUser**
-> UserDto getCurrentUser()
+> UserWithPermissionDto getCurrentUser()
 
 
 ### Example
@@ -35,7 +35,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**UserDto**
+**UserWithPermissionDto**
 
 ### Authorization
 

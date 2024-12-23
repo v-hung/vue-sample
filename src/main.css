@@ -10,6 +10,10 @@
   p {
     @apply mb-0;
   }
+
+  * {
+    @apply border-0 border-solid border-gray-300;
+  }
 }
 
 .ant-page-header-heading-sub-title {

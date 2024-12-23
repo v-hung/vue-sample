@@ -18,9 +18,8 @@ export function formatDate(date: Date, formatStr: string = 'HH:mm:ss'): string {
 }
 
 export function localTimeToDate(localTime: string) {
-  const defaultDate = '1970-01-01'
-  const dateTimeString = `${defaultDate}T${localTime}`
+  const today = new Date()
+  const dateTimeString = today.toISOString().split('T')[0] + `T${localTime}`
 
-  // Parse chuỗi ngày và giờ
   return parse(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS", new Date())
 }

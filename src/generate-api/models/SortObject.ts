@@ -10,13 +10,14 @@
  * Do not edit the class manually.
  */
 
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { HttpFile } from '../http/http';
 
-export class LoginResponse {
-    'user'?: UserWithPermissionDto;
-    'token'?: string;
-    'refreshToken'?: string;
+export class SortObject {
+    'direction'?: string;
+    'nullHandling'?: string;
+    'ascending'?: boolean;
+    'property'?: string;
+    'ignoreCase'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,26 +25,38 @@ export class LoginResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "UserWithPermissionDto",
-            "format": ""
-        },
-        {
-            "name": "token",
-            "baseName": "token",
+            "name": "direction",
+            "baseName": "direction",
             "type": "string",
             "format": ""
         },
         {
-            "name": "refreshToken",
-            "baseName": "refreshToken",
+            "name": "nullHandling",
+            "baseName": "nullHandling",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "ascending",
+            "baseName": "ascending",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "property",
+            "baseName": "property",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "ignoreCase",
+            "baseName": "ignoreCase",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return LoginResponse.attributeTypeMap;
+        return SortObject.attributeTypeMap;
     }
 
     public constructor() {

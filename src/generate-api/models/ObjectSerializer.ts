@@ -1,21 +1,43 @@
+export * from '../models/GrantedAuthority';
 export * from '../models/LoginRequest';
 export * from '../models/LoginResponse';
+export * from '../models/PageUserDto';
+export * from '../models/Pageable';
+export * from '../models/PageableObject';
 export * from '../models/Permission';
 export * from '../models/RefreshRequest';
 export * from '../models/RefreshResponse';
 export * from '../models/Role';
+export * from '../models/RoleDto';
+export * from '../models/RoleWithPermissionDto';
+export * from '../models/SortObject';
+export * from '../models/TicketDto';
+export * from '../models/TicketRequest';
 export * from '../models/TimeSheetDto';
+export * from '../models/User';
 export * from '../models/UserDto';
+export * from '../models/UserWithPermissionDto';
 export * from '../models/WorkTime';
 
+import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
-import { Permission } from '../models/Permission';
+import { PageUserDto } from '../models/PageUserDto';
+import { Pageable } from '../models/Pageable';
+import { PageableObject } from '../models/PageableObject';
+import { Permission , PermissionNameEnum   } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
+import { RoleDto } from '../models/RoleDto';
+import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
+import { SortObject } from '../models/SortObject';
+import { TicketDto   , TicketDtoTypeEnum  , TicketDtoStatusEnum        } from '../models/TicketDto';
+import { TicketRequest , TicketRequestTypeEnum     } from '../models/TicketRequest';
 import { TimeSheetDto } from '../models/TimeSheetDto';
+import { User    , UserUserPositionEnum           } from '../models/User';
 import { UserDto } from '../models/UserDto';
+import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { WorkTime } from '../models/WorkTime';
 
 /* tslint:disable:no-unused-variable */
@@ -31,17 +53,33 @@ let primitives = [
                  ];
 
 let enumsMap: Set<string> = new Set<string>([
+    "PermissionNameEnum",
+    "TicketDtoTypeEnum",
+    "TicketDtoStatusEnum",
+    "TicketRequestTypeEnum",
+    "UserUserPositionEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "GrantedAuthority": GrantedAuthority,
     "LoginRequest": LoginRequest,
     "LoginResponse": LoginResponse,
+    "PageUserDto": PageUserDto,
+    "Pageable": Pageable,
+    "PageableObject": PageableObject,
     "Permission": Permission,
     "RefreshRequest": RefreshRequest,
     "RefreshResponse": RefreshResponse,
     "Role": Role,
+    "RoleDto": RoleDto,
+    "RoleWithPermissionDto": RoleWithPermissionDto,
+    "SortObject": SortObject,
+    "TicketDto": TicketDto,
+    "TicketRequest": TicketRequest,
     "TimeSheetDto": TimeSheetDto,
+    "User": User,
     "UserDto": UserDto,
+    "UserWithPermissionDto": UserWithPermissionDto,
     "WorkTime": WorkTime,
 }
 

@@ -94,6 +94,7 @@ onMounted(async () => {
         :data-source="data"
         :scroll="{ x: 768, y: height - 55 }"
         :pagination="false"
+        class="border-b border-gray-200"
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'user'">
@@ -126,7 +127,7 @@ onMounted(async () => {
           </template>
           <template v-else-if="column.key === 'action'">
             <span>
-              <a>Repair</a>
+              <a>Correction</a>
               <a-divider type="vertical" />
               <a>Overtime</a>
             </span>

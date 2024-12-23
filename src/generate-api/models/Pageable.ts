@@ -10,13 +10,12 @@
  * Do not edit the class manually.
  */
 
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { HttpFile } from '../http/http';
 
-export class LoginResponse {
-    'user'?: UserWithPermissionDto;
-    'token'?: string;
-    'refreshToken'?: string;
+export class Pageable {
+    'page'?: number;
+    'size'?: number;
+    'sort'?: Array<string>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,26 +23,26 @@ export class LoginResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "UserWithPermissionDto",
-            "format": ""
+            "name": "page",
+            "baseName": "page",
+            "type": "number",
+            "format": "int32"
         },
         {
-            "name": "token",
-            "baseName": "token",
-            "type": "string",
-            "format": ""
+            "name": "size",
+            "baseName": "size",
+            "type": "number",
+            "format": "int32"
         },
         {
-            "name": "refreshToken",
-            "baseName": "refreshToken",
-            "type": "string",
+            "name": "sort",
+            "baseName": "sort",
+            "type": "Array<string>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return LoginResponse.attributeTypeMap;
+        return Pageable.attributeTypeMap;
     }
 
     public constructor() {

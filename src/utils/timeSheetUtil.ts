@@ -6,7 +6,7 @@ export function calculateWorkDay(
   startTime: Date,
   endTime: Date,
   workTime: WorkTime,
-) {
+): number {
   let totalWorkingSeconds = 0
 
   const startTimeMorning = localTimeToDate(workTime.startTimeMorning)
@@ -27,7 +27,7 @@ export function calculateWorkDay(
       lateSeconds,
     )
 
-    return add(endTimeAfternoon, { seconds: adjustedSeconds })
+    add(endTimeAfternoon, { seconds: adjustedSeconds })
   }
 
   // Calculate morning work minutes
@@ -41,8 +41,8 @@ export function calculateWorkDay(
 
     if (isBefore(validMorningStart, validMorningEnd)) {
       totalWorkingSeconds += differenceInSeconds(
-        validMorningStart,
         validMorningEnd,
+        validMorningStart,
       )
     }
   }
@@ -58,13 +58,13 @@ export function calculateWorkDay(
 
     if (isBefore(validAfternoonStart, validAfternoonEnd)) {
       totalWorkingSeconds += differenceInSeconds(
-        validAfternoonStart,
         validAfternoonEnd,
+        validAfternoonStart,
       )
     }
   }
 
-  return Math.floor(totalWorkingSeconds / 60)
+  return totalWorkingSeconds / 3600
 }
 
 function isInvalidTimeRange(

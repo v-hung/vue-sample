@@ -1,5 +1,7 @@
 import {
   AccountControllerApi,
+  ApprovalControllerApi,
+  TicketControllerApi,
   TimeSheetControllerApi,
   createConfiguration,
   server1,
@@ -37,5 +39,7 @@ export const configWithRefreshToken = createConfiguration({
 // Use configuration with your_api
 const accountApi = new AccountControllerApi(config)
 const timeSheetApi = new TimeSheetControllerApi(configWithRefreshToken)
+const approvalApi = new ApprovalControllerApi(configWithRefreshToken)
+const ticketApi = new TicketControllerApi(configWithRefreshToken)
 
-export { accountApi, timeSheetApi }
+export { accountApi, timeSheetApi, approvalApi, ticketApi }

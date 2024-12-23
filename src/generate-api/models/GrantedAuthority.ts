@@ -10,13 +10,10 @@
  * Do not edit the class manually.
  */
 
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { HttpFile } from '../http/http';
 
-export class LoginResponse {
-    'user'?: UserWithPermissionDto;
-    'token'?: string;
-    'refreshToken'?: string;
+export class GrantedAuthority {
+    'authority'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,26 +21,14 @@ export class LoginResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "UserWithPermissionDto",
-            "format": ""
-        },
-        {
-            "name": "token",
-            "baseName": "token",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "refreshToken",
-            "baseName": "refreshToken",
+            "name": "authority",
+            "baseName": "authority",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return LoginResponse.attributeTypeMap;
+        return GrantedAuthority.attributeTypeMap;
     }
 
     public constructor() {
