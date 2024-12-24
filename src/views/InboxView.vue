@@ -34,15 +34,15 @@ const columns: ColumnType[] = [
   },
 ]
 
-const data = [
-  {
+const data = Array(100)
+  .fill(0)
+  .map(() => ({
     key: '1',
     type: 'system_report',
     title: 'Đơn xin sửa chấm công của bạn đã được duyệt',
     description: 'Đơn xin sửa chấm công của Nguyễn Việt Hùng đã được duyệt',
     date: 'Dec 4',
-  },
-]
+  }))
 
 const rowSelection: TableProps['rowSelection'] = {
   onChange: (selectedRowKeys: Key[], selectedRows: any[]) => {
@@ -60,37 +60,41 @@ const rowSelection: TableProps['rowSelection'] = {
 </script>
 
 <template>
-  <a-page-header
-    title="Inbox"
-    sub-title="Manager and collaboration within your organization's teams"
-  >
-  </a-page-header>
+  <div class="h-full overflow-y-auto pb-6">
+    <div class="sticky top-0 z-10 bg-white">
+      <a-page-header
+        title="Inbox"
+        sub-title="Manager and collaboration within your organization's teams"
+      >
+      </a-page-header>
 
-  <div class="mx-6 mb-4 h-0 border-0 border-b border-solid border-gray-200" />
+      <div class="header-divine" />
 
-  <div class="px-6">
-    <div class="flex flex-wrap justify-between gap-4 rounded bg-gray-50 p-1">
-      <div class="inline-flex flex-wrap items-center gap-3 rounded-md">
-        <label
-          for="check-all"
-          class="cursor-pointer rounded-md border bg-white px-2 py-1"
-        >
-          <a-checkbox id="check-all" />
-        </label>
-        <a-button
-          :icon="h(ReloadOutlined, { class: 'w-5' })"
-          class="mr-auto text-gray-600"
-        ></a-button>
-        <a-button
-          :icon="h(DeleteOutlined, { class: 'w-5' })"
-          :danger="true"
-          class="mr-auto text-gray-600"
-        ></a-button>
+      <div
+        class="mx-6 flex flex-wrap justify-between gap-4 rounded bg-gray-50 px-6 py-2"
+      >
+        <div class="inline-flex flex-wrap items-center gap-3 rounded-md">
+          <label
+            for="check-all"
+            class="cursor-pointer rounded-md border bg-white px-2 py-1"
+          >
+            <a-checkbox id="check-all" />
+          </label>
+          <a-button
+            :icon="h(ReloadOutlined, { class: 'w-5' })"
+            class="mr-auto text-gray-600"
+          ></a-button>
+          <a-button
+            :icon="h(DeleteOutlined, { class: 'w-5' })"
+            :danger="true"
+            class="mr-auto text-gray-600"
+          ></a-button>
+        </div>
+
+        <a-input placeholder="Enter search here" class="h-10 w-72">
+          <template #prefix> <SearchOutlined /> </template
+        ></a-input>
       </div>
-
-      <a-input placeholder="Enter search here" class="h-10 w-72">
-        <template #prefix> <SearchOutlined /> </template
-      ></a-input>
     </div>
 
     <a-table
@@ -100,6 +104,7 @@ const rowSelection: TableProps['rowSelection'] = {
       :pagination="false"
       :show-header="false"
       :row-selection="rowSelection"
+      class="px-6"
     >
     </a-table>
   </div>

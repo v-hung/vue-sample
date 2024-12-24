@@ -31,7 +31,7 @@ const router = createRouter({
         {
           path: 'timesheet',
           name: 'timesheet',
-          component: () => import('../views/TimeSheetView.vue'),
+          component: () => import('../views/TimesheetView.vue'),
           meta: {
             requiresAuth: true,
             roles: ['timesheet_read'],
