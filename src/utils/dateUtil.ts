@@ -66,7 +66,6 @@ export const timesheetDisabledTime: DisabledTime<Date> = (now: Date | null) => {
 
 export const timesheetValidateTime =
   (workTime: WorkTime) => (rule: any, value: string) => {
-    console.log({ rule, value })
     if (!value) {
       return Promise.reject(new Error('Please choose End time!'))
     }
@@ -76,12 +75,8 @@ export const timesheetValidateTime =
     const startTimeAfternoon = localTimeToDate(workTime.startTimeAfternoon)
     const endTimeAfternoon = localTimeToDate(workTime.endTimeAfternoon)
 
-    console.log(1, 2)
-
     // heck the input value (convert to Date)
     const time = localTimeToDate(value)
-
-    console.log(time)
 
     const isInMorning = isWithinInterval(time, {
       start: startTimeMorning,
@@ -91,8 +86,6 @@ export const timesheetValidateTime =
       start: startTimeAfternoon,
       end: endTimeAfternoon,
     })
-
-    console.log(isInMorning, isInAfternoon)
 
     // Minute conditions
     const validMinutes = [0, 15, 30, 45].includes(time.getMinutes())

@@ -18,7 +18,7 @@ export class UserWithPermissionDto {
     'name': string;
     'username': string;
     'email': string;
-    'roles': Set<RoleWithPermissionDto>;
+    'roles': Array<RoleWithPermissionDto>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -52,7 +52,7 @@ export class UserWithPermissionDto {
         {
             "name": "roles",
             "baseName": "roles",
-            "type": "Set<RoleWithPermissionDto>",
+            "type": "Array<RoleWithPermissionDto>",
             "format": ""
         }    ];
 

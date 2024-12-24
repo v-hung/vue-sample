@@ -1,4 +1,5 @@
 import { ApiException } from '@/generate-api'
+import { getMessageError } from '@/utils/api'
 import { notification } from 'ant-design-vue'
 
 type SuccessResult<T> = T | null
@@ -26,14 +27,9 @@ export const useNotifyPromise = async <T>({
 
     return (data ?? null) as SuccessResult<T>
   } catch (error) {
-    const message =
-      error instanceof ApiException
-        ? JSON.parse(error.body)?.message || 'Oups! Something went wrong!'
-        : 'Oups! Something went wrong!'
-
     notification.error({
       message: 'ERROR',
-      description: message,
+      description: getMessageError(error),
     })
 
     return null

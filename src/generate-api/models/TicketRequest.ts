@@ -17,6 +17,7 @@ export class TicketRequest {
     'type': TicketRequestTypeEnum;
     'description': string;
     'date': string;
+    'typeSpecificData'?: { [key: string]: any; };
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -46,6 +47,12 @@ export class TicketRequest {
             "baseName": "date",
             "type": "string",
             "format": "date"
+        },
+        {
+            "name": "typeSpecificData",
+            "baseName": "typeSpecificData",
+            "type": "{ [key: string]: any; }",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

@@ -137,6 +137,9 @@ const request: TicketControllerApiCreateTicketRequest = {
     type: "TIMESHEET_ADJUSTMENT",
     description: "description_example",
     date: new Date('1970-01-01').toISOString().split('T')[0];,
+    typeSpecificData: {
+      "key": {},
+    },
   },
 };
 

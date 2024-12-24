@@ -10,6 +10,7 @@ import type { TimeSheetDto } from '@/generate-api'
 import { useElementSize } from '@vueuse/core'
 import { isSameMonth } from 'date-fns'
 import { formatDate } from '@/utils/dateUtil'
+import { useTimeSheetStore } from '@/stores/timesheet'
 const columns = [
   { title: 'Date', dataIndex: 'date', key: 'date' },
   { title: 'User', dataIndex: 'user', key: 'user' },
@@ -19,6 +20,9 @@ const columns = [
   { title: 'Requests', key: 'requests', dataIndex: 'requests' },
   { title: 'Action', key: 'action', width: 200 },
 ]
+
+// Store
+const timeSheetStore = useTimeSheetStore()
 
 // States
 const el = ref(null)
@@ -127,7 +131,9 @@ onMounted(async () => {
           </template>
           <template v-else-if="column.key === 'action'">
             <span>
-              <a>Correction</a>
+              <a @click="timeSheetStore.openModelCorrection(record.date)"
+                >Correction</a
+              >
               <a-divider type="vertical" />
               <a>Overtime</a>
             </span>

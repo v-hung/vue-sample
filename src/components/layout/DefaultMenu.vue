@@ -70,10 +70,12 @@ const handelMenuClick = (route: string) => {
             <template #icon><UserOutlined /></template>
           </a-avatar>
           <div class="h-10 whitespace-nowrap">
-            <h1 class="mb-0 text-base font-semibold">
+            <h1 class="mb-0 text-base font-semibold capitalize">
               {{ accountStore.user?.name }}
             </h1>
-            <p class="mb-0 text-xs text-gray-600">Developer / Employee</p>
+            <p class="mb-0 text-xs text-gray-600">
+              {{ accountStore.user?.email }}
+            </p>
           </div>
         </div>
         <template #overlay>

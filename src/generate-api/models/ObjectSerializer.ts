@@ -33,7 +33,7 @@ import { RoleDto } from '../models/RoleDto';
 import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
 import { TicketDto   , TicketDtoTypeEnum  , TicketDtoStatusEnum        } from '../models/TicketDto';
-import { TicketRequest , TicketRequestTypeEnum     } from '../models/TicketRequest';
+import { TicketRequest , TicketRequestTypeEnum      } from '../models/TicketRequest';
 import { TimeSheetDto } from '../models/TimeSheetDto';
 import { User    , UserUserPositionEnum           } from '../models/User';
 import { UserDto } from '../models/UserDto';

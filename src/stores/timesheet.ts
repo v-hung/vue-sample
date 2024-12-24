@@ -66,12 +66,12 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
   /**
    * open model timesheet correction
    *
-   * @param data timesheetId
+   * @param data date
    */
-  const openModelCorrection = (id?: string) => {
+  const openModelCorrection = (date?: string) => {
     isOpenModelCorrection.value = true
 
-    valueModelCorrection.value = id
+    valueModelCorrection.value = date
   }
 
   return {

@@ -16,15 +16,15 @@ import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
 export class PageUserDto {
-    'totalPages'?: number;
     'totalElements'?: number;
-    'first'?: boolean;
-    'last'?: boolean;
+    'totalPages'?: number;
     'size'?: number;
     'content'?: Array<UserDto>;
     'number'?: number;
     'sort'?: Array<SortObject>;
     'numberOfElements'?: number;
+    'first'?: boolean;
+    'last'?: boolean;
     'pageable'?: PageableObject;
     'empty'?: boolean;
 
@@ -34,28 +34,16 @@ export class PageUserDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "totalPages",
-            "baseName": "totalPages",
-            "type": "number",
-            "format": "int32"
-        },
-        {
             "name": "totalElements",
             "baseName": "totalElements",
             "type": "number",
             "format": "int64"
         },
         {
-            "name": "first",
-            "baseName": "first",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "last",
-            "baseName": "last",
-            "type": "boolean",
-            "format": ""
+            "name": "totalPages",
+            "baseName": "totalPages",
+            "type": "number",
+            "format": "int32"
         },
         {
             "name": "size",
@@ -86,6 +74,18 @@ export class PageUserDto {
             "baseName": "numberOfElements",
             "type": "number",
             "format": "int32"
+        },
+        {
+            "name": "first",
+            "baseName": "first",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "last",
+            "baseName": "last",
+            "type": "boolean",
+            "format": ""
         },
         {
             "name": "pageable",

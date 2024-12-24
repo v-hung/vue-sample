@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import type { UserDto } from '@/generate-api'
+import { TicketRequestTypeEnum, type UserDto } from '@/generate-api'
 import { approvalApi, ticketApi } from '@/lib/api'
 import { useTimeSheetStore } from '@/stores/timesheet'
-import { timesheetDisabledTime, timesheetValidateTime } from '@/utils/dateUtil'
+import { getMessageError } from '@/utils/api'
+import {
+  formatDate,
+  timesheetDisabledTime,
+  timesheetValidateTime,
+} from '@/utils/dateUtil'
+import { notification } from 'ant-design-vue'
 import DatePicker from 'ant-design-vue/es/date-picker/date-fns'
 import TimePicker from 'ant-design-vue/es/time-picker/date-fns'
-import { onMounted, reactive, ref, toRaw, type UnwrapRef } from 'vue'
+import { onMounted, onUpdated, reactive, ref } from 'vue'
 
 // Store
 const timeSheetStore = useTimeSheetStore()
@@ -16,26 +22,46 @@ const reviews = ref<UserDto[]>([])
 const formRef = ref()
 const formState = reactive({
   reviewerId: '',
-  correctionDate: undefined,
-  startTime: undefined,
-  endTime: undefined,
-  reason: undefined,
+  correctionDate: '',
+  startTime: '',
+  endTime: '',
+  reason: '',
 })
 
 // const rules
 
 // Methods
 const handelSubmit = async () => {
-  formRef.value
-    .validate()
-    .then(() => {
-      console.log('values', formState, toRaw(formState))
-    })
-    .catch((error: any) => {
-      console.log('error', error)
-    })
-  // ticketApi.createTicket({
-  // })
+  formRef.value.validate().then(async () => {
+    confirmLoading.value = true
+
+    await ticketApi
+      .createTicket({
+        type: TicketRequestTypeEnum.TimesheetAdjustment,
+        approverId: +formState.reviewerId,
+        date: formState.correctionDate,
+        typeSpecificData: {
+          startTime: formState.startTime,
+          endTime: formState.endTime,
+        },
+        description: formState.reason,
+      })
+      .then(() => {
+        timeSheetStore.isOpenModelCorrection = false
+        confirmLoading.value = false
+
+        notification.success({
+          message: 'Successfully Completed',
+          description: 'Create ticket successfully',
+        })
+      })
+      .catch((error: any) => {
+        notification.error({
+          message: 'ERROR',
+          description: getMessageError(error),
+        })
+      })
+  })
 }
 
 const resetForm = () => {
@@ -47,6 +73,11 @@ onMounted(async () => {
   approvalApi.getCandidates('TIMESHEET_ADJUSTMENT').then(data => {
     reviews.value = data
   })
+})
+
+onUpdated(() => {
+  formState.correctionDate =
+    timeSheetStore.valueModelCorrection || formatDate(new Date(), 'yyyy-MM-dd')
 })
 </script>
 
@@ -72,7 +103,6 @@ onMounted(async () => {
         <a-select
           placeholder="please choose Reviewer"
           v-model:value="formState.reviewerId"
-          :loading="true"
         >
           <template v-for="review in reviews">
             <a-select-option :value="review.id">{{
