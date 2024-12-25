@@ -13,7 +13,7 @@
 import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
-export class TimeSheetDto {
+export class TimesheetDto {
     'id': string;
     'date': string;
     'startTime'?: string;
@@ -78,7 +78,7 @@ export class TimeSheetDto {
         }    ];
 
     static getAttributeTypeMap() {
-        return TimeSheetDto.attributeTypeMap;
+        return TimesheetDto.attributeTypeMap;
     }
 
     public constructor() {

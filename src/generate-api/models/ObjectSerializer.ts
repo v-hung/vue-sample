@@ -13,7 +13,7 @@ export * from '../models/RoleWithPermissionDto';
 export * from '../models/SortObject';
 export * from '../models/TicketDto';
 export * from '../models/TicketRequest';
-export * from '../models/TimeSheetDto';
+export * from '../models/TimesheetDto';
 export * from '../models/User';
 export * from '../models/UserDto';
 export * from '../models/UserWithPermissionDto';
@@ -34,7 +34,7 @@ import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
 import { TicketDto   , TicketDtoTypeEnum  , TicketDtoStatusEnum        } from '../models/TicketDto';
 import { TicketRequest , TicketRequestTypeEnum      } from '../models/TicketRequest';
-import { TimeSheetDto } from '../models/TimeSheetDto';
+import { TimesheetDto } from '../models/TimesheetDto';
 import { User    , UserUserPositionEnum           } from '../models/User';
 import { UserDto } from '../models/UserDto';
 import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
@@ -76,7 +76,7 @@ let typeMap: {[index: string]: any} = {
     "SortObject": SortObject,
     "TicketDto": TicketDto,
     "TicketRequest": TicketRequest,
-    "TimeSheetDto": TimeSheetDto,
+    "TimesheetDto": TimesheetDto,
     "User": User,
     "UserDto": UserDto,
     "UserWithPermissionDto": UserWithPermissionDto,

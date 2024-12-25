@@ -1,12 +1,7 @@
 <script lang="ts" setup>
-import CheckIcon from '@/assets/CheckIcon.vue'
 import UsIcon from '@/assets/UsIcon.vue'
 import ViIcon from '@/assets/ViIcon.vue'
-import {
-  loadLocaleMessages,
-  switchLocale,
-  type SupportedLocales,
-} from '@/i18n/translation'
+import { switchLocale } from '@/i18n/translation'
 import { h } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -30,7 +25,7 @@ const logout = () => {
         <div class="flex items-center justify-between space-x-2">
           <span>{{ $t('locale.vi-VN') }}</span>
           <template v-if="i18n.locale.value == 'vi-VN'">
-            <CheckIcon class="w-4 text-sky-500" />
+            <i-ion-checkmark class="w-4 text-sky-500" />
           </template>
         </div>
       </a-menu-item>
@@ -43,7 +38,7 @@ const logout = () => {
         <div class="flex items-center justify-between space-x-2">
           <span>{{ $t('locale.en-US') }}</span>
           <template v-if="i18n.locale.value == 'en-US'">
-            <CheckIcon class="w-4 text-sky-500" />
+            <i-ion-checkmark class="w-4 text-sky-500" />
           </template>
         </div>
       </a-menu-item>

@@ -17,9 +17,9 @@ export class PageableObject {
     'offset'?: number;
     'sort'?: Array<SortObject>;
     'unpaged'?: boolean;
-    'pageNumber'?: number;
     'paged'?: boolean;
     'pageSize'?: number;
+    'pageNumber'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -45,12 +45,6 @@ export class PageableObject {
             "format": ""
         },
         {
-            "name": "pageNumber",
-            "baseName": "pageNumber",
-            "type": "number",
-            "format": "int32"
-        },
-        {
             "name": "paged",
             "baseName": "paged",
             "type": "boolean",
@@ -59,6 +53,12 @@ export class PageableObject {
         {
             "name": "pageSize",
             "baseName": "pageSize",
+            "type": "number",
+            "format": "int32"
+        },
+        {
+            "name": "pageNumber",
+            "baseName": "pageNumber",
             "type": "number",
             "format": "int32"
         }    ];

@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import { DownOutlined, UserOutlined } from '@ant-design/icons-vue'
-import ListIcon from '@/assets/ListIcon.vue'
+import IonList from '~icons/ion/list'
 import { h, onMounted, ref, watch } from 'vue'
-import CalendarCheckIcon from '@/assets/CalendarCheckIcon.vue'
+import BxCalendarCheck from '~icons/bx/calendar-check'
 import DatePicker from 'ant-design-vue/es/date-picker/date-fns'
-import { timeSheetApi } from '@/lib/api'
+import { timesheetApi } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
-import type { TimeSheetDto } from '@/generate-api'
+import type { TimesheetDto } from '@/generate-api'
 import { useElementSize } from '@vueuse/core'
 import { isSameMonth } from 'date-fns'
 import { formatDate } from '@/utils/dateUtil'
-import { useTimeSheetStore } from '@/stores/timesheet'
+import { useTimesheetStore } from '@/stores/timesheet'
 const columns = [
   { title: 'Date', dataIndex: 'date', key: 'date' },
   { title: 'User', dataIndex: 'user', key: 'user' },
@@ -22,7 +22,7 @@ const columns = [
 ]
 
 // Store
-const timeSheetStore = useTimeSheetStore()
+const timesheetStore = useTimesheetStore()
 
 // States
 const el = ref(null)
@@ -30,18 +30,18 @@ const { height } = useElementSize(el)
 const loading = ref(true)
 const month = ref(new Date())
 
-const data = ref<TimeSheetDto[]>([])
+const data = ref<TimesheetDto[]>([])
 
 watch(month, async newMonth => {
   loading.value = true
 
-  const timeSheets = await useNotifyPromise({
-    callback: timeSheetApi.getMonthlyTimeSheets(
+  const timesheets = await useNotifyPromise({
+    callback: timesheetApi.getMonthlyTimesheets(
       formatDate(newMonth, 'yyyy-MM'),
     ),
   })
 
-  data.value = timeSheets ? timeSheets : []
+  data.value = timesheets ? timesheets : []
 
   loading.value = false
 })
@@ -50,11 +50,11 @@ watch(month, async newMonth => {
 onMounted(async () => {
   loading.value = true
 
-  const timeSheets = await useNotifyPromise({
-    callback: timeSheetApi.getMonthlyTimeSheets(),
+  const timesheets = await useNotifyPromise({
+    callback: timesheetApi.getMonthlyTimesheets(),
   })
 
-  data.value = timeSheets ? timeSheets : []
+  data.value = timesheets ? timesheets : []
 
   loading.value = false
 })
@@ -64,14 +64,14 @@ onMounted(async () => {
   <div class="mb-2 flex flex-none justify-between gap-2 px-6">
     <DatePicker v-model:value="month" picker="month" />
     <a-button
-      :icon="h(CalendarCheckIcon, { class: 'w-5' })"
+      :icon="h(BxCalendarCheck, { class: 'w-5' })"
       class="mr-auto text-gray-600"
       :class="{ '!text-sky-500': isSameMonth(month, new Date()) }"
       @click.prevent="month = new Date()"
     ></a-button>
     <a-dropdown :trigger="['click']" placement="bottomLeft">
       <a-button class="flex items-center text-sm" type="text">
-        <ListIcon class="mr-1 w-5" />
+        <IonList class="mr-1 w-5" />
         <span>List view</span>
         <DownOutlined class="text-xs leading-none" />
       </a-button>
@@ -131,7 +131,7 @@ onMounted(async () => {
           </template>
           <template v-else-if="column.key === 'action'">
             <span>
-              <a @click="timeSheetStore.openModelCorrection(record.date)"
+              <a @click="timesheetStore.openModelCorrection(record.date)"
                 >Correction</a
               >
               <a-divider type="vertical" />

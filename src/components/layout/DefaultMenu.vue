@@ -6,8 +6,8 @@ import MenuItemBadge from '../UI/MenuItemBadge.vue'
 import Simplebar from 'simplebar-vue'
 import 'simplebar-vue/dist/simplebar.min.css'
 import { useRouter } from 'vue-router'
-import MenuIcon from '@/assets/MenuIcon.vue'
-import XIcon from '@/assets/XIcon.vue'
+import IonMenu from '~icons/ion/menu'
+import IonClose from '~icons/ion/close'
 import { useAccountStore } from '@/stores/account'
 
 // account
@@ -114,7 +114,7 @@ const handelMenuClick = (route: string) => {
 
     <div class="absolute left-full top-1/2 -translate-x-1 lg:hidden">
       <a-button type="primary" @click.prevent="handelToggleMenu()" class="px-1">
-        <component :is="!isShowMenu ? MenuIcon : XIcon"></component>
+        <component :is="!isShowMenu ? IonMenu : IonClose"></component>
       </a-button>
     </div>
   </div>

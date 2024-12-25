@@ -64,9 +64,9 @@ const request: UserControllerApiCreateUserRequest = {
       },
     ],
     currentLevel: 1,
-    accountNonLocked: true,
-    credentialsNonExpired: true,
     accountNonExpired: true,
+    credentialsNonExpired: true,
+    accountNonLocked: true,
   },
 };
 
@@ -320,9 +320,9 @@ const request: UserControllerApiUpdateUserRequest = {
       },
     ],
     currentLevel: 1,
-    accountNonLocked: true,
-    credentialsNonExpired: true,
     accountNonExpired: true,
+    credentialsNonExpired: true,
+    accountNonLocked: true,
   },
 };
 

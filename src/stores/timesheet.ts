@@ -1,11 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { accountApi, timeSheetApi } from '@/lib/api'
+import { accountApi, timesheetApi } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
 import { localTimeToDate } from '@/utils/dateUtil'
 import type { WorkTime } from '@/generate-api'
 
-export const useTimeSheetStore = defineStore('timeSheet', () => {
+export const useTimesheetStore = defineStore('timesheet', () => {
   // Stages
   const startTime = ref<Date>()
   const timeDifference = ref(0)
@@ -20,7 +20,7 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
    */
   const checkIn = async () => {
     const data = await useNotifyPromise({
-      callback: timeSheetApi.checkIn(),
+      callback: timesheetApi.checkIn(),
     })
 
     startTime.value = data?.startTime
@@ -34,7 +34,7 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
    */
   const checkOut = async () => {
     const data = await useNotifyPromise({
-      callback: timeSheetApi.checkOut(),
+      callback: timesheetApi.checkOut(),
     })
 
     endTime.value = data?.endTime ? localTimeToDate(data.endTime) : undefined
@@ -46,7 +46,7 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
   const today = async () => {
     if (startTime.value) return
 
-    const data = await timeSheetApi.getTodayTimeSheet()
+    const data = await timesheetApi.getTodayTimesheet()
 
     startTime.value = data.startTime
       ? localTimeToDate(data.startTime)
@@ -60,7 +60,7 @@ export const useTimeSheetStore = defineStore('timeSheet', () => {
   const getCurrentWorkTime = async () => {
     if (workTime.value) return
 
-    workTime.value = await timeSheetApi.getTimes()
+    workTime.value = await timesheetApi.getTimes()
   }
 
   /**

@@ -1,28 +1,28 @@
-# .TimeSheetControllerApi
+# .TimesheetControllerApi
 
 All URIs are relative to *http://localhost:8085*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**checkIn**](TimeSheetControllerApi.md#checkIn) | **POST** /api/timesheets/checkin | 
-[**checkOut**](TimeSheetControllerApi.md#checkOut) | **POST** /api/timesheets/checkout | 
-[**getMonthlyTimeSheets**](TimeSheetControllerApi.md#getMonthlyTimeSheets) | **GET** /api/timesheets/monthly | 
-[**getTimes**](TimeSheetControllerApi.md#getTimes) | **GET** /api/timesheets/work-times | 
-[**getTodayTimeSheet**](TimeSheetControllerApi.md#getTodayTimeSheet) | **GET** /api/timesheets/today | 
+[**checkIn**](TimesheetControllerApi.md#checkIn) | **POST** /api/timesheets/checkin | 
+[**checkOut**](TimesheetControllerApi.md#checkOut) | **POST** /api/timesheets/checkout | 
+[**getMonthlyTimesheets**](TimesheetControllerApi.md#getMonthlyTimesheets) | **GET** /api/timesheets/monthly | 
+[**getTimes**](TimesheetControllerApi.md#getTimes) | **GET** /api/timesheets/work-times | 
+[**getTodayTimesheet**](TimesheetControllerApi.md#getTodayTimesheet) | **GET** /api/timesheets/today | 
 
 
 # **checkIn**
-> TimeSheetDto checkIn()
+> TimesheetDto checkIn()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TimeSheetControllerApi } from '';
+import { createConfiguration, TimesheetControllerApi } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TimeSheetControllerApi(configuration);
+const apiInstance = new TimesheetControllerApi(configuration);
 
 const request = {};
 
@@ -37,7 +37,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**TimeSheetDto**
+**TimesheetDto**
 
 ### Authorization
 
@@ -57,17 +57,17 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **checkOut**
-> TimeSheetDto checkOut()
+> TimesheetDto checkOut()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TimeSheetControllerApi } from '';
+import { createConfiguration, TimesheetControllerApi } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TimeSheetControllerApi(configuration);
+const apiInstance = new TimesheetControllerApi(configuration);
 
 const request = {};
 
@@ -82,7 +82,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**TimeSheetDto**
+**TimesheetDto**
 
 ### Authorization
 
@@ -101,26 +101,26 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getMonthlyTimeSheets**
-> Array<TimeSheetDto> getMonthlyTimeSheets()
+# **getMonthlyTimesheets**
+> Array<TimesheetDto> getMonthlyTimesheets()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TimeSheetControllerApi } from '';
-import type { TimeSheetControllerApiGetMonthlyTimeSheetsRequest } from '';
+import { createConfiguration, TimesheetControllerApi } from '';
+import type { TimesheetControllerApiGetMonthlyTimesheetsRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TimeSheetControllerApi(configuration);
+const apiInstance = new TimesheetControllerApi(configuration);
 
-const request: TimeSheetControllerApiGetMonthlyTimeSheetsRequest = {
+const request: TimesheetControllerApiGetMonthlyTimesheetsRequest = {
   
   month: "month_example",
 };
 
-const data = await apiInstance.getMonthlyTimeSheets(request);
+const data = await apiInstance.getMonthlyTimesheets(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Array<TimeSheetDto>**
+**Array<TimesheetDto>**
 
 ### Authorization
 
@@ -161,10 +161,10 @@ Name | Type | Description  | Notes
 
 
 ```typescript
-import { createConfiguration, TimeSheetControllerApi } from '';
+import { createConfiguration, TimesheetControllerApi } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TimeSheetControllerApi(configuration);
+const apiInstance = new TimesheetControllerApi(configuration);
 
 const request = {};
 
@@ -198,22 +198,22 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getTodayTimeSheet**
-> TimeSheetDto getTodayTimeSheet()
+# **getTodayTimesheet**
+> TimesheetDto getTodayTimesheet()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TimeSheetControllerApi } from '';
+import { createConfiguration, TimesheetControllerApi } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TimeSheetControllerApi(configuration);
+const apiInstance = new TimesheetControllerApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.getTodayTimeSheet(request);
+const data = await apiInstance.getTodayTimesheet(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -224,7 +224,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**TimeSheetDto**
+**TimesheetDto**
 
 ### Authorization
 

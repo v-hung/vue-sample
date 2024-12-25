@@ -16,8 +16,8 @@ import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
 export class PageUserDto {
-    'totalElements'?: number;
     'totalPages'?: number;
+    'totalElements'?: number;
     'size'?: number;
     'content'?: Array<UserDto>;
     'number'?: number;
@@ -34,16 +34,16 @@ export class PageUserDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "totalElements",
-            "baseName": "totalElements",
-            "type": "number",
-            "format": "int64"
-        },
-        {
             "name": "totalPages",
             "baseName": "totalPages",
             "type": "number",
             "format": "int32"
+        },
+        {
+            "name": "totalElements",
+            "baseName": "totalElements",
+            "type": "number",
+            "format": "int64"
         },
         {
             "name": "size",

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TicketRequestTypeEnum, type UserDto } from '@/generate-api'
 import { approvalApi, ticketApi } from '@/lib/api'
-import { useTimeSheetStore } from '@/stores/timesheet'
+import { useTimesheetStore } from '@/stores/timesheet'
 import { getMessageError } from '@/utils/api'
 import {
   formatDate,
@@ -14,7 +14,7 @@ import TimePicker from 'ant-design-vue/es/time-picker/date-fns'
 import { onMounted, onUpdated, reactive, ref } from 'vue'
 
 // Store
-const timeSheetStore = useTimeSheetStore()
+const timesheetStore = useTimesheetStore()
 
 // Stages
 const confirmLoading = ref<boolean>(false)
@@ -47,7 +47,7 @@ const handelSubmit = async () => {
         description: formState.reason,
       })
       .then(() => {
-        timeSheetStore.isOpenModelCorrection = false
+        timesheetStore.isOpenModelCorrection = false
         confirmLoading.value = false
 
         notification.success({
@@ -77,14 +77,14 @@ onMounted(async () => {
 
 onUpdated(() => {
   formState.correctionDate =
-    timeSheetStore.valueModelCorrection || formatDate(new Date(), 'yyyy-MM-dd')
+    timesheetStore.valueModelCorrection || formatDate(new Date(), 'yyyy-MM-dd')
 })
 </script>
 
 <template>
   <a-modal
     title="Application for correction of attendance date"
-    v-model:open="timeSheetStore.isOpenModelCorrection"
+    v-model:open="timesheetStore.isOpenModelCorrection"
     :confirm-loading="confirmLoading"
     @ok="handelSubmit"
     @cancel="resetForm"
@@ -130,7 +130,7 @@ onUpdated(() => {
           :rules="[
             { required: true, message: 'Please choose Correction date!' },
             {
-              validator: timesheetValidateTime(timeSheetStore.workTime!),
+              validator: timesheetValidateTime(timesheetStore.workTime!),
             },
           ]"
         >
@@ -151,7 +151,7 @@ onUpdated(() => {
           name="endTime"
           :rules="[
             { required: true, message: 'Please choose Correction date!' },
-            { validator: timesheetValidateTime(timeSheetStore.workTime!) },
+            { validator: timesheetValidateTime(timesheetStore.workTime!) },
           ]"
         >
           <TimePicker

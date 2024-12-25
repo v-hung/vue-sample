@@ -7,6 +7,8 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { dirname, resolve } from 'node:path'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,7 +16,7 @@ export default defineConfig({
     vue(),
     // vueDevTools(),
     Components({
-      dts: true,
+      dts: 'src/types/components.d.ts',
       types: [
         {
           from: 'vue-router',
@@ -25,7 +27,16 @@ export default defineConfig({
         AntDesignVueResolver({
           importStyle: false, // css in js
         }),
+        IconsResolver(),
       ],
+    }),
+    Icons({
+      autoInstall: true,
+      compiler: 'vue3',
+      iconCustomizer(_, __, props) {
+        props.width = '24px'
+        props.height = '24px'
+      },
     }),
     VueI18nPlugin({
       /* options */

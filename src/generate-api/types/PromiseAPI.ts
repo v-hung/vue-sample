@@ -16,7 +16,7 @@ import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
-import { TimeSheetDto } from '../models/TimeSheetDto';
+import { TimesheetDto } from '../models/TimesheetDto';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
@@ -265,44 +265,44 @@ export class PromiseTicketControllerApi {
 
 
 
-import { ObservableTimeSheetControllerApi } from './ObservableAPI';
+import { ObservableTimesheetControllerApi } from './ObservableAPI';
 
-import { TimeSheetControllerApiRequestFactory, TimeSheetControllerApiResponseProcessor} from "../apis/TimeSheetControllerApi";
-export class PromiseTimeSheetControllerApi {
-    private api: ObservableTimeSheetControllerApi
+import { TimesheetControllerApiRequestFactory, TimesheetControllerApiResponseProcessor} from "../apis/TimesheetControllerApi";
+export class PromiseTimesheetControllerApi {
+    private api: ObservableTimesheetControllerApi
 
     public constructor(
         configuration: Configuration,
-        requestFactory?: TimeSheetControllerApiRequestFactory,
-        responseProcessor?: TimeSheetControllerApiResponseProcessor
+        requestFactory?: TimesheetControllerApiRequestFactory,
+        responseProcessor?: TimesheetControllerApiResponseProcessor
     ) {
-        this.api = new ObservableTimeSheetControllerApi(configuration, requestFactory, responseProcessor);
+        this.api = new ObservableTimesheetControllerApi(configuration, requestFactory, responseProcessor);
     }
 
     /**
      */
-    public checkInWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
+    public checkInWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimesheetDto>> {
         const result = this.api.checkInWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public checkIn(_options?: Configuration): Promise<TimeSheetDto> {
+    public checkIn(_options?: Configuration): Promise<TimesheetDto> {
         const result = this.api.checkIn(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public checkOutWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
+    public checkOutWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimesheetDto>> {
         const result = this.api.checkOutWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public checkOut(_options?: Configuration): Promise<TimeSheetDto> {
+    public checkOut(_options?: Configuration): Promise<TimesheetDto> {
         const result = this.api.checkOut(_options);
         return result.toPromise();
     }
@@ -310,16 +310,16 @@ export class PromiseTimeSheetControllerApi {
     /**
      * @param [month]
      */
-    public getMonthlyTimeSheetsWithHttpInfo(month?: string, _options?: Configuration): Promise<HttpInfo<Array<TimeSheetDto>>> {
-        const result = this.api.getMonthlyTimeSheetsWithHttpInfo(month, _options);
+    public getMonthlyTimesheetsWithHttpInfo(month?: string, _options?: Configuration): Promise<HttpInfo<Array<TimesheetDto>>> {
+        const result = this.api.getMonthlyTimesheetsWithHttpInfo(month, _options);
         return result.toPromise();
     }
 
     /**
      * @param [month]
      */
-    public getMonthlyTimeSheets(month?: string, _options?: Configuration): Promise<Array<TimeSheetDto>> {
-        const result = this.api.getMonthlyTimeSheets(month, _options);
+    public getMonthlyTimesheets(month?: string, _options?: Configuration): Promise<Array<TimesheetDto>> {
+        const result = this.api.getMonthlyTimesheets(month, _options);
         return result.toPromise();
     }
 
@@ -339,15 +339,15 @@ export class PromiseTimeSheetControllerApi {
 
     /**
      */
-    public getTodayTimeSheetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
-        const result = this.api.getTodayTimeSheetWithHttpInfo(_options);
+    public getTodayTimesheetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<TimesheetDto>> {
+        const result = this.api.getTodayTimesheetWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public getTodayTimeSheet(_options?: Configuration): Promise<TimeSheetDto> {
-        const result = this.api.getTodayTimeSheet(_options);
+    public getTodayTimesheet(_options?: Configuration): Promise<TimesheetDto> {
+        const result = this.api.getTodayTimesheet(_options);
         return result.toPromise();
     }
 

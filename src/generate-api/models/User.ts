@@ -26,9 +26,9 @@ export class User {
     'enabled'?: boolean;
     'authorities'?: Array<GrantedAuthority>;
     'currentLevel'?: number;
-    'accountNonLocked'?: boolean;
-    'credentialsNonExpired'?: boolean;
     'accountNonExpired'?: boolean;
+    'credentialsNonExpired'?: boolean;
+    'accountNonLocked'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -96,8 +96,8 @@ export class User {
             "format": "int32"
         },
         {
-            "name": "accountNonLocked",
-            "baseName": "accountNonLocked",
+            "name": "accountNonExpired",
+            "baseName": "accountNonExpired",
             "type": "boolean",
             "format": ""
         },
@@ -108,8 +108,8 @@ export class User {
             "format": ""
         },
         {
-            "name": "accountNonExpired",
-            "baseName": "accountNonExpired",
+            "name": "accountNonLocked",
+            "baseName": "accountNonLocked",
             "type": "boolean",
             "format": ""
         }    ];

@@ -1,17 +1,17 @@
 import type { MenuItem } from '@/types/app'
 import { h } from 'vue'
-import GroupIcon from '@/assets/GroupIcon.vue'
-import HomeIcon from '@/assets/HomeIcon.vue'
-import TimeIcon from '@/assets/TimeIcon.vue'
-import InboxIcon from '@/assets/InboxIcon.vue'
-import ChalkboardIcon from '@/assets/ChalkboardIcon.vue'
-import UserCircleIcon from '@/assets/UserCircleIcon.vue'
-import PieChartIcon from '@/assets/PieChartIcon.vue'
-import SelectionIcon from '@/assets/SelectionIcon.vue'
-import LockIcon from '@/assets/LockIcon.vue'
-import PackageIcon from '@/assets/PackageIcon.vue'
-import CogIcon from '@/assets/CogIcon.vue'
-import MailSendIcon from '@/assets/MailSendIcon.vue'
+import IonHomeOutline from '~icons/ion/home-outline'
+import IonMailNotificationOutline from '~icons/ion/mail-notification-outline'
+import IonClock from '~icons/ion/clock'
+import IonPeopleCircleOutline from '~icons/ion/people-circle-outline'
+import IonDocumentsOutline from '~icons/ion/documents-outline'
+import IonPeopleOutline from '~icons/ion/people-outline'
+import IonPersonOutline from '~icons/ion/person-outline'
+import IonLockClosedOutline from '~icons/ion/lock-closed-outline'
+import IonCogOutline from '~icons/ion/cog-outline'
+import IonSendOutline from '~icons/ion/send-outline'
+import IonPieChartOutline from '~icons/ion/pie-chart-outline'
+import IonCubeOutline from '~icons/ion/cube-outline'
 
 export const MENUS_DEFAULT: MenuItem[] = [
   {
@@ -20,23 +20,23 @@ export const MENUS_DEFAULT: MenuItem[] = [
   },
   {
     path: '/',
-    icon: () => h(HomeIcon),
+    icon: () => h(IonHomeOutline),
     title: 'menus.home',
   },
   {
     path: '/inbox',
-    icon: () => h(InboxIcon),
+    icon: () => h(IonMailNotificationOutline),
     title: 'menus.inbox',
     badge: 4,
   },
   {
     path: '/timesheet',
-    icon: () => h(TimeIcon),
+    icon: () => h(IonClock),
     title: 'Timesheet',
   },
   {
     path: '/metting',
-    icon: () => h(ChalkboardIcon),
+    icon: () => h(IonPeopleCircleOutline),
     title: 'Metting',
   },
   {
@@ -45,22 +45,22 @@ export const MENUS_DEFAULT: MenuItem[] = [
   },
   {
     path: '/project',
-    icon: () => h(SelectionIcon),
+    icon: () => h(IonDocumentsOutline),
     title: 'Project',
   },
   {
     path: '/team',
-    icon: () => h(GroupIcon),
+    icon: () => h(IonPeopleOutline),
     title: 'Team',
   },
   {
     path: '/employee',
-    icon: () => h(UserCircleIcon),
+    icon: () => h(IonPersonOutline),
     title: 'Employee',
   },
   {
     path: '/permisstion',
-    icon: () => h(LockIcon),
+    icon: () => h(IonLockClosedOutline),
     title: 'Permisstion',
     children: [
       {
@@ -75,7 +75,7 @@ export const MENUS_DEFAULT: MenuItem[] = [
   },
   {
     path: '/inventory',
-    icon: () => h(PackageIcon),
+    icon: () => h(IonCubeOutline),
     title: 'Inventory',
   },
   {
@@ -84,17 +84,17 @@ export const MENUS_DEFAULT: MenuItem[] = [
   },
   {
     path: '/setting',
-    icon: () => h(CogIcon),
+    icon: () => h(IonCogOutline),
     title: 'Setting',
   },
   {
     path: '/send-mail',
-    icon: () => h(MailSendIcon),
+    icon: () => h(IonSendOutline),
     title: 'Send Mail',
   },
   {
     path: '/report',
-    icon: () => h(PieChartIcon),
+    icon: () => h(IonPieChartOutline),
     title: 'Report',
   },
 ]

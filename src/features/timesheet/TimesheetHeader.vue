@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import PauseIcon from '@/assets/PauseIcon.vue'
-import PlayIcon from '@/assets/PlayIcon.vue'
-import StopWatchIcon from '@/assets/StopWatchIcon.vue'
-import { useTimeSheetStore } from '@/stores/timesheet'
+import IonPauseCircleOutline from '~icons/ion/pause-circle-outline'
+import IonPlayCircleOutline from '~icons/ion/play-circle-outline'
+import IonStopwatchOutline from '~icons/ion/stopwatch-outline'
+import { useTimesheetStore } from '@/stores/timesheet'
 import { formatDate } from '@/utils/dateUtil'
-import { calculateWorkDay } from '@/utils/timeSheetUtil'
+import { calculateWorkDay } from '@/utils/timesheetUtil'
 import { onMounted, onUnmounted, ref, computed, watch, h } from 'vue'
 
 // Store
-const timeSheetStore = useTimeSheetStore()
+const timesheetStore = useTimesheetStore()
 
 // State
 const firstLoading = ref(true)
@@ -18,8 +18,8 @@ const intervalId = ref<ReturnType<typeof setInterval> | null>(null)
 
 // Computed
 const timeString = ref(
-  timeSheetStore.startTime
-    ? formatDate(timeSheetStore.startTime)
+  timesheetStore.startTime
+    ? formatDate(timesheetStore.startTime)
     : '--:-- <> --:--:--',
 )
 
@@ -27,7 +27,7 @@ const timeString = ref(
 const startTimer = () => {
   updateTimeUI()
 
-  if (!timeSheetStore.endTime) {
+  if (!timesheetStore.endTime) {
     intervalId.value = setInterval(updateTimeUI, 1000)
   }
 }
@@ -42,8 +42,8 @@ const stopTimer = () => {
 const checkIn = async () => {
   checkInLoading.value = true
   try {
-    await timeSheetStore.checkIn()
-    if (timeSheetStore.startTime) {
+    await timesheetStore.checkIn()
+    if (timesheetStore.startTime) {
       startTimer()
     }
   } finally {
@@ -54,7 +54,7 @@ const checkIn = async () => {
 const checkOut = async () => {
   checkOutLoading.value = true
   try {
-    await timeSheetStore.checkOut()
+    await timesheetStore.checkOut()
     stopTimer()
   } finally {
     checkOutLoading.value = false
@@ -62,18 +62,18 @@ const checkOut = async () => {
 }
 
 const updateTimeUI = () => {
-  if (!timeSheetStore.startTime) {
+  if (!timesheetStore.startTime) {
     timeString.value = '--:-- <> --:--:--'
     return
   }
 
-  let currentServerTime = new Date(Date.now() - timeSheetStore.timeDifference)
+  let currentServerTime = new Date(Date.now() - timesheetStore.timeDifference)
   let currentServerTimeFormatted = formatDate(currentServerTime, 'HH:mm:ss')
 
   let durationWork = calculateWorkDay(
-    timeSheetStore.startTime,
+    timesheetStore.startTime,
     currentServerTime,
-    timeSheetStore.workTime!,
+    timesheetStore.workTime!,
   )
 
   timeString.value = `${durationWork.toFixed(2)} <> ${currentServerTimeFormatted}`
@@ -83,11 +83,11 @@ const updateTimeUI = () => {
 onMounted(async () => {
   try {
     await Promise.all([
-      timeSheetStore.today(),
-      timeSheetStore.getCurrentWorkTime(),
+      timesheetStore.today(),
+      timesheetStore.getCurrentWorkTime(),
     ])
 
-    if (timeSheetStore.startTime) {
+    if (timesheetStore.startTime) {
       startTimer()
     }
   } finally {
@@ -100,13 +100,13 @@ onUnmounted(() => stopTimer())
 
 <template>
   <a-page-header
-    title="TimeSheet"
+    title="Timesheet"
     sub-title="Track your work hours effectively"
   >
-    <template v-if="timeSheetStore.startTime" #tags>
-      <a-tag :color="!timeSheetStore.endTime ? 'blue' : 'red'">{{
-        !timeSheetStore.endTime
-          ? `Started at ${formatDate(timeSheetStore.startTime)}`
+    <template v-if="timesheetStore.startTime" #tags>
+      <a-tag :color="!timesheetStore.endTime ? 'blue' : 'red'">{{
+        !timesheetStore.endTime
+          ? `Started at ${formatDate(timesheetStore.startTime)}`
           : 'Stopped'
       }}</a-tag>
     </template>
@@ -115,27 +115,27 @@ onUnmounted(() => stopTimer())
         <a-skeleton-input :active="true" class="w-52" />
       </template>
       <template v-else>
-        <a-button key="3" @click="timeSheetStore.openModelCorrection()"
+        <a-button key="3" @click="timesheetStore.openModelCorrection()"
           >Correction</a-button
         >
         <a-button key="2">Leave</a-button>
         <a-button-group>
           <a-button
             :icon="
-              h(StopWatchIcon, {
-                class: timeSheetStore.startTime ? 'text-cyan-600' : '',
+              h(IonStopwatchOutline, {
+                class: timesheetStore.startTime ? 'text-cyan-600' : '',
               })
             "
             class="pointer-events-none flex items-center gap-2"
             >{{ timeString }}</a-button
           >
-          <template v-if="!timeSheetStore.startTime">
+          <template v-if="!timesheetStore.startTime">
             <a-button
               @click="checkIn"
               :loading="checkInLoading"
               class="flex items-center"
             >
-              <PlayIcon class="text-cyan-600" />
+              <IonPlayCircleOutline class="text-cyan-600" />
             </a-button>
           </template>
           <template v-else>
@@ -145,15 +145,15 @@ onUnmounted(() => stopTimer())
               placement="bottomRight"
               cancel-text="No"
               @confirm="checkOut"
-              :disabled="timeSheetStore.endTime != undefined"
+              :disabled="timesheetStore.endTime != undefined"
             >
               <a-button
                 :loading="checkOutLoading"
                 :danger="true"
-                :disabled="timeSheetStore.endTime != undefined"
+                :disabled="timesheetStore.endTime != undefined"
                 class="flex items-center"
               >
-                <PauseIcon />
+                <IonPauseCircleOutline />
               </a-button>
             </a-popconfirm>
           </template>

@@ -5,13 +5,13 @@ ApprovalControllerApi.md
 DataInitializerControllerApi.md
 README.md
 TicketControllerApi.md
-TimeSheetControllerApi.md
+TimesheetControllerApi.md
 UserControllerApi.md
 apis/AccountControllerApi.ts
 apis/ApprovalControllerApi.ts
 apis/DataInitializerControllerApi.ts
 apis/TicketControllerApi.ts
-apis/TimeSheetControllerApi.ts
+apis/TimesheetControllerApi.ts
 apis/UserControllerApi.ts
 apis/baseapi.ts
 apis/exception.ts
@@ -38,7 +38,7 @@ models/RoleWithPermissionDto.ts
 models/SortObject.ts
 models/TicketDto.ts
 models/TicketRequest.ts
-models/TimeSheetDto.ts
+models/TimesheetDto.ts
 models/User.ts
 models/UserDto.ts
 models/UserWithPermissionDto.ts

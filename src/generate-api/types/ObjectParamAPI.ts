@@ -16,7 +16,7 @@ import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
-import { TimeSheetDto } from '../models/TimeSheetDto';
+import { TimesheetDto } from '../models/TimesheetDto';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
@@ -303,106 +303,106 @@ export class ObjectTicketControllerApi {
 
 }
 
-import { ObservableTimeSheetControllerApi } from "./ObservableAPI";
-import { TimeSheetControllerApiRequestFactory, TimeSheetControllerApiResponseProcessor} from "../apis/TimeSheetControllerApi";
+import { ObservableTimesheetControllerApi } from "./ObservableAPI";
+import { TimesheetControllerApiRequestFactory, TimesheetControllerApiResponseProcessor} from "../apis/TimesheetControllerApi";
 
-export interface TimeSheetControllerApiCheckInRequest {
+export interface TimesheetControllerApiCheckInRequest {
 }
 
-export interface TimeSheetControllerApiCheckOutRequest {
+export interface TimesheetControllerApiCheckOutRequest {
 }
 
-export interface TimeSheetControllerApiGetMonthlyTimeSheetsRequest {
+export interface TimesheetControllerApiGetMonthlyTimesheetsRequest {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof TimeSheetControllerApigetMonthlyTimeSheets
+     * @memberof TimesheetControllerApigetMonthlyTimesheets
      */
     month?: string
 }
 
-export interface TimeSheetControllerApiGetTimesRequest {
+export interface TimesheetControllerApiGetTimesRequest {
 }
 
-export interface TimeSheetControllerApiGetTodayTimeSheetRequest {
+export interface TimesheetControllerApiGetTodayTimesheetRequest {
 }
 
-export class ObjectTimeSheetControllerApi {
-    private api: ObservableTimeSheetControllerApi
+export class ObjectTimesheetControllerApi {
+    private api: ObservableTimesheetControllerApi
 
-    public constructor(configuration: Configuration, requestFactory?: TimeSheetControllerApiRequestFactory, responseProcessor?: TimeSheetControllerApiResponseProcessor) {
-        this.api = new ObservableTimeSheetControllerApi(configuration, requestFactory, responseProcessor);
+    public constructor(configuration: Configuration, requestFactory?: TimesheetControllerApiRequestFactory, responseProcessor?: TimesheetControllerApiResponseProcessor) {
+        this.api = new ObservableTimesheetControllerApi(configuration, requestFactory, responseProcessor);
     }
 
     /**
      * @param param the request object
      */
-    public checkInWithHttpInfo(param: TimeSheetControllerApiCheckInRequest = {}, options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
+    public checkInWithHttpInfo(param: TimesheetControllerApiCheckInRequest = {}, options?: Configuration): Promise<HttpInfo<TimesheetDto>> {
         return this.api.checkInWithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public checkIn(param: TimeSheetControllerApiCheckInRequest = {}, options?: Configuration): Promise<TimeSheetDto> {
+    public checkIn(param: TimesheetControllerApiCheckInRequest = {}, options?: Configuration): Promise<TimesheetDto> {
         return this.api.checkIn( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public checkOutWithHttpInfo(param: TimeSheetControllerApiCheckOutRequest = {}, options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
+    public checkOutWithHttpInfo(param: TimesheetControllerApiCheckOutRequest = {}, options?: Configuration): Promise<HttpInfo<TimesheetDto>> {
         return this.api.checkOutWithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public checkOut(param: TimeSheetControllerApiCheckOutRequest = {}, options?: Configuration): Promise<TimeSheetDto> {
+    public checkOut(param: TimesheetControllerApiCheckOutRequest = {}, options?: Configuration): Promise<TimesheetDto> {
         return this.api.checkOut( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getMonthlyTimeSheetsWithHttpInfo(param: TimeSheetControllerApiGetMonthlyTimeSheetsRequest = {}, options?: Configuration): Promise<HttpInfo<Array<TimeSheetDto>>> {
-        return this.api.getMonthlyTimeSheetsWithHttpInfo(param.month,  options).toPromise();
+    public getMonthlyTimesheetsWithHttpInfo(param: TimesheetControllerApiGetMonthlyTimesheetsRequest = {}, options?: Configuration): Promise<HttpInfo<Array<TimesheetDto>>> {
+        return this.api.getMonthlyTimesheetsWithHttpInfo(param.month,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getMonthlyTimeSheets(param: TimeSheetControllerApiGetMonthlyTimeSheetsRequest = {}, options?: Configuration): Promise<Array<TimeSheetDto>> {
-        return this.api.getMonthlyTimeSheets(param.month,  options).toPromise();
+    public getMonthlyTimesheets(param: TimesheetControllerApiGetMonthlyTimesheetsRequest = {}, options?: Configuration): Promise<Array<TimesheetDto>> {
+        return this.api.getMonthlyTimesheets(param.month,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getTimesWithHttpInfo(param: TimeSheetControllerApiGetTimesRequest = {}, options?: Configuration): Promise<HttpInfo<WorkTime>> {
+    public getTimesWithHttpInfo(param: TimesheetControllerApiGetTimesRequest = {}, options?: Configuration): Promise<HttpInfo<WorkTime>> {
         return this.api.getTimesWithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getTimes(param: TimeSheetControllerApiGetTimesRequest = {}, options?: Configuration): Promise<WorkTime> {
+    public getTimes(param: TimesheetControllerApiGetTimesRequest = {}, options?: Configuration): Promise<WorkTime> {
         return this.api.getTimes( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getTodayTimeSheetWithHttpInfo(param: TimeSheetControllerApiGetTodayTimeSheetRequest = {}, options?: Configuration): Promise<HttpInfo<TimeSheetDto>> {
-        return this.api.getTodayTimeSheetWithHttpInfo( options).toPromise();
+    public getTodayTimesheetWithHttpInfo(param: TimesheetControllerApiGetTodayTimesheetRequest = {}, options?: Configuration): Promise<HttpInfo<TimesheetDto>> {
+        return this.api.getTodayTimesheetWithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getTodayTimeSheet(param: TimeSheetControllerApiGetTodayTimeSheetRequest = {}, options?: Configuration): Promise<TimeSheetDto> {
-        return this.api.getTodayTimeSheet( options).toPromise();
+    public getTodayTimesheet(param: TimesheetControllerApiGetTodayTimesheetRequest = {}, options?: Configuration): Promise<TimesheetDto> {
+        return this.api.getTodayTimesheet( options).toPromise();
     }
 
 }

@@ -17,7 +17,7 @@ import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
-import { TimeSheetDto } from '../models/TimeSheetDto';
+import { TimesheetDto } from '../models/TimesheetDto';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
 import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
@@ -406,25 +406,25 @@ export class ObservableTicketControllerApi {
 
 }
 
-import { TimeSheetControllerApiRequestFactory, TimeSheetControllerApiResponseProcessor} from "../apis/TimeSheetControllerApi";
-export class ObservableTimeSheetControllerApi {
-    private requestFactory: TimeSheetControllerApiRequestFactory;
-    private responseProcessor: TimeSheetControllerApiResponseProcessor;
+import { TimesheetControllerApiRequestFactory, TimesheetControllerApiResponseProcessor} from "../apis/TimesheetControllerApi";
+export class ObservableTimesheetControllerApi {
+    private requestFactory: TimesheetControllerApiRequestFactory;
+    private responseProcessor: TimesheetControllerApiResponseProcessor;
     private configuration: Configuration;
 
     public constructor(
         configuration: Configuration,
-        requestFactory?: TimeSheetControllerApiRequestFactory,
-        responseProcessor?: TimeSheetControllerApiResponseProcessor
+        requestFactory?: TimesheetControllerApiRequestFactory,
+        responseProcessor?: TimesheetControllerApiResponseProcessor
     ) {
         this.configuration = configuration;
-        this.requestFactory = requestFactory || new TimeSheetControllerApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new TimeSheetControllerApiResponseProcessor();
+        this.requestFactory = requestFactory || new TimesheetControllerApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new TimesheetControllerApiResponseProcessor();
     }
 
     /**
      */
-    public checkInWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimeSheetDto>> {
+    public checkInWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimesheetDto>> {
         const requestContextPromise = this.requestFactory.checkIn(_options);
 
         // build promise chain
@@ -445,13 +445,13 @@ export class ObservableTimeSheetControllerApi {
 
     /**
      */
-    public checkIn(_options?: Configuration): Observable<TimeSheetDto> {
-        return this.checkInWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimeSheetDto>) => apiResponse.data));
+    public checkIn(_options?: Configuration): Observable<TimesheetDto> {
+        return this.checkInWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimesheetDto>) => apiResponse.data));
     }
 
     /**
      */
-    public checkOutWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimeSheetDto>> {
+    public checkOutWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimesheetDto>> {
         const requestContextPromise = this.requestFactory.checkOut(_options);
 
         // build promise chain
@@ -472,15 +472,15 @@ export class ObservableTimeSheetControllerApi {
 
     /**
      */
-    public checkOut(_options?: Configuration): Observable<TimeSheetDto> {
-        return this.checkOutWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimeSheetDto>) => apiResponse.data));
+    public checkOut(_options?: Configuration): Observable<TimesheetDto> {
+        return this.checkOutWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimesheetDto>) => apiResponse.data));
     }
 
     /**
      * @param [month]
      */
-    public getMonthlyTimeSheetsWithHttpInfo(month?: string, _options?: Configuration): Observable<HttpInfo<Array<TimeSheetDto>>> {
-        const requestContextPromise = this.requestFactory.getMonthlyTimeSheets(month, _options);
+    public getMonthlyTimesheetsWithHttpInfo(month?: string, _options?: Configuration): Observable<HttpInfo<Array<TimesheetDto>>> {
+        const requestContextPromise = this.requestFactory.getMonthlyTimesheets(month, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -494,15 +494,15 @@ export class ObservableTimeSheetControllerApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getMonthlyTimeSheetsWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getMonthlyTimesheetsWithHttpInfo(rsp)));
             }));
     }
 
     /**
      * @param [month]
      */
-    public getMonthlyTimeSheets(month?: string, _options?: Configuration): Observable<Array<TimeSheetDto>> {
-        return this.getMonthlyTimeSheetsWithHttpInfo(month, _options).pipe(map((apiResponse: HttpInfo<Array<TimeSheetDto>>) => apiResponse.data));
+    public getMonthlyTimesheets(month?: string, _options?: Configuration): Observable<Array<TimesheetDto>> {
+        return this.getMonthlyTimesheetsWithHttpInfo(month, _options).pipe(map((apiResponse: HttpInfo<Array<TimesheetDto>>) => apiResponse.data));
     }
 
     /**
@@ -534,8 +534,8 @@ export class ObservableTimeSheetControllerApi {
 
     /**
      */
-    public getTodayTimeSheetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimeSheetDto>> {
-        const requestContextPromise = this.requestFactory.getTodayTimeSheet(_options);
+    public getTodayTimesheetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<TimesheetDto>> {
+        const requestContextPromise = this.requestFactory.getTodayTimesheet(_options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -549,14 +549,14 @@ export class ObservableTimeSheetControllerApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTodayTimeSheetWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTodayTimesheetWithHttpInfo(rsp)));
             }));
     }
 
     /**
      */
-    public getTodayTimeSheet(_options?: Configuration): Observable<TimeSheetDto> {
-        return this.getTodayTimeSheetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimeSheetDto>) => apiResponse.data));
+    public getTodayTimesheet(_options?: Configuration): Observable<TimesheetDto> {
+        return this.getTodayTimesheetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<TimesheetDto>) => apiResponse.data));
     }
 
 }
