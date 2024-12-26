@@ -6,6 +6,11 @@ import {
   UserOutlined,
 } from '@ant-design/icons-vue'
 import type { ColumnType } from 'ant-design-vue/es/table'
+import EmployeeUpdateDrawer from '@/features/employee/EmployeeUpdateDrawer.vue'
+import { useEmployeeStore } from '@/stores/employee'
+import type { UserDto } from '@/generate-api'
+
+const employeeStore = useEmployeeStore()
 
 const type = ref('active')
 
@@ -17,9 +22,9 @@ const columns: ColumnType[] = [
     width: '20%',
   },
   {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
+    title: 'Position',
+    dataIndex: 'position',
+    key: 'position',
   },
   {
     title: 'Teams',
@@ -27,42 +32,49 @@ const columns: ColumnType[] = [
     key: 'teams',
   },
   {
-    title: 'Employment Type',
-    key: 'employmentType',
-    dataIndex: 'employmentType',
+    title: 'Supervisor',
+    dataIndex: 'supervisor',
+    key: 'supervisor',
+  },
+  {
+    title: 'Status',
+    key: 'status',
+    dataIndex: 'status',
   },
   {
     title: 'Action',
     key: 'action',
-    width: 200,
+    width: 0,
   },
 ]
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    date: '2017-01-01',
-    teams: ['Stnet'],
-    employmentType: 'Dev',
-  },
-]
+const data: (UserDto & { key: number })[] = Array(100)
+  .fill(0)
+  .map((_, i) => ({
+    key: i,
+    username: 'hungnv',
+    name: 'Việt Hùng',
+    email: 'hungnv',
+    id: 1,
+    roles: [],
+  }))
 </script>
 
 <template>
-  <a-page-header
-    title="Employee"
-    sub-title="Manager and collaboration within your organization's teams"
-  >
-    <template #extra>
-      <a-button :icon="h(PlusOutlined)" type="primary">Add Employee</a-button>
-    </template>
-  </a-page-header>
-
-  <div class="mx-6 mb-4 h-0 border-0 border-b border-solid border-gray-200" />
-
-  <div class="px-6">
-    <div class="flex flex-wrap justify-between gap-4">
+  <div class="flex h-full flex-col items-stretch">
+    <a-page-header
+      title="Employee"
+      sub-title="Manager and collaboration within your organization's teams"
+      class="flex-none"
+    >
+      <template #extra>
+        <a-button :icon="h(PlusOutlined)" type="primary">Add Employee</a-button>
+      </template>
+    </a-page-header>
+    <div
+      class="mx-6 mb-4 h-0 flex-none border-0 border-b border-solid border-gray-200"
+    />
+    <div class="flex flex-none flex-wrap justify-between gap-4 px-6">
       <div class="inline-flex flex-wrap gap-1 rounded-md bg-gray-50 p-1">
         <div
           class="tab-title"
@@ -93,18 +105,16 @@ const data = [
           Retired
         </div>
       </div>
-
       <a-input placeholder="Enter search here" class="w-72">
         <template #prefix> <SearchOutlined /> </template
       ></a-input>
     </div>
-
     <a-table
       :columns="columns"
       :data-source="data"
-      :scroll="{ x: 768 }"
+      :scroll="{ x: 768, y: 'auto' }"
       :pagination="false"
-      class="mt-6"
+      class="mx-6 mt-6 min-h-0 flex-grow"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'name'">
@@ -126,13 +136,8 @@ const data = [
             <a-tag
               v-for="team in record.teams"
               :key="team"
-              :color="
-                team === 'loser'
-                  ? 'volcano'
-                  : team.length > 5
-                    ? 'geekblue'
-                    : 'green'
-              "
+              color="green"
+              class="mr-1"
             >
               {{ team.toUpperCase() }}
             </a-tag>
@@ -140,12 +145,14 @@ const data = [
         </template>
         <template v-else-if="column.key === 'action'">
           <span>
-            <a>Edit</a>
+            <a @click="employeeStore.openDrawerUserUpdate(record.key)">Edit</a>
           </span>
         </template>
       </template>
     </a-table>
   </div>
+
+  <EmployeeUpdateDrawer />
 </template>
 
 <!-- https://cdn.dribbble.com/userupload/16714106/file/original-ead35fd296fc28515c61560a642c7b0e.png?resize=1024x768&vertical=center -->
@@ -154,11 +161,22 @@ const data = [
 
 <!-- https://cdn.dribbble.com/userupload/6997698/file/original-44bed7c29ca40a49bcac251e2e462deb.png?resize=1024x683&vertical=center -->
 
-<style>
+<style lang="postcss">
 .tab-title {
   @apply min-w-20 cursor-pointer whitespace-nowrap rounded-md px-3 py-1.5 text-center text-sm font-medium text-gray-700 hover:text-primary-500;
 }
 .tab-title.active {
   @apply pointer-events-none bg-white text-black shadow;
+}
+
+.ant-spin-nested-loading,
+.ant-spin-container,
+.ant-table,
+.ant-table-container {
+  height: 100%;
+}
+
+.ant-table-body {
+  max-height: calc(100% - 77px);
 }
 </style>

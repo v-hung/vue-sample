@@ -16,23 +16,23 @@ const accountStore = useAccountStore()
 const router = useRouter()
 const appStore = useAppStore()
 
-const selectedKeys = ref([router.currentRoute.value.path])
-const openKeys = ref([''])
+const getSelectedKeys = (path: string) => {
+  let parts = path
+    .split('/')
+    .filter((_, index) => index !== 0)
+    .map((_, index, array) => `/${array.slice(0, index + 1).join('/')}`)
+
+  return parts
+}
+
+const selectedKeys = ref(getSelectedKeys(router.currentRoute.value.path))
 
 watch(
   () => router.currentRoute.value.path,
   path => {
-    selectedKeys.value = [path]
-    const parts = path.split('/').filter(Boolean)
-    openKeys.value = parts.map(
-      (_, index) => `/${parts.slice(0, index + 1).join('/')}`,
-    )
+    selectedKeys.value = getSelectedKeys(path)
   },
 )
-
-watch([selectedKeys, openKeys], path => {
-  // console.log(path)
-})
 
 // menu mobile
 const isShowMenu = ref(false)
@@ -54,7 +54,7 @@ const handelMenuClick = (route: string) => {
     @click.self="handelToggleMenu(false)"
   ></div>
   <div
-    class="fixed z-10 h-screen w-64 -translate-x-full bg-white transition-transform duration-300 lg:static lg:translate-x-0 lg:bg-transparent"
+    class="fixed z-10 h-screen w-64 flex-none -translate-x-full bg-white transition-transform duration-300 lg:static lg:translate-x-0 lg:bg-transparent"
     :class="{ '!translate-x-0': isShowMenu }"
   >
     <Simplebar class="fixed h-full w-full px-3 py-2">
@@ -83,8 +83,7 @@ const handelMenuClick = (route: string) => {
         </template>
       </a-dropdown>
       <a-menu
-        v-model:openKeys="openKeys"
-        v-model:selectedKeys="selectedKeys"
+        :selectedKeys="selectedKeys"
         mode="inline"
         @click="e => handelMenuClick(e.key.toString())"
       >

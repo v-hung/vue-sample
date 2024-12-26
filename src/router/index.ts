@@ -8,11 +8,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '',
       component: LayoutDefault,
       children: [
         {
-          path: '',
+          path: '/',
           name: 'home',
           component: HomeView,
           meta: {
@@ -20,13 +20,22 @@ const router = createRouter({
           },
         },
         {
-          path: 'inbox',
-          name: 'inbox',
-          component: () => import('../views/InboxView.vue'),
+          path: '/inbox',
           meta: {
             requiresAuth: true,
-            roles: ['inbox_read'],
           },
+          children: [
+            {
+              path: '',
+              name: 'inbox',
+              component: () => import('../views/InboxView.vue'),
+            },
+            {
+              path: ':id',
+              name: 'inbox-detail',
+              component: () => import('../views/InboxDetailView.vue'),
+            },
+          ],
         },
         {
           path: 'timesheet',

@@ -1,11 +1,24 @@
 {
-  "menus": {
-    "menu": "Menu",
-    "home": "Home",
-    "inbox": "Inbox"
-  },
-  "locale": {
-    "vi-VN": "Vietnamese",
-    "en-US": "English"
-  }
+    "menus": {
+        "menu": "Menu",
+        "home": "Home",
+        "inbox": "Inbox",
+        "timesheet": "Timesheet",
+        "metting": "Metting",
+        "manager": "Manager",
+        "project": "Project",
+        "team": "Team",
+        "employee": "Employee",
+        "permisstion": "Permisstion",
+        "members": "Members",
+        "inventory": "Inventory",
+        "system": "System",
+        "setting": "Setting",
+        "send-mail": "Send mail",
+        "report": "Report"
+    },
+    "locale": {
+        "vi-VN": "Vietnamese",
+        "en-US": "English"
+    }
 }

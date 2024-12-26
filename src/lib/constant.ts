@@ -32,69 +32,69 @@ export const MENUS_DEFAULT: MenuItem[] = [
   {
     path: '/timesheet',
     icon: () => h(IonClock),
-    title: 'Timesheet',
+    title: 'menus.timesheet',
   },
   {
     path: '/metting',
     icon: () => h(IonPeopleCircleOutline),
-    title: 'Metting',
+    title: 'menus.metting',
   },
   {
     type: 'group',
-    title: 'Manager',
+    title: 'menus.manager',
   },
   {
     path: '/project',
     icon: () => h(IonDocumentsOutline),
-    title: 'Project',
+    title: 'menus.project',
   },
   {
     path: '/team',
     icon: () => h(IonPeopleOutline),
-    title: 'Team',
+    title: 'menus.team',
   },
   {
     path: '/employee',
     icon: () => h(IonPersonOutline),
-    title: 'Employee',
+    title: 'menus.employee',
   },
   {
     path: '/permisstion',
     icon: () => h(IonLockClosedOutline),
-    title: 'Permisstion',
+    title: 'menus.permisstion',
     children: [
       {
         path: '/permisstion/role',
-        title: 'Members',
+        title: 'menus.members',
       },
       {
         path: '/permisstion/permisstion',
-        title: 'Members',
+        title: 'menus.members',
       },
     ],
   },
   {
     path: '/inventory',
     icon: () => h(IonCubeOutline),
-    title: 'Inventory',
+    title: 'menus.inventory',
   },
   {
     type: 'group',
-    title: 'System',
+    title: 'menus.system',
   },
   {
     path: '/setting',
     icon: () => h(IonCogOutline),
-    title: 'Setting',
+    title: 'menus.setting',
   },
   {
     path: '/send-mail',
     icon: () => h(IonSendOutline),
-    title: 'Send Mail',
+    title: 'menus.send-mail',
   },
   {
     path: '/report',
     icon: () => h(IonPieChartOutline),
-    title: 'Report',
+    title: 'menus.report',
   },
 ]
