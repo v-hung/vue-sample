@@ -19,7 +19,7 @@ export class Role {
     'description'?: string;
     'admin': boolean;
     'level': number;
-    'permissions'?: Set<Permission>;
+    'permissions'?: Array<Permission>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -59,7 +59,7 @@ export class Role {
         {
             "name": "permissions",
             "baseName": "permissions",
-            "type": "Set<Permission>",
+            "type": "Array<Permission>",
             "format": ""
         }    ];
 

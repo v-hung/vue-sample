@@ -1,17 +1,12 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import {
-  AccountControllerApi,
-  UserWithPermissionDto,
-  type LoginRequest,
-  type LoginResponse,
-} from '@/generate-api'
+import { UserDto, type LoginRequest, type LoginResponse } from '@/generate-api'
 import { accountApi, configWithRefreshToken } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
 
 export const useAccountStore = defineStore('account', () => {
   const isLogged = ref(true)
-  const user = ref<UserWithPermissionDto>()
+  const user = ref<UserDto>()
   const accessToken = ref()
   const refreshToken = ref()
 

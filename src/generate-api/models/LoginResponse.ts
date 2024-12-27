@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
+import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
 export class LoginResponse {
-    'user'?: UserWithPermissionDto;
+    'user'?: UserDto;
     'token'?: string;
     'refreshToken'?: string;
 
@@ -26,7 +26,7 @@ export class LoginResponse {
         {
             "name": "user",
             "baseName": "user",
-            "type": "UserWithPermissionDto",
+            "type": "UserDto",
             "format": ""
         },
         {

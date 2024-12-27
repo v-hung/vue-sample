@@ -139,13 +139,8 @@ export class UserControllerApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param pageable 
      */
-    public async getUsers(pageable: Pageable, _options?: Configuration): Promise<RequestContext> {
+    public async getUsers(pageable?: Pageable, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
-
-        // verify required parameter 'pageable' is not null or undefined
-        if (pageable === null || pageable === undefined) {
-            throw new RequiredError("UserControllerApi", "getUsers", "pageable");
-        }
 
 
         // Path Params

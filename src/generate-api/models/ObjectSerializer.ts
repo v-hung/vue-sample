@@ -9,14 +9,13 @@ export * from '../models/RefreshRequest';
 export * from '../models/RefreshResponse';
 export * from '../models/Role';
 export * from '../models/RoleDto';
-export * from '../models/RoleWithPermissionDto';
 export * from '../models/SortObject';
+export * from '../models/Team';
 export * from '../models/TicketDto';
 export * from '../models/TicketRequest';
 export * from '../models/TimesheetDto';
 export * from '../models/User';
 export * from '../models/UserDto';
-export * from '../models/UserWithPermissionDto';
 export * from '../models/WorkTime';
 
 import { GrantedAuthority } from '../models/GrantedAuthority';
@@ -30,14 +29,13 @@ import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
+import { Team } from '../models/Team';
 import { TicketDto   , TicketDtoTypeEnum  , TicketDtoStatusEnum        } from '../models/TicketDto';
 import { TicketRequest , TicketRequestTypeEnum      } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
-import { User    , UserUserPositionEnum           } from '../models/User';
-import { UserDto } from '../models/UserDto';
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
+import { User    , UserPositionEnum             } from '../models/User';
+import { UserDto    , UserDtoPositionEnum     } from '../models/UserDto';
 import { WorkTime } from '../models/WorkTime';
 
 /* tslint:disable:no-unused-variable */
@@ -57,7 +55,8 @@ let enumsMap: Set<string> = new Set<string>([
     "TicketDtoTypeEnum",
     "TicketDtoStatusEnum",
     "TicketRequestTypeEnum",
-    "UserUserPositionEnum",
+    "UserPositionEnum",
+    "UserDtoPositionEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
@@ -72,14 +71,13 @@ let typeMap: {[index: string]: any} = {
     "RefreshResponse": RefreshResponse,
     "Role": Role,
     "RoleDto": RoleDto,
-    "RoleWithPermissionDto": RoleWithPermissionDto,
     "SortObject": SortObject,
+    "Team": Team,
     "TicketDto": TicketDto,
     "TicketRequest": TicketRequest,
     "TimesheetDto": TimesheetDto,
     "User": User,
     "UserDto": UserDto,
-    "UserWithPermissionDto": UserWithPermissionDto,
     "WorkTime": WorkTime,
 }
 

@@ -18,13 +18,13 @@ import { HttpFile } from '../http/http';
 export class PageUserDto {
     'totalPages'?: number;
     'totalElements'?: number;
+    'first'?: boolean;
+    'last'?: boolean;
     'size'?: number;
     'content'?: Array<UserDto>;
     'number'?: number;
     'sort'?: Array<SortObject>;
     'numberOfElements'?: number;
-    'first'?: boolean;
-    'last'?: boolean;
     'pageable'?: PageableObject;
     'empty'?: boolean;
 
@@ -44,6 +44,18 @@ export class PageUserDto {
             "baseName": "totalElements",
             "type": "number",
             "format": "int64"
+        },
+        {
+            "name": "first",
+            "baseName": "first",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "last",
+            "baseName": "last",
+            "type": "boolean",
+            "format": ""
         },
         {
             "name": "size",
@@ -74,18 +86,6 @@ export class PageUserDto {
             "baseName": "numberOfElements",
             "type": "number",
             "format": "int32"
-        },
-        {
-            "name": "first",
-            "baseName": "first",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "last",
-            "baseName": "last",
-            "type": "boolean",
-            "format": ""
         },
         {
             "name": "pageable",

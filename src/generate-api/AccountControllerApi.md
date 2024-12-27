@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getCurrentUser**
-> UserWithPermissionDto getCurrentUser()
+> UserDto getCurrentUser()
 
 
 ### Example
@@ -35,7 +35,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**UserWithPermissionDto**
+**UserDto**
 
 ### Authorization
 

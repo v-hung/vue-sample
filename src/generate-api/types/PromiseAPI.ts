@@ -12,14 +12,13 @@ import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
+import { Team } from '../models/Team';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { WorkTime } from '../models/WorkTime';
 import { ObservableAccountControllerApi } from './ObservableAPI';
 
@@ -37,14 +36,14 @@ export class PromiseAccountControllerApi {
 
     /**
      */
-    public getCurrentUserWithHttpInfo(_options?: Configuration): Promise<HttpInfo<UserWithPermissionDto>> {
+    public getCurrentUserWithHttpInfo(_options?: Configuration): Promise<HttpInfo<UserDto>> {
         const result = this.api.getCurrentUserWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      */
-    public getCurrentUser(_options?: Configuration): Promise<UserWithPermissionDto> {
+    public getCurrentUser(_options?: Configuration): Promise<UserDto> {
         const result = this.api.getCurrentUser(_options);
         return result.toPromise();
     }
@@ -419,17 +418,17 @@ export class PromiseUserControllerApi {
     }
 
     /**
-     * @param pageable
+     * @param [pageable]
      */
-    public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Promise<HttpInfo<PageUserDto>> {
+    public getUsersWithHttpInfo(pageable?: Pageable, _options?: Configuration): Promise<HttpInfo<PageUserDto>> {
         const result = this.api.getUsersWithHttpInfo(pageable, _options);
         return result.toPromise();
     }
 
     /**
-     * @param pageable
+     * @param [pageable]
      */
-    public getUsers(pageable: Pageable, _options?: Configuration): Promise<PageUserDto> {
+    public getUsers(pageable?: Pageable, _options?: Configuration): Promise<PageUserDto> {
         const result = this.api.getUsers(pageable, _options);
         return result.toPromise();
     }

@@ -12,22 +12,25 @@
 
 import { GrantedAuthority } from '../models/GrantedAuthority';
 import { Role } from '../models/Role';
+import { Team } from '../models/Team';
 import { WorkTime } from '../models/WorkTime';
 import { HttpFile } from '../http/http';
 
 export class User {
-    'id': number;
+    'id'?: number;
     'name'?: string;
     'username'?: string;
     'email'?: string;
-    'userPosition': UserUserPositionEnum;
-    'roles': Set<Role>;
+    'position'?: UserPositionEnum;
+    'supervisor'?: User;
+    'roles'?: Array<Role>;
     'workTime'?: WorkTime;
+    'teams'?: Array<Team>;
     'enabled'?: boolean;
     'authorities'?: Array<GrantedAuthority>;
     'currentLevel'?: number;
-    'accountNonExpired'?: boolean;
     'credentialsNonExpired'?: boolean;
+    'accountNonExpired'?: boolean;
     'accountNonLocked'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -60,21 +63,33 @@ export class User {
             "format": ""
         },
         {
-            "name": "userPosition",
-            "baseName": "userPosition",
-            "type": "UserUserPositionEnum",
+            "name": "position",
+            "baseName": "position",
+            "type": "UserPositionEnum",
+            "format": ""
+        },
+        {
+            "name": "supervisor",
+            "baseName": "supervisor",
+            "type": "User",
             "format": ""
         },
         {
             "name": "roles",
             "baseName": "roles",
-            "type": "Set<Role>",
+            "type": "Array<Role>",
             "format": ""
         },
         {
             "name": "workTime",
             "baseName": "workTime",
             "type": "WorkTime",
+            "format": ""
+        },
+        {
+            "name": "teams",
+            "baseName": "teams",
+            "type": "Array<Team>",
             "format": ""
         },
         {
@@ -96,14 +111,14 @@ export class User {
             "format": "int32"
         },
         {
-            "name": "accountNonExpired",
-            "baseName": "accountNonExpired",
+            "name": "credentialsNonExpired",
+            "baseName": "credentialsNonExpired",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "credentialsNonExpired",
-            "baseName": "credentialsNonExpired",
+            "name": "accountNonExpired",
+            "baseName": "accountNonExpired",
             "type": "boolean",
             "format": ""
         },
@@ -122,7 +137,7 @@ export class User {
     }
 }
 
-export enum UserUserPositionEnum {
+export enum UserPositionEnum {
     Developer = 'DEVELOPER',
     ProjectManager = 'PROJECT_MANAGER',
     HrManager = 'HR_MANAGER',

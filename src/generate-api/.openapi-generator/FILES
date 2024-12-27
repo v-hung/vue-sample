@@ -34,14 +34,13 @@ models/RefreshRequest.ts
 models/RefreshResponse.ts
 models/Role.ts
 models/RoleDto.ts
-models/RoleWithPermissionDto.ts
 models/SortObject.ts
+models/Team.ts
 models/TicketDto.ts
 models/TicketRequest.ts
 models/TimesheetDto.ts
 models/User.ts
 models/UserDto.ts
-models/UserWithPermissionDto.ts
 models/WorkTime.ts
 models/all.ts
 package.json

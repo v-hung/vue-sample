@@ -32,7 +32,8 @@ const request: UserControllerApiCreateUserRequest = {
     name: "name_example",
     username: "username_example",
     email: "email_example",
-    userPosition: "DEVELOPER",
+    position: "DEVELOPER",
+    supervisor: ,
     roles: [
       {
         id: 1,
@@ -57,6 +58,16 @@ const request: UserControllerApiCreateUserRequest = {
       endTimeAfternoon: "14:30:00.982",
       allowedLateMinutes: 1,
     },
+    teams: [
+      {
+        id: 1,
+        name: "name_example",
+        description: "description_example",
+        members: [
+          ,
+        ],
+      },
+    ],
     enabled: true,
     authorities: [
       {
@@ -64,8 +75,8 @@ const request: UserControllerApiCreateUserRequest = {
       },
     ],
     currentLevel: 1,
-    accountNonExpired: true,
     credentialsNonExpired: true,
+    accountNonExpired: true,
     accountNonLocked: true,
   },
 };
@@ -241,7 +252,7 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageable** | **Pageable** |  | defaults to undefined
+ **pageable** | **Pageable** |  | (optional) defaults to undefined
 
 
 ### Return type
@@ -288,7 +299,8 @@ const request: UserControllerApiUpdateUserRequest = {
     name: "name_example",
     username: "username_example",
     email: "email_example",
-    userPosition: "DEVELOPER",
+    position: "DEVELOPER",
+    supervisor: ,
     roles: [
       {
         id: 1,
@@ -313,6 +325,16 @@ const request: UserControllerApiUpdateUserRequest = {
       endTimeAfternoon: "14:30:00.982",
       allowedLateMinutes: 1,
     },
+    teams: [
+      {
+        id: 1,
+        name: "name_example",
+        description: "description_example",
+        members: [
+          ,
+        ],
+      },
+    ],
     enabled: true,
     authorities: [
       {
@@ -320,8 +342,8 @@ const request: UserControllerApiUpdateUserRequest = {
       },
     ],
     currentLevel: 1,
-    accountNonExpired: true,
     credentialsNonExpired: true,
+    accountNonExpired: true,
     accountNonLocked: true,
   },
 };

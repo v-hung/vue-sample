@@ -3,6 +3,7 @@ import {
   ApprovalControllerApi,
   TicketControllerApi,
   TimesheetControllerApi,
+  UserControllerApi,
   createConfiguration,
   server1,
 } from '@/generate-api'
@@ -41,5 +42,6 @@ const accountApi = new AccountControllerApi(config)
 const timesheetApi = new TimesheetControllerApi(configWithRefreshToken)
 const approvalApi = new ApprovalControllerApi(configWithRefreshToken)
 const ticketApi = new TicketControllerApi(configWithRefreshToken)
+const userApi = new UserControllerApi(configWithRefreshToken)
 
-export { accountApi, timesheetApi, approvalApi, ticketApi }
+export { accountApi, timesheetApi, approvalApi, ticketApi, userApi }

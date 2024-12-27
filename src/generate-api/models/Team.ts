@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-import { Permission } from '../models/Permission';
+import { User } from '../models/User';
 import { HttpFile } from '../http/http';
 
-export class RoleDto {
-    'id': number;
-    'name': string;
+export class Team {
+    'id'?: number;
+    'name'?: string;
     'description'?: string;
-    'admin': boolean;
-    'level': number;
-    'permissions': Array<Permission>;
+    'members'?: Array<User>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -45,26 +43,14 @@ export class RoleDto {
             "format": ""
         },
         {
-            "name": "admin",
-            "baseName": "admin",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "level",
-            "baseName": "level",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Array<Permission>",
+            "name": "members",
+            "baseName": "members",
+            "type": "Array<User>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return RoleDto.attributeTypeMap;
+        return Team.attributeTypeMap;
     }
 
     public constructor() {

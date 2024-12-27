@@ -12,14 +12,13 @@ import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
+import { Team } from '../models/Team';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { WorkTime } from '../models/WorkTime';
 
 import { ObservableAccountControllerApi } from "./ObservableAPI";
@@ -56,14 +55,14 @@ export class ObjectAccountControllerApi {
     /**
      * @param param the request object
      */
-    public getCurrentUserWithHttpInfo(param: AccountControllerApiGetCurrentUserRequest = {}, options?: Configuration): Promise<HttpInfo<UserWithPermissionDto>> {
+    public getCurrentUserWithHttpInfo(param: AccountControllerApiGetCurrentUserRequest = {}, options?: Configuration): Promise<HttpInfo<UserDto>> {
         return this.api.getCurrentUserWithHttpInfo( options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getCurrentUser(param: AccountControllerApiGetCurrentUserRequest = {}, options?: Configuration): Promise<UserWithPermissionDto> {
+    public getCurrentUser(param: AccountControllerApiGetCurrentUserRequest = {}, options?: Configuration): Promise<UserDto> {
         return this.api.getCurrentUser( options).toPromise();
     }
 
@@ -446,7 +445,7 @@ export interface UserControllerApiGetUsersRequest {
      * @type Pageable
      * @memberof UserControllerApigetUsers
      */
-    pageable: Pageable
+    pageable?: Pageable
 }
 
 export interface UserControllerApiUpdateUserRequest {
@@ -517,14 +516,14 @@ export class ObjectUserControllerApi {
     /**
      * @param param the request object
      */
-    public getUsersWithHttpInfo(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<HttpInfo<PageUserDto>> {
+    public getUsersWithHttpInfo(param: UserControllerApiGetUsersRequest = {}, options?: Configuration): Promise<HttpInfo<PageUserDto>> {
         return this.api.getUsersWithHttpInfo(param.pageable,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getUsers(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<PageUserDto> {
+    public getUsers(param: UserControllerApiGetUsersRequest = {}, options?: Configuration): Promise<PageUserDto> {
         return this.api.getUsers(param.pageable,  options).toPromise();
     }
 

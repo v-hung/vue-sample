@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, ref } from 'vue'
+import { h, onMounted, ref } from 'vue'
 import {
   PlusOutlined,
   SearchOutlined,
@@ -9,55 +9,38 @@ import type { ColumnType } from 'ant-design-vue/es/table'
 import EmployeeUpdateDrawer from '@/features/employee/EmployeeUpdateDrawer.vue'
 import { useEmployeeStore } from '@/stores/employee'
 import type { UserDto } from '@/generate-api'
+import { useNotifyPromise } from '@/lib/promise'
+import { userApi } from '@/lib/api'
+
+const columns: ColumnType[] = [
+  { title: 'Name', dataIndex: 'name', key: 'name', width: '20%' },
+  { title: 'Position', dataIndex: 'position', key: 'position' },
+  { title: 'Teams', dataIndex: 'teams', key: 'teams' },
+  { title: 'Supervisor', dataIndex: 'supervisor', key: 'supervisor' },
+  { title: 'Status', key: 'status', dataIndex: 'status' },
+  { title: 'Action', key: 'action', width: 0 },
+]
 
 const employeeStore = useEmployeeStore()
 
+// Stages
+const data = ref<(UserDto & { key: number })[]>([])
 const type = ref('active')
+const loading = ref(false)
 
-const columns: ColumnType[] = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    width: '20%',
-  },
-  {
-    title: 'Position',
-    dataIndex: 'position',
-    key: 'position',
-  },
-  {
-    title: 'Teams',
-    dataIndex: 'teams',
-    key: 'teams',
-  },
-  {
-    title: 'Supervisor',
-    dataIndex: 'supervisor',
-    key: 'supervisor',
-  },
-  {
-    title: 'Status',
-    key: 'status',
-    dataIndex: 'status',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    width: 0,
-  },
-]
+onMounted(async () => {
+  loading.value = true
 
-const data: (UserDto & { key: number })[] = Array(100)
-  .fill(0)
-  .map((_, i) => ({
-    key: i,
-    username: 'hungnv',
-    name: 'Việt Hùng',
-    email: 'hungnv',
-    id: 1,
-    roles: [],
-  }))
+  const body = await useNotifyPromise({
+    callback: userApi.getUsers({
+      page: 1,
+    }),
+  })
+
+  loading.value = false
+
+  data.value = body?.content?.map(v => ({ ...v, key: v.id })) || []
+})
 </script>
 
 <template>
@@ -114,6 +97,7 @@ const data: (UserDto & { key: number })[] = Array(100)
       :data-source="data"
       :scroll="{ x: 768, y: 'auto' }"
       :pagination="false"
+      :loading="loading"
       class="mx-6 mt-6 min-h-0 flex-grow"
     >
       <template #bodyCell="{ column, record }">
@@ -126,8 +110,8 @@ const data: (UserDto & { key: number })[] = Array(100)
               <template #icon><UserOutlined /></template>
             </a-avatar>
             <div>
-              <h5 class="mb-0 text-sm font-semibold">Việt Hùng</h5>
-              <p class="mb-0 text-xs text-gray-600">hungnv@wbcvn.vn</p>
+              <h5 class="mb-0 text-sm font-semibold">{{ record.user.name }}</h5>
+              <p class="mb-0 text-xs text-gray-600">{{ record.user.email }}</p>
             </div>
           </div>
         </template>
@@ -136,7 +120,7 @@ const data: (UserDto & { key: number })[] = Array(100)
             <a-tag
               v-for="team in record.teams"
               :key="team"
-              color="green"
+              color=""
               class="mr-1"
             >
               {{ team.toUpperCase() }}

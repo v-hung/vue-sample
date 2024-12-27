@@ -13,14 +13,13 @@ import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { RoleWithPermissionDto } from '../models/RoleWithPermissionDto';
 import { SortObject } from '../models/SortObject';
+import { Team } from '../models/Team';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
-import { UserWithPermissionDto } from '../models/UserWithPermissionDto';
 import { WorkTime } from '../models/WorkTime';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -41,7 +40,7 @@ export class ObservableAccountControllerApi {
 
     /**
      */
-    public getCurrentUserWithHttpInfo(_options?: Configuration): Observable<HttpInfo<UserWithPermissionDto>> {
+    public getCurrentUserWithHttpInfo(_options?: Configuration): Observable<HttpInfo<UserDto>> {
         const requestContextPromise = this.requestFactory.getCurrentUser(_options);
 
         // build promise chain
@@ -62,8 +61,8 @@ export class ObservableAccountControllerApi {
 
     /**
      */
-    public getCurrentUser(_options?: Configuration): Observable<UserWithPermissionDto> {
-        return this.getCurrentUserWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<UserWithPermissionDto>) => apiResponse.data));
+    public getCurrentUser(_options?: Configuration): Observable<UserDto> {
+        return this.getCurrentUserWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<UserDto>) => apiResponse.data));
     }
 
     /**
@@ -665,9 +664,9 @@ export class ObservableUserControllerApi {
     }
 
     /**
-     * @param pageable
+     * @param [pageable]
      */
-    public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Observable<HttpInfo<PageUserDto>> {
+    public getUsersWithHttpInfo(pageable?: Pageable, _options?: Configuration): Observable<HttpInfo<PageUserDto>> {
         const requestContextPromise = this.requestFactory.getUsers(pageable, _options);
 
         // build promise chain
@@ -687,9 +686,9 @@ export class ObservableUserControllerApi {
     }
 
     /**
-     * @param pageable
+     * @param [pageable]
      */
-    public getUsers(pageable: Pageable, _options?: Configuration): Observable<PageUserDto> {
+    public getUsers(pageable?: Pageable, _options?: Configuration): Observable<PageUserDto> {
         return this.getUsersWithHttpInfo(pageable, _options).pipe(map((apiResponse: HttpInfo<PageUserDto>) => apiResponse.data));
     }
 

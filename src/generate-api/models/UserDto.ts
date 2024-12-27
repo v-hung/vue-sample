@@ -18,7 +18,9 @@ export class UserDto {
     'name': string;
     'username': string;
     'email': string;
-    'roles': Set<RoleDto>;
+    'position'?: UserDtoPositionEnum;
+    'supervisor'?: UserDto;
+    'roles': Array<RoleDto>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -50,9 +52,21 @@ export class UserDto {
             "format": ""
         },
         {
+            "name": "position",
+            "baseName": "position",
+            "type": "UserDtoPositionEnum",
+            "format": ""
+        },
+        {
+            "name": "supervisor",
+            "baseName": "supervisor",
+            "type": "UserDto",
+            "format": ""
+        },
+        {
             "name": "roles",
             "baseName": "roles",
-            "type": "Set<RoleDto>",
+            "type": "Array<RoleDto>",
             "format": ""
         }    ];
 
@@ -63,3 +77,15 @@ export class UserDto {
     public constructor() {
     }
 }
+
+export enum UserDtoPositionEnum {
+    Developer = 'DEVELOPER',
+    ProjectManager = 'PROJECT_MANAGER',
+    HrManager = 'HR_MANAGER',
+    TeachLeader = 'TEACH_LEADER',
+    Tester = 'TESTER',
+    TestLeader = 'TEST_LEADER',
+    Ceo = 'CEO',
+    Sale = 'SALE'
+}
+
