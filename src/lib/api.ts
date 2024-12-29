@@ -1,6 +1,8 @@
 import {
   AccountControllerApi,
   ApprovalControllerApi,
+  Team,
+  TeamControllerApi,
   TicketControllerApi,
   TimesheetControllerApi,
   UserControllerApi,
@@ -43,5 +45,6 @@ const timesheetApi = new TimesheetControllerApi(configWithRefreshToken)
 const approvalApi = new ApprovalControllerApi(configWithRefreshToken)
 const ticketApi = new TicketControllerApi(configWithRefreshToken)
 const userApi = new UserControllerApi(configWithRefreshToken)
+const teamApi = new TeamControllerApi(configWithRefreshToken)
 
-export { accountApi, timesheetApi, approvalApi, ticketApi, userApi }
+export { accountApi, timesheetApi, approvalApi, ticketApi, userApi, teamApi }

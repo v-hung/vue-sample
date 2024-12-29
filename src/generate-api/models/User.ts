@@ -23,14 +23,15 @@ export class User {
     'email'?: string;
     'position'?: UserPositionEnum;
     'supervisor'?: User;
-    'roles'?: Array<Role>;
+    'roles'?: Set<Role>;
     'workTime'?: WorkTime;
-    'teams'?: Array<Team>;
+    'team'?: Team;
+    'status': UserStatusEnum;
     'enabled'?: boolean;
     'authorities'?: Array<GrantedAuthority>;
     'currentLevel'?: number;
-    'credentialsNonExpired'?: boolean;
     'accountNonExpired'?: boolean;
+    'credentialsNonExpired'?: boolean;
     'accountNonLocked'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -77,7 +78,7 @@ export class User {
         {
             "name": "roles",
             "baseName": "roles",
-            "type": "Array<Role>",
+            "type": "Set<Role>",
             "format": ""
         },
         {
@@ -87,9 +88,15 @@ export class User {
             "format": ""
         },
         {
-            "name": "teams",
-            "baseName": "teams",
-            "type": "Array<Team>",
+            "name": "team",
+            "baseName": "team",
+            "type": "Team",
+            "format": ""
+        },
+        {
+            "name": "status",
+            "baseName": "status",
+            "type": "UserStatusEnum",
             "format": ""
         },
         {
@@ -111,14 +118,14 @@ export class User {
             "format": "int32"
         },
         {
-            "name": "credentialsNonExpired",
-            "baseName": "credentialsNonExpired",
+            "name": "accountNonExpired",
+            "baseName": "accountNonExpired",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "accountNonExpired",
-            "baseName": "accountNonExpired",
+            "name": "credentialsNonExpired",
+            "baseName": "credentialsNonExpired",
             "type": "boolean",
             "format": ""
         },
@@ -146,5 +153,11 @@ export enum UserPositionEnum {
     TestLeader = 'TEST_LEADER',
     Ceo = 'CEO',
     Sale = 'SALE'
+}
+export enum UserStatusEnum {
+    Active = 'ACTIVE',
+    Onboarding = 'ONBOARDING',
+    OffBoarding = 'OFF_BOARDING',
+    Inactive = 'INACTIVE'
 }
 

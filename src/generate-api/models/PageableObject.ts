@@ -16,10 +16,10 @@ import { HttpFile } from '../http/http';
 export class PageableObject {
     'offset'?: number;
     'sort'?: Array<SortObject>;
+    'unpaged'?: boolean;
+    'paged'?: boolean;
     'pageNumber'?: number;
     'pageSize'?: number;
-    'paged'?: boolean;
-    'unpaged'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -39,6 +39,18 @@ export class PageableObject {
             "format": ""
         },
         {
+            "name": "unpaged",
+            "baseName": "unpaged",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "paged",
+            "baseName": "paged",
+            "type": "boolean",
+            "format": ""
+        },
+        {
             "name": "pageNumber",
             "baseName": "pageNumber",
             "type": "number",
@@ -49,18 +61,6 @@ export class PageableObject {
             "baseName": "pageSize",
             "type": "number",
             "format": "int32"
-        },
-        {
-            "name": "paged",
-            "baseName": "paged",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "unpaged",
-            "baseName": "unpaged",
-            "type": "boolean",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

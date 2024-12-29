@@ -1,6 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { UserDto, type LoginRequest, type LoginResponse } from '@/generate-api'
+import {
+  AccountControllerApi,
+  UserDto,
+  type LoginRequest,
+  type LoginResponse,
+} from '@/generate-api'
 import { accountApi, configWithRefreshToken } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
 
@@ -30,20 +35,20 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   async function logged() {
-    return (user.value = {
-      name: 'Việt Hùng',
-      email: 'hungnv@wbcvn.vn',
-      id: 1,
-      username: 'hungnv@wbcvn.vn',
-      roles: [],
-    })
+    // return (user.value = {
+    //   name: 'Việt Hùng',
+    //   email: 'hungnv@wbcvn.vn',
+    //   id: 1,
+    //   username: 'hungnv@wbcvn.vn',
+    //   roles: [],
+    // })
 
-    // await new AccountControllerApi(configWithRefreshToken)
-    //   .getCurrentUser()
-    //   .then(res => {
-    //     user.value = res
-    //   })
-    //   .catch(error => console.log(error))
+    await new AccountControllerApi(configWithRefreshToken)
+      .getCurrentUser()
+      .then(res => {
+        user.value = res
+      })
+      .catch(error => console.log(error))
   }
 
   return { isLogged, user, login, logged }

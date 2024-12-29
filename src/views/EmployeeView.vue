@@ -11,15 +11,30 @@ import { useEmployeeStore } from '@/stores/employee'
 import type { UserDto } from '@/generate-api'
 import { useNotifyPromise } from '@/lib/promise'
 import { userApi } from '@/lib/api'
+import { defineAsyncComponent } from 'vue'
+
+const EmployeeUpdateDrawerAsync = defineAsyncComponent(
+  () => import('@/features/employee/EmployeeUpdateDrawer.vue'),
+)
 
 const columns: ColumnType[] = [
   { title: 'Name', dataIndex: 'name', key: 'name', width: '20%' },
   { title: 'Position', dataIndex: 'position', key: 'position' },
-  { title: 'Teams', dataIndex: 'teams', key: 'teams' },
+  { title: 'Team', dataIndex: 'team', key: 'team' },
   { title: 'Supervisor', dataIndex: 'supervisor', key: 'supervisor' },
   { title: 'Status', key: 'status', dataIndex: 'status' },
   { title: 'Action', key: 'action', width: 0 },
 ]
+
+const COLORS = ['green', 'blue', 'red', 'purple', 'orange', 'cyan']
+const teamColors = new Map<string, string>()
+const getTeamColor = (team: string) => {
+  if (!teamColors.has(team)) {
+    const color = COLORS[teamColors.size % COLORS.length]
+    teamColors.set(team, color)
+  }
+  return teamColors.get(team)
+}
 
 const employeeStore = useEmployeeStore()
 
@@ -31,11 +46,11 @@ const loading = ref(false)
 onMounted(async () => {
   loading.value = true
 
-  const body = await useNotifyPromise({
-    callback: userApi.getUsers({
-      page: 1,
-    }),
+  const body = await userApi.getUsers({
+    page: 1,
   })
+
+  console.log(body)
 
   loading.value = false
 
@@ -96,7 +111,7 @@ onMounted(async () => {
       :columns="columns"
       :data-source="data"
       :scroll="{ x: 768, y: 'auto' }"
-      :pagination="false"
+      :pagination="{ pageSize: 20 }"
       :loading="loading"
       class="mx-6 mt-6 min-h-0 flex-grow"
     >
@@ -110,33 +125,33 @@ onMounted(async () => {
               <template #icon><UserOutlined /></template>
             </a-avatar>
             <div>
-              <h5 class="mb-0 text-sm font-semibold">{{ record.user.name }}</h5>
-              <p class="mb-0 text-xs text-gray-600">{{ record.user.email }}</p>
+              <h5 class="mb-0 text-sm font-semibold">{{ record.name }}</h5>
+              <p class="mb-0 text-xs text-gray-600">{{ record.email }}</p>
             </div>
           </div>
         </template>
-        <template v-else-if="column.key === 'teams'">
-          <span>
+        <template v-else-if="column.key === 'team'">
+          <span v-if="record.team">
             <a-tag
-              v-for="team in record.teams"
-              :key="team"
-              color=""
+              v-for="item in record.team.name"
+              :key="item"
+              :color="getTeamColor(record.team.name)"
               class="mr-1"
             >
-              {{ team.toUpperCase() }}
+              {{ item.toUpperCase() }}
             </a-tag>
           </span>
         </template>
         <template v-else-if="column.key === 'action'">
           <span>
-            <a @click="employeeStore.openDrawerUserUpdate(record.key)">Edit</a>
+            <a @click="employeeStore.openDrawerUserUpdate(record.id)">Edit</a>
           </span>
         </template>
       </template>
     </a-table>
   </div>
 
-  <EmployeeUpdateDrawer />
+  <EmployeeUpdateDrawerAsync />
 </template>
 
 <!-- https://cdn.dribbble.com/userupload/16714106/file/original-ead35fd296fc28515c61560a642c7b0e.png?resize=1024x768&vertical=center -->
@@ -155,12 +170,25 @@ onMounted(async () => {
 
 .ant-spin-nested-loading,
 .ant-spin-container,
-.ant-table,
 .ant-table-container {
   height: 100%;
 }
 
+.ant-spin-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+
+  .ant-table {
+    /* flex: 0 1 auto; */
+    overflow-y: auto;
+  }
+  .ant-pagination {
+    flex: none;
+  }
+}
+
 .ant-table-body {
-  max-height: calc(100% - 77px);
+  max-height: calc(100% - 55px);
 }
 </style>

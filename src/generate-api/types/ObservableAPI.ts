@@ -5,16 +5,15 @@ import {mergeMap, map} from  '../rxjsStub';
 import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
-import { PageUserDto } from '../models/PageUserDto';
+import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
-import { PageableObject } from '../models/PageableObject';
 import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { SortObject } from '../models/SortObject';
 import { Team } from '../models/Team';
+import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
@@ -213,6 +212,51 @@ export class ObservableDataInitializerControllerApi {
      */
     public initializeData(_options?: Configuration): Observable<string> {
         return this.initializeDataWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    }
+
+}
+
+import { TeamControllerApiRequestFactory, TeamControllerApiResponseProcessor} from "../apis/TeamControllerApi";
+export class ObservableTeamControllerApi {
+    private requestFactory: TeamControllerApiRequestFactory;
+    private responseProcessor: TeamControllerApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TeamControllerApiRequestFactory,
+        responseProcessor?: TeamControllerApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new TeamControllerApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new TeamControllerApiResponseProcessor();
+    }
+
+    /**
+     */
+    public getTeamsWithHttpInfo(_options?: Configuration): Observable<HttpInfo<Array<TeamDto>>> {
+        const requestContextPromise = this.requestFactory.getTeams(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTeamsWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public getTeams(_options?: Configuration): Observable<Array<TeamDto>> {
+        return this.getTeamsWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<TeamDto>>) => apiResponse.data));
     }
 
 }
@@ -664,9 +708,9 @@ export class ObservableUserControllerApi {
     }
 
     /**
-     * @param [pageable]
+     * @param pageable
      */
-    public getUsersWithHttpInfo(pageable?: Pageable, _options?: Configuration): Observable<HttpInfo<PageUserDto>> {
+    public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Observable<HttpInfo<PageResponseUserDto>> {
         const requestContextPromise = this.requestFactory.getUsers(pageable, _options);
 
         // build promise chain
@@ -686,10 +730,10 @@ export class ObservableUserControllerApi {
     }
 
     /**
-     * @param [pageable]
+     * @param pageable
      */
-    public getUsers(pageable?: Pageable, _options?: Configuration): Observable<PageUserDto> {
-        return this.getUsersWithHttpInfo(pageable, _options).pipe(map((apiResponse: HttpInfo<PageUserDto>) => apiResponse.data));
+    public getUsers(pageable: Pageable, _options?: Configuration): Observable<PageResponseUserDto> {
+        return this.getUsersWithHttpInfo(pageable, _options).pipe(map((apiResponse: HttpInfo<PageResponseUserDto>) => apiResponse.data));
     }
 
     /**

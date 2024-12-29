@@ -4,7 +4,7 @@ import TimesheetTable from '@/features/timesheet/TimesheetTable.vue'
 import { defineAsyncComponent } from 'vue'
 
 const TimesheetModelCorrectionAsync = defineAsyncComponent(
-  () => import('@/features/timesheet/TimesheetModelCorrection.vue'),
+  () => import('@/features/timeSheet/TimesheetModelCorrection.vue'),
 )
 </script>
 

@@ -10,20 +10,15 @@
  * Do not edit the class manually.
  */
 
-import { PageableObject } from '../models/PageableObject';
-import { SortObject } from '../models/SortObject';
 import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
-export class PageUserDto {
-    'totalPages'?: number;
-    'totalElements'?: number;
-    'size'?: number;
+export class PageResponseUserDto {
     'content'?: Array<UserDto>;
-    'number'?: number;
-    'sort'?: Array<SortObject>;
-    'numberOfElements'?: number;
-    'pageable'?: PageableObject;
+    'pageNumber'?: number;
+    'pageSize'?: number;
+    'totalElements'?: number;
+    'totalPages'?: number;
     'first'?: boolean;
     'last'?: boolean;
     'empty'?: boolean;
@@ -34,8 +29,20 @@ export class PageUserDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "totalPages",
-            "baseName": "totalPages",
+            "name": "content",
+            "baseName": "content",
+            "type": "Array<UserDto>",
+            "format": ""
+        },
+        {
+            "name": "pageNumber",
+            "baseName": "pageNumber",
+            "type": "number",
+            "format": "int32"
+        },
+        {
+            "name": "pageSize",
+            "baseName": "pageSize",
             "type": "number",
             "format": "int32"
         },
@@ -46,40 +53,10 @@ export class PageUserDto {
             "format": "int64"
         },
         {
-            "name": "size",
-            "baseName": "size",
+            "name": "totalPages",
+            "baseName": "totalPages",
             "type": "number",
             "format": "int32"
-        },
-        {
-            "name": "content",
-            "baseName": "content",
-            "type": "Array<UserDto>",
-            "format": ""
-        },
-        {
-            "name": "number",
-            "baseName": "number",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "sort",
-            "baseName": "sort",
-            "type": "Array<SortObject>",
-            "format": ""
-        },
-        {
-            "name": "numberOfElements",
-            "baseName": "numberOfElements",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "pageable",
-            "baseName": "pageable",
-            "type": "PageableObject",
-            "format": ""
         },
         {
             "name": "first",
@@ -101,7 +78,7 @@ export class PageUserDto {
         }    ];
 
     static getAttributeTypeMap() {
-        return PageUserDto.attributeTypeMap;
+        return PageResponseUserDto.attributeTypeMap;
     }
 
     public constructor() {

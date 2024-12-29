@@ -4,16 +4,15 @@ import { Configuration} from '../configuration'
 import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
-import { PageUserDto } from '../models/PageUserDto';
+import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
-import { PageableObject } from '../models/PageableObject';
 import { Permission } from '../models/Permission';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
 import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { SortObject } from '../models/SortObject';
 import { Team } from '../models/Team';
+import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
@@ -157,6 +156,35 @@ export class ObjectDataInitializerControllerApi {
      */
     public initializeData(param: DataInitializerControllerApiInitializeDataRequest = {}, options?: Configuration): Promise<string> {
         return this.api.initializeData( options).toPromise();
+    }
+
+}
+
+import { ObservableTeamControllerApi } from "./ObservableAPI";
+import { TeamControllerApiRequestFactory, TeamControllerApiResponseProcessor} from "../apis/TeamControllerApi";
+
+export interface TeamControllerApiGetTeamsRequest {
+}
+
+export class ObjectTeamControllerApi {
+    private api: ObservableTeamControllerApi
+
+    public constructor(configuration: Configuration, requestFactory?: TeamControllerApiRequestFactory, responseProcessor?: TeamControllerApiResponseProcessor) {
+        this.api = new ObservableTeamControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getTeamsWithHttpInfo(param: TeamControllerApiGetTeamsRequest = {}, options?: Configuration): Promise<HttpInfo<Array<TeamDto>>> {
+        return this.api.getTeamsWithHttpInfo( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getTeams(param: TeamControllerApiGetTeamsRequest = {}, options?: Configuration): Promise<Array<TeamDto>> {
+        return this.api.getTeams( options).toPromise();
     }
 
 }
@@ -445,7 +473,7 @@ export interface UserControllerApiGetUsersRequest {
      * @type Pageable
      * @memberof UserControllerApigetUsers
      */
-    pageable?: Pageable
+    pageable: Pageable
 }
 
 export interface UserControllerApiUpdateUserRequest {
@@ -516,14 +544,14 @@ export class ObjectUserControllerApi {
     /**
      * @param param the request object
      */
-    public getUsersWithHttpInfo(param: UserControllerApiGetUsersRequest = {}, options?: Configuration): Promise<HttpInfo<PageUserDto>> {
+    public getUsersWithHttpInfo(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<HttpInfo<PageResponseUserDto>> {
         return this.api.getUsersWithHttpInfo(param.pageable,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public getUsers(param: UserControllerApiGetUsersRequest = {}, options?: Configuration): Promise<PageUserDto> {
+    public getUsers(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<PageResponseUserDto> {
         return this.api.getUsers(param.pageable,  options).toPromise();
     }
 
