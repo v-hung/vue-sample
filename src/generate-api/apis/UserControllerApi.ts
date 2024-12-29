@@ -8,7 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
-import { PageUserDto } from '../models/PageUserDto';
+import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
 import { User } from '../models/User';
 import { UserDto } from '../models/UserDto';
@@ -139,8 +139,13 @@ export class UserControllerApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param pageable 
      */
-    public async getUsers(pageable?: Pageable, _options?: Configuration): Promise<RequestContext> {
+    public async getUsers(pageable: Pageable, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
+
+        // verify required parameter 'pageable' is not null or undefined
+        if (pageable === null || pageable === undefined) {
+            throw new RequiredError("UserControllerApi", "getUsers", "pageable");
+        }
 
 
         // Path Params
@@ -326,22 +331,22 @@ export class UserControllerApiResponseProcessor {
      * @params response Response returned by the server for a request to getUsers
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getUsersWithHttpInfo(response: ResponseContext): Promise<HttpInfo<PageUserDto >> {
+     public async getUsersWithHttpInfo(response: ResponseContext): Promise<HttpInfo<PageResponseUserDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: PageUserDto = ObjectSerializer.deserialize(
+            const body: PageResponseUserDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "PageUserDto", ""
-            ) as PageUserDto;
+                "PageResponseUserDto", ""
+            ) as PageResponseUserDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: PageUserDto = ObjectSerializer.deserialize(
+            const body: PageResponseUserDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "PageUserDto", ""
-            ) as PageUserDto;
+                "PageResponseUserDto", ""
+            ) as PageResponseUserDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

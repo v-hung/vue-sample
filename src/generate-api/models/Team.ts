@@ -15,7 +15,7 @@ import { HttpFile } from '../http/http';
 
 export class Team {
     'id'?: number;
-    'name'?: string;
+    'name': string;
     'description'?: string;
     'members'?: Array<User>;
 

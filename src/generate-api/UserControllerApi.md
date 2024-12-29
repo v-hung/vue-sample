@@ -58,16 +58,15 @@ const request: UserControllerApiCreateUserRequest = {
       endTimeAfternoon: "14:30:00.982",
       allowedLateMinutes: 1,
     },
-    teams: [
-      {
-        id: 1,
-        name: "name_example",
-        description: "description_example",
-        members: [
-          ,
-        ],
-      },
-    ],
+    team: {
+      id: 1,
+      name: "name_example",
+      description: "description_example",
+      members: [
+        ,
+      ],
+    },
+    status: "ACTIVE",
     enabled: true,
     authorities: [
       {
@@ -75,8 +74,8 @@ const request: UserControllerApiCreateUserRequest = {
       },
     ],
     currentLevel: 1,
-    credentialsNonExpired: true,
     accountNonExpired: true,
+    credentialsNonExpired: true,
     accountNonLocked: true,
   },
 };
@@ -219,7 +218,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getUsers**
-> PageUserDto getUsers()
+> PageResponseUserDto getUsers()
 
 
 ### Example
@@ -252,12 +251,12 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageable** | **Pageable** |  | (optional) defaults to undefined
+ **pageable** | **Pageable** |  | defaults to undefined
 
 
 ### Return type
 
-**PageUserDto**
+**PageResponseUserDto**
 
 ### Authorization
 
@@ -325,16 +324,15 @@ const request: UserControllerApiUpdateUserRequest = {
       endTimeAfternoon: "14:30:00.982",
       allowedLateMinutes: 1,
     },
-    teams: [
-      {
-        id: 1,
-        name: "name_example",
-        description: "description_example",
-        members: [
-          ,
-        ],
-      },
-    ],
+    team: {
+      id: 1,
+      name: "name_example",
+      description: "description_example",
+      members: [
+        ,
+      ],
+    },
+    status: "ACTIVE",
     enabled: true,
     authorities: [
       {
@@ -342,8 +340,8 @@ const request: UserControllerApiUpdateUserRequest = {
       },
     ],
     currentLevel: 1,
-    credentialsNonExpired: true,
     accountNonExpired: true,
+    credentialsNonExpired: true,
     accountNonLocked: true,
   },
 };

@@ -27,6 +27,7 @@ export const useNotifyPromise = async <T>({
 
     return (data ?? null) as SuccessResult<T>
   } catch (error) {
+    console.log(error)
     notification.error({
       message: 'ERROR',
       description: getMessageError(error),

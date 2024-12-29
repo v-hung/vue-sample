@@ -1,6 +1,13 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { UserDto, type LoginRequest, type LoginResponse } from '@/generate-api'
+import {
+  AccountControllerApi,
+  UserDto,
+  UserDtoStatusEnum,
+  UserStatusEnum,
+  type LoginRequest,
+  type LoginResponse,
+} from '@/generate-api'
 import { accountApi, configWithRefreshToken } from '@/lib/api'
 import { useNotifyPromise } from '@/lib/promise'
 
@@ -36,6 +43,7 @@ export const useAccountStore = defineStore('account', () => {
       id: 1,
       username: 'hungnv@wbcvn.vn',
       roles: [],
+      status: UserDtoStatusEnum.Active,
     })
 
     // await new AccountControllerApi(configWithRefreshToken)

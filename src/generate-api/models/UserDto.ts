@@ -11,6 +11,7 @@
  */
 
 import { RoleDto } from '../models/RoleDto';
+import { Team } from '../models/Team';
 import { HttpFile } from '../http/http';
 
 export class UserDto {
@@ -20,6 +21,8 @@ export class UserDto {
     'email': string;
     'position'?: UserDtoPositionEnum;
     'supervisor'?: UserDto;
+    'team'?: Team;
+    'status': UserDtoStatusEnum;
     'roles': Array<RoleDto>;
 
     static readonly discriminator: string | undefined = undefined;
@@ -64,6 +67,18 @@ export class UserDto {
             "format": ""
         },
         {
+            "name": "team",
+            "baseName": "team",
+            "type": "Team",
+            "format": ""
+        },
+        {
+            "name": "status",
+            "baseName": "status",
+            "type": "UserDtoStatusEnum",
+            "format": ""
+        },
+        {
             "name": "roles",
             "baseName": "roles",
             "type": "Array<RoleDto>",
@@ -87,5 +102,11 @@ export enum UserDtoPositionEnum {
     TestLeader = 'TEST_LEADER',
     Ceo = 'CEO',
     Sale = 'SALE'
+}
+export enum UserDtoStatusEnum {
+    Active = 'ACTIVE',
+    Onboarding = 'ONBOARDING',
+    OffBoarding = 'OFF_BOARDING',
+    Inactive = 'INACTIVE'
 }
 
