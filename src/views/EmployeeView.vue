@@ -12,6 +12,7 @@ import type { UserDto } from '@/generate-api'
 import { useNotifyPromise } from '@/lib/promise'
 import { userApi } from '@/lib/api'
 import { defineAsyncComponent } from 'vue'
+import { getTeamColor } from '@/utils/teamUtil'
 
 const EmployeeUpdateDrawerAsync = defineAsyncComponent(
   () => import('@/features/employee/EmployeeUpdateDrawer.vue'),
@@ -25,16 +26,6 @@ const columns: ColumnType[] = [
   { title: 'Status', key: 'status', dataIndex: 'status' },
   { title: 'Action', key: 'action', width: 0 },
 ]
-
-const COLORS = ['green', 'blue', 'red', 'purple', 'orange', 'cyan']
-const teamColors = new Map<string, string>()
-const getTeamColor = (team: string) => {
-  if (!teamColors.has(team)) {
-    const color = COLORS[teamColors.size % COLORS.length]
-    teamColors.set(team, color)
-  }
-  return teamColors.get(team)
-}
 
 const employeeStore = useEmployeeStore()
 

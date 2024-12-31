@@ -1,39 +1,37 @@
-export * from '../models/GrantedAuthority';
 export * from '../models/LoginRequest';
 export * from '../models/LoginResponse';
 export * from '../models/PageResponseUserDto';
 export * from '../models/Pageable';
 export * from '../models/Permission';
+export * from '../models/ProfileDto';
 export * from '../models/RefreshRequest';
 export * from '../models/RefreshResponse';
-export * from '../models/Role';
 export * from '../models/RoleDto';
-export * from '../models/Team';
 export * from '../models/TeamDto';
 export * from '../models/TicketDto';
 export * from '../models/TicketRequest';
 export * from '../models/TimesheetDto';
-export * from '../models/User';
+export * from '../models/UserCreateUpdateRequest';
 export * from '../models/UserDto';
+export * from '../models/UserFullDto';
 export * from '../models/WorkTime';
 
-import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
 import { Permission , PermissionNameEnum   } from '../models/Permission';
+import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
-import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { Team } from '../models/Team';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto   , TicketDtoTypeEnum  , TicketDtoStatusEnum        } from '../models/TicketDto';
 import { TicketRequest , TicketRequestTypeEnum      } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
-import { User    , UserPositionEnum      , UserStatusEnum         } from '../models/User';
-import { UserDto    , UserDtoPositionEnum    , UserDtoStatusEnum    } from '../models/UserDto';
+import { UserCreateUpdateRequest    , UserCreateUpdateRequestPositionEnum       , UserCreateUpdateRequestStatusEnum   } from '../models/UserCreateUpdateRequest';
+import { UserDto    , UserDtoPositionEnum    , UserDtoStatusEnum     } from '../models/UserDto';
+import { UserFullDto    , UserFullDtoPositionEnum    , UserFullDtoStatusEnum       } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
 
 /* tslint:disable:no-unused-variable */
@@ -53,30 +51,31 @@ let enumsMap: Set<string> = new Set<string>([
     "TicketDtoTypeEnum",
     "TicketDtoStatusEnum",
     "TicketRequestTypeEnum",
-    "UserPositionEnum",
-    "UserStatusEnum",
+    "UserCreateUpdateRequestPositionEnum",
+    "UserCreateUpdateRequestStatusEnum",
     "UserDtoPositionEnum",
     "UserDtoStatusEnum",
+    "UserFullDtoPositionEnum",
+    "UserFullDtoStatusEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
-    "GrantedAuthority": GrantedAuthority,
     "LoginRequest": LoginRequest,
     "LoginResponse": LoginResponse,
     "PageResponseUserDto": PageResponseUserDto,
     "Pageable": Pageable,
     "Permission": Permission,
+    "ProfileDto": ProfileDto,
     "RefreshRequest": RefreshRequest,
     "RefreshResponse": RefreshResponse,
-    "Role": Role,
     "RoleDto": RoleDto,
-    "Team": Team,
     "TeamDto": TeamDto,
     "TicketDto": TicketDto,
     "TicketRequest": TicketRequest,
     "TimesheetDto": TimesheetDto,
-    "User": User,
+    "UserCreateUpdateRequest": UserCreateUpdateRequest,
     "UserDto": UserDto,
+    "UserFullDto": UserFullDto,
     "WorkTime": WorkTime,
 }
 

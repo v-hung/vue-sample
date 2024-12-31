@@ -7,12 +7,13 @@ Method | HTTP request | Description
 [**createUser**](UserControllerApi.md#createUser) | **POST** /api/users | 
 [**deleteUser**](UserControllerApi.md#deleteUser) | **DELETE** /api/users/{id} | 
 [**getUser**](UserControllerApi.md#getUser) | **GET** /api/users/{id} | 
+[**getUserDetails**](UserControllerApi.md#getUserDetails) | **GET** /api/users/{id}/details | 
 [**getUsers**](UserControllerApi.md#getUsers) | **GET** /api/users | 
 [**updateUser**](UserControllerApi.md#updateUser) | **PUT** /api/users/{id}/edit | 
 
 
 # **createUser**
-> UserDto createUser(user)
+> UserDto createUser(userCreateUpdateRequest)
 
 
 ### Example
@@ -27,56 +28,27 @@ const apiInstance = new UserControllerApi(configuration);
 
 const request: UserControllerApiCreateUserRequest = {
   
-  user: {
-    id: 1,
+  userCreateUpdateRequest: {
     name: "name_example",
     username: "username_example",
     email: "email_example",
+    password: "password_example",
     position: "DEVELOPER",
-    supervisor: ,
-    roles: [
-      {
-        id: 1,
-        name: "name_example",
-        description: "description_example",
-        admin: true,
-        level: 1,
-        permissions: [
-          {
-            id: 1,
-            name: "USER_VIEW",
-          },
-        ],
-      },
+    supervisorId: 1,
+    roleIds: [
+      1,
     ],
-    workTime: {
-      id: 1,
-      title: "title_example",
-      startTimeMorning: "14:30:00.982",
-      endTimeMorning: "14:30:00.982",
-      startTimeAfternoon: "14:30:00.982",
-      endTimeAfternoon: "14:30:00.982",
-      allowedLateMinutes: 1,
-    },
-    team: {
-      id: 1,
-      name: "name_example",
-      description: "description_example",
-      members: [
-        ,
-      ],
+    workTimeId: 1,
+    teamId: 1,
+    profile: {
+      birthDate: new Date('1970-01-01').toISOString().split('T')[0];,
+      phone: "phone_example",
+      gender: true,
+      avatar: "avatar_example",
+      permanentAddress: "permanentAddress_example",
+      contactAddress: "contactAddress_example",
     },
     status: "ACTIVE",
-    enabled: true,
-    authorities: [
-      {
-        authority: "authority_example",
-      },
-    ],
-    currentLevel: 1,
-    accountNonExpired: true,
-    credentialsNonExpired: true,
-    accountNonLocked: true,
   },
 };
 
@@ -89,7 +61,7 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | **User**|  |
+ **userCreateUpdateRequest** | **UserCreateUpdateRequest**|  |
 
 
 ### Return type
@@ -217,6 +189,58 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **getUserDetails**
+> UserFullDto getUserDetails()
+
+
+### Example
+
+
+```typescript
+import { createConfiguration, UserControllerApi } from '';
+import type { UserControllerApiGetUserDetailsRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new UserControllerApi(configuration);
+
+const request: UserControllerApiGetUserDetailsRequest = {
+  
+  id: 1,
+};
+
+const data = await apiInstance.getUserDetails(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**number**] |  | defaults to undefined
+
+
+### Return type
+
+**UserFullDto**
+
+### Authorization
+
+[bearerAuth](README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **getUsers**
 > PageResponseUserDto getUsers()
 
@@ -276,7 +300,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **updateUser**
-> UserDto updateUser(user)
+> UserDto updateUser(userCreateUpdateRequest)
 
 
 ### Example
@@ -293,56 +317,27 @@ const request: UserControllerApiUpdateUserRequest = {
   
   id: 1,
   
-  user: {
-    id: 1,
+  userCreateUpdateRequest: {
     name: "name_example",
     username: "username_example",
     email: "email_example",
+    password: "password_example",
     position: "DEVELOPER",
-    supervisor: ,
-    roles: [
-      {
-        id: 1,
-        name: "name_example",
-        description: "description_example",
-        admin: true,
-        level: 1,
-        permissions: [
-          {
-            id: 1,
-            name: "USER_VIEW",
-          },
-        ],
-      },
+    supervisorId: 1,
+    roleIds: [
+      1,
     ],
-    workTime: {
-      id: 1,
-      title: "title_example",
-      startTimeMorning: "14:30:00.982",
-      endTimeMorning: "14:30:00.982",
-      startTimeAfternoon: "14:30:00.982",
-      endTimeAfternoon: "14:30:00.982",
-      allowedLateMinutes: 1,
-    },
-    team: {
-      id: 1,
-      name: "name_example",
-      description: "description_example",
-      members: [
-        ,
-      ],
+    workTimeId: 1,
+    teamId: 1,
+    profile: {
+      birthDate: new Date('1970-01-01').toISOString().split('T')[0];,
+      phone: "phone_example",
+      gender: true,
+      avatar: "avatar_example",
+      permanentAddress: "permanentAddress_example",
+      contactAddress: "contactAddress_example",
     },
     status: "ACTIVE",
-    enabled: true,
-    authorities: [
-      {
-        authority: "authority_example",
-      },
-    ],
-    currentLevel: 1,
-    accountNonExpired: true,
-    credentialsNonExpired: true,
-    accountNonLocked: true,
   },
 };
 
@@ -355,7 +350,7 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | **User**|  |
+ **userCreateUpdateRequest** | **UserCreateUpdateRequest**|  |
  **id** | [**number**] |  | defaults to undefined
 
 

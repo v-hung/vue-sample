@@ -10,16 +10,15 @@
  * Do not edit the class manually.
  */
 
-import { SortObject } from '../models/SortObject';
 import { HttpFile } from '../http/http';
 
-export class PageableObject {
-    'offset'?: number;
-    'sort'?: Array<SortObject>;
-    'unpaged'?: boolean;
-    'paged'?: boolean;
-    'pageNumber'?: number;
-    'pageSize'?: number;
+export class ProfileDto {
+    'birthDate'?: string;
+    'phone'?: string;
+    'gender'?: boolean;
+    'avatar'?: string;
+    'permanentAddress'?: string;
+    'contactAddress'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -27,44 +26,44 @@ export class PageableObject {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "offset",
-            "baseName": "offset",
-            "type": "number",
-            "format": "int64"
+            "name": "birthDate",
+            "baseName": "birthDate",
+            "type": "string",
+            "format": "date"
         },
         {
-            "name": "sort",
-            "baseName": "sort",
-            "type": "Array<SortObject>",
+            "name": "phone",
+            "baseName": "phone",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "unpaged",
-            "baseName": "unpaged",
+            "name": "gender",
+            "baseName": "gender",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "paged",
-            "baseName": "paged",
-            "type": "boolean",
+            "name": "avatar",
+            "baseName": "avatar",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "pageNumber",
-            "baseName": "pageNumber",
-            "type": "number",
-            "format": "int32"
+            "name": "permanentAddress",
+            "baseName": "permanentAddress",
+            "type": "string",
+            "format": ""
         },
         {
-            "name": "pageSize",
-            "baseName": "pageSize",
-            "type": "number",
-            "format": "int32"
+            "name": "contactAddress",
+            "baseName": "contactAddress",
+            "type": "string",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return PageableObject.attributeTypeMap;
+        return ProfileDto.attributeTypeMap;
     }
 
     public constructor() {

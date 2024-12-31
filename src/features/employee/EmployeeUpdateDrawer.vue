@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import {
-  UserPositionEnum,
-  UserStatusEnum,
-  type Team,
+  UserCreateUpdateRequest,
+  UserDtoPositionEnum,
+  UserDtoStatusEnum,
   type TeamDto,
 } from '@/generate-api'
 import { teamApi, userApi } from '@/lib/api'
 import { useEmployeeStore } from '@/stores/employee'
-import { useTimesheetStore } from '@/stores/timesheet'
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, onUpdated, reactive, ref } from 'vue'
 
 // Store
 const employeeStore = useEmployeeStore()
@@ -17,12 +16,24 @@ const employeeStore = useEmployeeStore()
 const confirmLoading = ref<boolean>(false)
 const teams = ref<TeamDto[]>([])
 const formRef = ref()
-const formState = reactive({
-  reviewerId: '',
-  correctionDate: '',
-  startTime: '',
-  endTime: '',
-  reason: '',
+const formState = reactive<UserCreateUpdateRequest>({
+  name: '',
+  email: '',
+  username: '',
+  teamId: undefined,
+  position: undefined,
+  supervisorId: undefined,
+  roleIds: [],
+  workTimeId: undefined,
+  status: undefined,
+  password: undefined,
+  profile: {
+    birthDate: undefined,
+    gender: undefined,
+    phone: undefined,
+    permanentAddress: undefined,
+    contactAddress: undefined,
+  },
 })
 
 // const rules
@@ -49,6 +60,35 @@ onMounted(async () => {
   try {
     const body = await teamApi.getTeams()
     teams.value = body || []
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+onUpdated(async () => {
+  try {
+    if (employeeStore.userUpdateId) {
+      const body = await userApi.getUserDetails(employeeStore.userUpdateId)
+
+      Object.assign(formState, {
+        name: body.name,
+        email: body.email,
+        username: body.username,
+        teamId: body.team?.id,
+        position: body.position,
+        supervisorId: body.supervisor?.id,
+        roleIds: body.roles.map(v => v.id),
+        workTimeId: body.workTime?.id,
+        status: body.status,
+        profile: {
+          birthDate: body.profile?.birthDate,
+          gender: body.profile?.gender,
+          phone: body.profile?.phone,
+          permanentAddress: body.profile?.permanentAddress,
+          contactAddress: body.profile?.contactAddress,
+        },
+      })
+    }
   } catch (error) {
     console.error(error)
   }
@@ -107,7 +147,7 @@ onMounted(async () => {
           :rules="[{ required: true, message: 'Please choose Position!' }]"
         >
           <a-select placeholder="please choose Positions">
-            <template v-for="p in UserPositionEnum">
+            <template v-for="p in UserDtoPositionEnum">
               <a-select-option :value="p">{{ p }}</a-select-option>
             </template>
           </a-select>
@@ -135,7 +175,7 @@ onMounted(async () => {
           :rules="[{ required: true, message: 'Please choose Role!' }]"
         >
           <a-select placeholder="please choose Roles">
-            <template v-for="p in UserStatusEnum">
+            <template v-for="p in UserDtoStatusEnum">
               <a-select-option :value="p">{{ p }}</a-select-option>
             </template>
           </a-select>
@@ -148,7 +188,7 @@ onMounted(async () => {
           :rules="[{ required: true, message: 'Please choose WorkTime!' }]"
         >
           <a-select placeholder="please choose WorkTimes">
-            <template v-for="p in UserStatusEnum">
+            <template v-for="p in UserDtoStatusEnum">
               <a-select-option :value="p">{{ p }}</a-select-option>
             </template>
           </a-select>
@@ -160,13 +200,18 @@ onMounted(async () => {
           class="col-span-6"
           :rules="[{ required: true, message: 'Please choose Status!' }]"
         >
-          <a-select placeholder="please choose Statuss">
-            <template v-for="s in UserStatusEnum">
+          <a-select placeholder="please choose Status">
+            <template v-for="s in UserDtoStatusEnum">
               <a-select-option :value="s">{{ s }}</a-select-option>
             </template>
           </a-select>
         </a-form-item>
       </div>
+      <a-collapse ghost>
+        <a-collapse-panel header="This is panel header 1">
+          <p>23213</p>
+        </a-collapse-panel>
+      </a-collapse>
     </a-form>
   </a-drawer>
 </template>

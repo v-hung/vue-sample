@@ -1,23 +1,22 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http';
 import { Configuration} from '../configuration'
 
-import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
 import { Permission } from '../models/Permission';
+import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
-import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { Team } from '../models/Team';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
-import { User } from '../models/User';
+import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
+import { UserFullDto } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
 
 import { ObservableAccountControllerApi } from "./ObservableAPI";
@@ -440,10 +439,10 @@ import { UserControllerApiRequestFactory, UserControllerApiResponseProcessor} fr
 export interface UserControllerApiCreateUserRequest {
     /**
      * 
-     * @type User
+     * @type UserCreateUpdateRequest
      * @memberof UserControllerApicreateUser
      */
-    user: User
+    userCreateUpdateRequest: UserCreateUpdateRequest
 }
 
 export interface UserControllerApiDeleteUserRequest {
@@ -462,6 +461,16 @@ export interface UserControllerApiGetUserRequest {
      * Defaults to: undefined
      * @type number
      * @memberof UserControllerApigetUser
+     */
+    id: number
+}
+
+export interface UserControllerApiGetUserDetailsRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof UserControllerApigetUserDetails
      */
     id: number
 }
@@ -486,10 +495,10 @@ export interface UserControllerApiUpdateUserRequest {
     id: number
     /**
      * 
-     * @type User
+     * @type UserCreateUpdateRequest
      * @memberof UserControllerApiupdateUser
      */
-    user: User
+    userCreateUpdateRequest: UserCreateUpdateRequest
 }
 
 export class ObjectUserControllerApi {
@@ -503,14 +512,14 @@ export class ObjectUserControllerApi {
      * @param param the request object
      */
     public createUserWithHttpInfo(param: UserControllerApiCreateUserRequest, options?: Configuration): Promise<HttpInfo<UserDto>> {
-        return this.api.createUserWithHttpInfo(param.user,  options).toPromise();
+        return this.api.createUserWithHttpInfo(param.userCreateUpdateRequest,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
     public createUser(param: UserControllerApiCreateUserRequest, options?: Configuration): Promise<UserDto> {
-        return this.api.createUser(param.user,  options).toPromise();
+        return this.api.createUser(param.userCreateUpdateRequest,  options).toPromise();
     }
 
     /**
@@ -544,6 +553,20 @@ export class ObjectUserControllerApi {
     /**
      * @param param the request object
      */
+    public getUserDetailsWithHttpInfo(param: UserControllerApiGetUserDetailsRequest, options?: Configuration): Promise<HttpInfo<UserFullDto>> {
+        return this.api.getUserDetailsWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getUserDetails(param: UserControllerApiGetUserDetailsRequest, options?: Configuration): Promise<UserFullDto> {
+        return this.api.getUserDetails(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
     public getUsersWithHttpInfo(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<HttpInfo<PageResponseUserDto>> {
         return this.api.getUsersWithHttpInfo(param.pageable,  options).toPromise();
     }
@@ -559,14 +582,14 @@ export class ObjectUserControllerApi {
      * @param param the request object
      */
     public updateUserWithHttpInfo(param: UserControllerApiUpdateUserRequest, options?: Configuration): Promise<HttpInfo<UserDto>> {
-        return this.api.updateUserWithHttpInfo(param.id, param.user,  options).toPromise();
+        return this.api.updateUserWithHttpInfo(param.id, param.userCreateUpdateRequest,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
     public updateUser(param: UserControllerApiUpdateUserRequest, options?: Configuration): Promise<UserDto> {
-        return this.api.updateUser(param.id, param.user,  options).toPromise();
+        return this.api.updateUser(param.id, param.userCreateUpdateRequest,  options).toPromise();
     }
 
 }

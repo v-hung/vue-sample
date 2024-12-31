@@ -1,23 +1,22 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http';
 import { Configuration} from '../configuration'
 
-import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
 import { Permission } from '../models/Permission';
+import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
-import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { Team } from '../models/Team';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
-import { User } from '../models/User';
+import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
+import { UserFullDto } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
 import { ObservableAccountControllerApi } from './ObservableAPI';
 
@@ -402,18 +401,18 @@ export class PromiseUserControllerApi {
     }
 
     /**
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public createUserWithHttpInfo(user: User, _options?: Configuration): Promise<HttpInfo<UserDto>> {
-        const result = this.api.createUserWithHttpInfo(user, _options);
+    public createUserWithHttpInfo(userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<UserDto>> {
+        const result = this.api.createUserWithHttpInfo(userCreateUpdateRequest, _options);
         return result.toPromise();
     }
 
     /**
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public createUser(user: User, _options?: Configuration): Promise<UserDto> {
-        const result = this.api.createUser(user, _options);
+    public createUser(userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Promise<UserDto> {
+        const result = this.api.createUser(userCreateUpdateRequest, _options);
         return result.toPromise();
     }
 
@@ -450,6 +449,22 @@ export class PromiseUserControllerApi {
     }
 
     /**
+     * @param id
+     */
+    public getUserDetailsWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<UserFullDto>> {
+        const result = this.api.getUserDetailsWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getUserDetails(id: number, _options?: Configuration): Promise<UserFullDto> {
+        const result = this.api.getUserDetails(id, _options);
+        return result.toPromise();
+    }
+
+    /**
      * @param pageable
      */
     public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Promise<HttpInfo<PageResponseUserDto>> {
@@ -467,19 +482,19 @@ export class PromiseUserControllerApi {
 
     /**
      * @param id
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public updateUserWithHttpInfo(id: number, user: User, _options?: Configuration): Promise<HttpInfo<UserDto>> {
-        const result = this.api.updateUserWithHttpInfo(id, user, _options);
+    public updateUserWithHttpInfo(id: number, userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<UserDto>> {
+        const result = this.api.updateUserWithHttpInfo(id, userCreateUpdateRequest, _options);
         return result.toPromise();
     }
 
     /**
      * @param id
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public updateUser(id: number, user: User, _options?: Configuration): Promise<UserDto> {
-        const result = this.api.updateUser(id, user, _options);
+    public updateUser(id: number, userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Promise<UserDto> {
+        const result = this.api.updateUser(id, userCreateUpdateRequest, _options);
         return result.toPromise();
     }
 

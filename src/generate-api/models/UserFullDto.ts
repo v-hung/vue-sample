@@ -10,29 +10,26 @@
  * Do not edit the class manually.
  */
 
-import { GrantedAuthority } from '../models/GrantedAuthority';
-import { Role } from '../models/Role';
-import { Team } from '../models/Team';
+import { ProfileDto } from '../models/ProfileDto';
+import { RoleDto } from '../models/RoleDto';
+import { TeamDto } from '../models/TeamDto';
+import { UserDto } from '../models/UserDto';
 import { WorkTime } from '../models/WorkTime';
 import { HttpFile } from '../http/http';
 
-export class User {
-    'id'?: number;
-    'name'?: string;
-    'username'?: string;
-    'email'?: string;
-    'position'?: UserPositionEnum;
-    'supervisor'?: User;
-    'roles'?: Set<Role>;
+export class UserFullDto {
+    'id': number;
+    'name': string;
+    'username': string;
+    'email': string;
+    'position'?: UserFullDtoPositionEnum;
+    'supervisor'?: UserDto;
+    'team'?: TeamDto;
+    'status': UserFullDtoStatusEnum;
+    'roles': Array<RoleDto>;
+    'profile'?: ProfileDto;
     'workTime'?: WorkTime;
-    'team'?: Team;
-    'status': UserStatusEnum;
-    'enabled'?: boolean;
-    'authorities'?: Array<GrantedAuthority>;
-    'currentLevel'?: number;
-    'accountNonExpired'?: boolean;
-    'credentialsNonExpired'?: boolean;
-    'accountNonLocked'?: boolean;
+    'firstLogin'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -66,19 +63,37 @@ export class User {
         {
             "name": "position",
             "baseName": "position",
-            "type": "UserPositionEnum",
+            "type": "UserFullDtoPositionEnum",
             "format": ""
         },
         {
             "name": "supervisor",
             "baseName": "supervisor",
-            "type": "User",
+            "type": "UserDto",
+            "format": ""
+        },
+        {
+            "name": "team",
+            "baseName": "team",
+            "type": "TeamDto",
+            "format": ""
+        },
+        {
+            "name": "status",
+            "baseName": "status",
+            "type": "UserFullDtoStatusEnum",
             "format": ""
         },
         {
             "name": "roles",
             "baseName": "roles",
-            "type": "Set<Role>",
+            "type": "Array<RoleDto>",
+            "format": ""
+        },
+        {
+            "name": "profile",
+            "baseName": "profile",
+            "type": "ProfileDto",
             "format": ""
         },
         {
@@ -88,63 +103,21 @@ export class User {
             "format": ""
         },
         {
-            "name": "team",
-            "baseName": "team",
-            "type": "Team",
-            "format": ""
-        },
-        {
-            "name": "status",
-            "baseName": "status",
-            "type": "UserStatusEnum",
-            "format": ""
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "authorities",
-            "baseName": "authorities",
-            "type": "Array<GrantedAuthority>",
-            "format": ""
-        },
-        {
-            "name": "currentLevel",
-            "baseName": "currentLevel",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "accountNonExpired",
-            "baseName": "accountNonExpired",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "credentialsNonExpired",
-            "baseName": "credentialsNonExpired",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "accountNonLocked",
-            "baseName": "accountNonLocked",
+            "name": "firstLogin",
+            "baseName": "firstLogin",
             "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return User.attributeTypeMap;
+        return UserFullDto.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
 
-export enum UserPositionEnum {
+export enum UserFullDtoPositionEnum {
     Developer = 'DEVELOPER',
     ProjectManager = 'PROJECT_MANAGER',
     HrManager = 'HR_MANAGER',
@@ -154,7 +127,7 @@ export enum UserPositionEnum {
     Ceo = 'CEO',
     Sale = 'SALE'
 }
-export enum UserStatusEnum {
+export enum UserFullDtoStatusEnum {
     Active = 'ACTIVE',
     Onboarding = 'ONBOARDING',
     OffBoarding = 'OFF_BOARDING',

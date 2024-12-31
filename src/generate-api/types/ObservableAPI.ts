@@ -2,23 +2,22 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
-import { GrantedAuthority } from '../models/GrantedAuthority';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
 import { Permission } from '../models/Permission';
+import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
-import { Role } from '../models/Role';
 import { RoleDto } from '../models/RoleDto';
-import { Team } from '../models/Team';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
-import { User } from '../models/User';
+import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
+import { UserFullDto } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -621,10 +620,10 @@ export class ObservableUserControllerApi {
     }
 
     /**
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public createUserWithHttpInfo(user: User, _options?: Configuration): Observable<HttpInfo<UserDto>> {
-        const requestContextPromise = this.requestFactory.createUser(user, _options);
+    public createUserWithHttpInfo(userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<UserDto>> {
+        const requestContextPromise = this.requestFactory.createUser(userCreateUpdateRequest, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -643,10 +642,10 @@ export class ObservableUserControllerApi {
     }
 
     /**
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public createUser(user: User, _options?: Configuration): Observable<UserDto> {
-        return this.createUserWithHttpInfo(user, _options).pipe(map((apiResponse: HttpInfo<UserDto>) => apiResponse.data));
+    public createUser(userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Observable<UserDto> {
+        return this.createUserWithHttpInfo(userCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<UserDto>) => apiResponse.data));
     }
 
     /**
@@ -708,6 +707,35 @@ export class ObservableUserControllerApi {
     }
 
     /**
+     * @param id
+     */
+    public getUserDetailsWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<UserFullDto>> {
+        const requestContextPromise = this.requestFactory.getUserDetails(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getUserDetailsWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public getUserDetails(id: number, _options?: Configuration): Observable<UserFullDto> {
+        return this.getUserDetailsWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<UserFullDto>) => apiResponse.data));
+    }
+
+    /**
      * @param pageable
      */
     public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Observable<HttpInfo<PageResponseUserDto>> {
@@ -738,10 +766,10 @@ export class ObservableUserControllerApi {
 
     /**
      * @param id
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public updateUserWithHttpInfo(id: number, user: User, _options?: Configuration): Observable<HttpInfo<UserDto>> {
-        const requestContextPromise = this.requestFactory.updateUser(id, user, _options);
+    public updateUserWithHttpInfo(id: number, userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<UserDto>> {
+        const requestContextPromise = this.requestFactory.updateUser(id, userCreateUpdateRequest, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -761,10 +789,10 @@ export class ObservableUserControllerApi {
 
     /**
      * @param id
-     * @param user
+     * @param userCreateUpdateRequest
      */
-    public updateUser(id: number, user: User, _options?: Configuration): Observable<UserDto> {
-        return this.updateUserWithHttpInfo(id, user, _options).pipe(map((apiResponse: HttpInfo<UserDto>) => apiResponse.data));
+    public updateUser(id: number, userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Observable<UserDto> {
+        return this.updateUserWithHttpInfo(id, userCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<UserDto>) => apiResponse.data));
     }
 
 }

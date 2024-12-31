@@ -10,33 +10,27 @@
  * Do not edit the class manually.
  */
 
-import { RoleDto } from '../models/RoleDto';
-import { TeamDto } from '../models/TeamDto';
+import { ProfileDto } from '../models/ProfileDto';
 import { HttpFile } from '../http/http';
 
-export class UserDto {
-    'id': number;
-    'name': string;
-    'username': string;
-    'email': string;
-    'position'?: UserDtoPositionEnum;
-    'supervisor'?: UserDto;
-    'team'?: TeamDto;
-    'status': UserDtoStatusEnum;
-    'roles': Array<RoleDto>;
-    'firstLogin'?: boolean;
+export class UserCreateUpdateRequest {
+    'name'?: string;
+    'username'?: string;
+    'email'?: string;
+    'password'?: string;
+    'position'?: UserCreateUpdateRequestPositionEnum;
+    'supervisorId'?: number;
+    'roleIds'?: Array<number>;
+    'workTimeId'?: number;
+    'teamId'?: number;
+    'profile'?: ProfileDto;
+    'status'?: UserCreateUpdateRequestStatusEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": "int64"
-        },
         {
             "name": "name",
             "baseName": "name",
@@ -56,51 +50,63 @@ export class UserDto {
             "format": ""
         },
         {
+            "name": "password",
+            "baseName": "password",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "position",
             "baseName": "position",
-            "type": "UserDtoPositionEnum",
+            "type": "UserCreateUpdateRequestPositionEnum",
             "format": ""
         },
         {
-            "name": "supervisor",
-            "baseName": "supervisor",
-            "type": "UserDto",
-            "format": ""
+            "name": "supervisorId",
+            "baseName": "supervisorId",
+            "type": "number",
+            "format": "int64"
         },
         {
-            "name": "team",
-            "baseName": "team",
-            "type": "TeamDto",
+            "name": "roleIds",
+            "baseName": "roleIds",
+            "type": "Array<number>",
+            "format": "int64"
+        },
+        {
+            "name": "workTimeId",
+            "baseName": "workTimeId",
+            "type": "number",
+            "format": "int64"
+        },
+        {
+            "name": "teamId",
+            "baseName": "teamId",
+            "type": "number",
+            "format": "int64"
+        },
+        {
+            "name": "profile",
+            "baseName": "profile",
+            "type": "ProfileDto",
             "format": ""
         },
         {
             "name": "status",
             "baseName": "status",
-            "type": "UserDtoStatusEnum",
-            "format": ""
-        },
-        {
-            "name": "roles",
-            "baseName": "roles",
-            "type": "Array<RoleDto>",
-            "format": ""
-        },
-        {
-            "name": "firstLogin",
-            "baseName": "firstLogin",
-            "type": "boolean",
+            "type": "UserCreateUpdateRequestStatusEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return UserDto.attributeTypeMap;
+        return UserCreateUpdateRequest.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
 
-export enum UserDtoPositionEnum {
+export enum UserCreateUpdateRequestPositionEnum {
     Developer = 'DEVELOPER',
     ProjectManager = 'PROJECT_MANAGER',
     HrManager = 'HR_MANAGER',
@@ -110,7 +116,7 @@ export enum UserDtoPositionEnum {
     Ceo = 'CEO',
     Sale = 'SALE'
 }
-export enum UserDtoStatusEnum {
+export enum UserCreateUpdateRequestStatusEnum {
     Active = 'ACTIVE',
     Onboarding = 'ONBOARDING',
     OffBoarding = 'OFF_BOARDING',

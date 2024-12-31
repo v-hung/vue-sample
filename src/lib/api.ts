@@ -1,7 +1,6 @@
 import {
   AccountControllerApi,
   ApprovalControllerApi,
-  Team,
   TeamControllerApi,
   TicketControllerApi,
   TimesheetControllerApi,

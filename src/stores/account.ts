@@ -3,8 +3,6 @@ import { defineStore } from 'pinia'
 import {
   AccountControllerApi,
   UserDto,
-  UserDtoStatusEnum,
-  UserStatusEnum,
   type LoginRequest,
   type LoginResponse,
 } from '@/generate-api'
