@@ -7,13 +7,14 @@ import {
 } from '@/generate-api'
 import { teamApi, userApi } from '@/lib/api'
 import { useEmployeeStore } from '@/stores/employee'
-import { onMounted, onUpdated, reactive, ref } from 'vue'
+import { onMounted, onUpdated, reactive, ref, watch } from 'vue'
 
 // Store
 const employeeStore = useEmployeeStore()
 
 // Stages
-const confirmLoading = ref<boolean>(false)
+const loadingConfirm = ref<boolean>(false)
+const loadingDetails = ref<boolean>(false)
 const teams = ref<TeamDto[]>([])
 const formRef = ref()
 const formState = reactive<UserCreateUpdateRequest>({
@@ -41,19 +42,56 @@ const formState = reactive<UserCreateUpdateRequest>({
 // Methods
 const handelSubmit = async () => {
   formRef.value.validate().then(async () => {
-    confirmLoading.value = true
+    loadingConfirm.value = true
 
     // await userApi.updateUser({})
   })
 }
 
-const afterOpenChange = (bool: boolean) => {
-  console.log('open', bool)
-}
+const afterOpenChange = async (bool: boolean) => {}
 
 const resetForm = () => {
   formRef.value.resetFields()
 }
+
+watch(
+  () => employeeStore.isUserUpdateOpen,
+  async val => {
+    try {
+      if (!val) {
+        return resetForm()
+      }
+
+      if (employeeStore.userUpdateId) {
+        loadingDetails.value = true
+        const body = await userApi.getUserDetails(employeeStore.userUpdateId)
+
+        Object.assign(formState, {
+          name: body.name,
+          email: body.email,
+          username: body.username,
+          teamId: body.team?.id,
+          position: body.position,
+          supervisorId: body.supervisor?.id,
+          roleIds: body.roles.map(v => v.id),
+          workTimeId: body.workTime?.id,
+          status: body.status,
+          profile: {
+            birthDate: body.profile?.birthDate,
+            gender: body.profile?.gender,
+            phone: body.profile?.phone,
+            permanentAddress: body.profile?.permanentAddress,
+            contactAddress: body.profile?.contactAddress,
+          },
+        })
+
+        loadingDetails.value = false
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  },
+)
 
 // Lifecycle
 onMounted(async () => {
@@ -64,41 +102,12 @@ onMounted(async () => {
     console.error(error)
   }
 })
-
-onUpdated(async () => {
-  try {
-    if (employeeStore.userUpdateId) {
-      const body = await userApi.getUserDetails(employeeStore.userUpdateId)
-
-      Object.assign(formState, {
-        name: body.name,
-        email: body.email,
-        username: body.username,
-        teamId: body.team?.id,
-        position: body.position,
-        supervisorId: body.supervisor?.id,
-        roleIds: body.roles.map(v => v.id),
-        workTimeId: body.workTime?.id,
-        status: body.status,
-        profile: {
-          birthDate: body.profile?.birthDate,
-          gender: body.profile?.gender,
-          phone: body.profile?.phone,
-          permanentAddress: body.profile?.permanentAddress,
-          contactAddress: body.profile?.contactAddress,
-        },
-      })
-    }
-  } catch (error) {
-    console.error(error)
-  }
-})
 </script>
 
 <template>
   <a-drawer
     v-model:open="employeeStore.isUserUpdateOpen"
-    root-class-name="drawer-employee"
+    :root-class-name="`drawer-employee ${loadingDetails ? 'loading' : ''}`"
     title="Update Employee"
     placement="right"
     @after-open-change="afterOpenChange"
@@ -213,11 +222,29 @@ onUpdated(async () => {
         </a-collapse-panel>
       </a-collapse>
     </a-form>
+
+    <div
+      class="ant-drawer-loading absolute left-0 top-0 hidden h-full w-full place-items-center bg-black/30"
+    >
+      <i-bx-loader-alt class="animate-spin text-white" />
+    </div>
   </a-drawer>
 </template>
 
 <style lang="postcss">
 .drawer-employee .ant-drawer-content-wrapper {
   @apply !w-full max-w-screen-xl;
+}
+
+.drawer-employee .ant-drawer-body {
+  @apply relative;
+}
+
+.drawer-employee.loading .ant-drawer-body {
+  @apply overflow-hidden;
+}
+
+.drawer-employee.loading .ant-drawer-loading {
+  @apply !grid;
 }
 </style>

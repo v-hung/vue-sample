@@ -34,6 +34,7 @@ declare module 'vue' {
     DefaultHeader: typeof import('./../components/layout/DefaultHeader.vue')['default']
     DefaultMenu: typeof import('./../components/layout/DefaultMenu.vue')['default']
     DropdownUser: typeof import('./../components/UI/DropdownUser.vue')['default']
+    IBxLoaderAlt: typeof import('~icons/bx/loader-alt')['default']
     IIonCheckmark: typeof import('~icons/ion/checkmark')['default']
     MenuItemBadge: typeof import('./../components/UI/MenuItemBadge.vue')['default']
     PageLoading: typeof import('./../components/UI/PageLoading.vue')['default']

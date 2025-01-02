@@ -41,8 +41,6 @@ onMounted(async () => {
     page: 1,
   })
 
-  console.log(body)
-
   loading.value = false
 
   data.value = body?.content?.map(v => ({ ...v, key: v.id })) || []
