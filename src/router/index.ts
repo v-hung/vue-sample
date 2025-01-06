@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import { useAppStore } from '@/stores/app'
 import { useAccountStore } from '@/stores/account'
 import LayoutDefault from '@/layouts/LayoutDefault.vue'
+import { h } from 'vue'
+import { defineComponent } from 'vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,13 +76,40 @@ const router = createRouter({
           },
         },
         {
-          path: 'employee',
-          name: 'employee',
-          component: () => import('../views/EmployeeView.vue'),
+          path: '/employee',
           meta: {
             requiresAuth: true,
             roles: ['employee_read'],
           },
+          children: [
+            {
+              path: '',
+              name: 'employee',
+              component: () => import('../views/EmployeeView.vue'),
+              meta: {
+                requiresAuth: true,
+                roles: ['employee_read'],
+              },
+            },
+            {
+              path: 'create',
+              name: 'employee-create',
+              component: () => import('../views/EmployeeCreateEditView.vue'),
+              meta: {
+                requiresAuth: true,
+                roles: ['employee_create'],
+              },
+            },
+            {
+              path: ':id',
+              name: 'employee-edit',
+              component: () => import('../views/EmployeeCreateEditView.vue'),
+              meta: {
+                requiresAuth: true,
+                roles: ['employee_edit'],
+              },
+            },
+          ],
         },
         {
           path: 'inventory',

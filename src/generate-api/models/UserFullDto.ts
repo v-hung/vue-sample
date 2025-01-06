@@ -20,13 +20,13 @@ import { HttpFile } from '../http/http';
 export class UserFullDto {
     'id': number;
     'name': string;
-    'username': string;
     'email': string;
     'position'?: UserFullDtoPositionEnum;
     'supervisor'?: UserDto;
     'team'?: TeamDto;
     'status': UserFullDtoStatusEnum;
     'roles': Array<RoleDto>;
+    'leaveHours': number;
     'profile'?: ProfileDto;
     'workTime'?: WorkTime;
     'firstLogin'?: boolean;
@@ -45,12 +45,6 @@ export class UserFullDto {
         {
             "name": "name",
             "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "username",
-            "baseName": "username",
             "type": "string",
             "format": ""
         },
@@ -89,6 +83,12 @@ export class UserFullDto {
             "baseName": "roles",
             "type": "Array<RoleDto>",
             "format": ""
+        },
+        {
+            "name": "leaveHours",
+            "baseName": "leaveHours",
+            "type": "number",
+            "format": "int32"
         },
         {
             "name": "profile",

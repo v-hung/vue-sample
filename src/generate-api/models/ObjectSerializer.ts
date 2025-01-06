@@ -30,8 +30,8 @@ import { TicketDto   , TicketDtoTypeEnum  , TicketDtoStatusEnum        } from '.
 import { TicketRequest , TicketRequestTypeEnum      } from '../models/TicketRequest';
 import { TimesheetDto } from '../models/TimesheetDto';
 import { UserCreateUpdateRequest    , UserCreateUpdateRequestPositionEnum       , UserCreateUpdateRequestStatusEnum   } from '../models/UserCreateUpdateRequest';
-import { UserDto    , UserDtoPositionEnum    , UserDtoStatusEnum     } from '../models/UserDto';
-import { UserFullDto    , UserFullDtoPositionEnum    , UserFullDtoStatusEnum       } from '../models/UserFullDto';
+import { UserDto   , UserDtoPositionEnum    , UserDtoStatusEnum      } from '../models/UserDto';
+import { UserFullDto   , UserFullDtoPositionEnum    , UserFullDtoStatusEnum        } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
 
 /* tslint:disable:no-unused-variable */

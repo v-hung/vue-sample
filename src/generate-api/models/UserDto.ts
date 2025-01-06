@@ -17,13 +17,13 @@ import { HttpFile } from '../http/http';
 export class UserDto {
     'id': number;
     'name': string;
-    'username': string;
     'email': string;
     'position'?: UserDtoPositionEnum;
     'supervisor'?: UserDto;
     'team'?: TeamDto;
     'status': UserDtoStatusEnum;
     'roles': Array<RoleDto>;
+    'leaveHours': number;
     'firstLogin'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -40,12 +40,6 @@ export class UserDto {
         {
             "name": "name",
             "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "username",
-            "baseName": "username",
             "type": "string",
             "format": ""
         },
@@ -84,6 +78,12 @@ export class UserDto {
             "baseName": "roles",
             "type": "Array<RoleDto>",
             "format": ""
+        },
+        {
+            "name": "leaveHours",
+            "baseName": "leaveHours",
+            "type": "number",
+            "format": "int32"
         },
         {
             "name": "firstLogin",

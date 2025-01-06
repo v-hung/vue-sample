@@ -6,17 +6,11 @@ import {
   UserOutlined,
 } from '@ant-design/icons-vue'
 import type { ColumnType } from 'ant-design-vue/es/table'
-import EmployeeUpdateDrawer from '@/features/employee/EmployeeUpdateDrawer.vue'
-import { useEmployeeStore } from '@/stores/employee'
 import type { UserDto } from '@/generate-api'
-import { useNotifyPromise } from '@/lib/promise'
 import { userApi } from '@/lib/api'
 import { defineAsyncComponent } from 'vue'
 import { getTeamColor } from '@/utils/teamUtil'
-
-const EmployeeUpdateDrawerAsync = defineAsyncComponent(
-  () => import('@/features/employee/EmployeeUpdateDrawer.vue'),
-)
+import { useRouter } from 'vue-router'
 
 const columns: ColumnType[] = [
   { title: 'Name', dataIndex: 'name', key: 'name', width: '20%' },
@@ -27,7 +21,7 @@ const columns: ColumnType[] = [
   { title: 'Action', key: 'action', width: 0 },
 ]
 
-const employeeStore = useEmployeeStore()
+const router = useRouter()
 
 // Stages
 const data = ref<(UserDto & { key: number })[]>([])
@@ -55,12 +49,17 @@ onMounted(async () => {
       class="flex-none"
     >
       <template #extra>
-        <a-button :icon="h(PlusOutlined)" type="primary">Add Employee</a-button>
+        <a-button
+          :icon="h(PlusOutlined)"
+          type="primary"
+          @click="router.push('/employee/create')"
+          >Add Employee</a-button
+        >
       </template>
     </a-page-header>
-    <div
-      class="mx-6 mb-4 h-0 flex-none border-0 border-b border-solid border-gray-200"
-    />
+
+    <div class="header-divine" />
+
     <div class="flex flex-none flex-wrap justify-between gap-4 px-6">
       <div class="inline-flex flex-wrap gap-1 rounded-md bg-gray-50 p-1">
         <div
@@ -133,14 +132,12 @@ onMounted(async () => {
         </template>
         <template v-else-if="column.key === 'action'">
           <span>
-            <a @click="employeeStore.openDrawerUserUpdate(record.id)">Edit</a>
+            <a @click="router.push('/employee/' + record.id)">Edit</a>
           </span>
         </template>
       </template>
     </a-table>
   </div>
-
-  <EmployeeUpdateDrawerAsync />
 </template>
 
 <!-- https://cdn.dribbble.com/userupload/16714106/file/original-ead35fd296fc28515c61560a642c7b0e.png?resize=1024x768&vertical=center -->
@@ -155,29 +152,5 @@ onMounted(async () => {
 }
 .tab-title.active {
   @apply pointer-events-none bg-white text-black shadow;
-}
-
-.ant-spin-nested-loading,
-.ant-spin-container,
-.ant-table-container {
-  height: 100%;
-}
-
-.ant-spin-container {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: flex-start; */
-
-  .ant-table {
-    /* flex: 0 1 auto; */
-    overflow-y: auto;
-  }
-  .ant-pagination {
-    flex: none;
-  }
-}
-
-.ant-table-body {
-  max-height: calc(100% - 55px);
 }
 </style>
