@@ -9,6 +9,7 @@ import { useRouter } from 'vue-router'
 import IonMenu from '~icons/ion/menu'
 import IonClose from '~icons/ion/close'
 import { useAccountStore } from '@/stores/account'
+import type { Key } from 'ant-design-vue/es/_util/type'
 
 // account
 const accountStore = useAccountStore()
@@ -25,12 +26,30 @@ const getSelectedKeys = (path: string) => {
   return parts
 }
 
+const getOpenKeys = (path: string) => {
+  for (let parent of appStore.accessibleMenus) {
+    if (!parent.path) {
+      continue
+    }
+
+    const child = parent.children?.find(c => c.path === path)
+    if (child) {
+      return [parent.path]
+    }
+  }
+  return ['']
+}
+
 const selectedKeys = ref(getSelectedKeys(router.currentRoute.value.path))
+const openKeys = ref<Key[]>(getOpenKeys(router.currentRoute.value.path))
+
+console.log(selectedKeys.value)
 
 watch(
   () => router.currentRoute.value.path,
   path => {
     selectedKeys.value = getSelectedKeys(path)
+    openKeys.value = getOpenKeys(path)
   },
 )
 
@@ -84,6 +103,7 @@ const handelMenuClick = (route: string) => {
       </a-dropdown>
       <a-menu
         :selectedKeys="selectedKeys"
+        :openKeys="openKeys"
         mode="inline"
         @click="e => handelMenuClick(e.key.toString())"
       >
@@ -92,10 +112,14 @@ const handelMenuClick = (route: string) => {
           :key="index"
         >
           <template v-if="menu.type == 'group'">
-            <a-menu-item-group :title="$t(menu.title)" />
+            <a-menu-item-group :title="$t(menu.title)" :key="menu.path" />
           </template>
           <template v-else-if="menu.children && menu.children.length > 0">
-            <a-sub-menu :icon="menu.icon" :title="$t(menu.title)">
+            <a-sub-menu
+              :icon="menu.icon"
+              :title="$t(menu.title)"
+              :key="menu.path"
+            >
               <template
                 v-for="(child, childIndex) in menu.children"
                 :key="'child-' + childIndex"

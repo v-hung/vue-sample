@@ -54,9 +54,19 @@ export const MENUS_DEFAULT: MenuItem[] = [
     title: 'menus.team',
   },
   {
-    path: '/employee',
+    path: '/personal',
     icon: () => h(IonPersonOutline),
-    title: 'menus.employee',
+    title: 'menus.personal',
+    children: [
+      {
+        path: '/employee',
+        title: 'menus.employee',
+      },
+      {
+        path: '/work-times',
+        title: 'menus.work-times',
+      },
+    ],
   },
   {
     path: '/permisstion',
