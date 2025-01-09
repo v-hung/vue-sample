@@ -8,28 +8,28 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
-import { TeamCreateUpdateRequest } from '../models/TeamCreateUpdateRequest';
-import { TeamDto } from '../models/TeamDto';
+import { RoleCreateUpdateRequest } from '../models/RoleCreateUpdateRequest';
+import { RoleDto } from '../models/RoleDto';
 
 /**
  * no description
  */
-export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
+export class RoleControllerApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param teamCreateUpdateRequest 
+     * @param roleCreateUpdateRequest 
      */
-    public async createTeam(teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Promise<RequestContext> {
+    public async createRole(roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'teamCreateUpdateRequest' is not null or undefined
-        if (teamCreateUpdateRequest === null || teamCreateUpdateRequest === undefined) {
-            throw new RequiredError("TeamControllerApi", "createTeam", "teamCreateUpdateRequest");
+        // verify required parameter 'roleCreateUpdateRequest' is not null or undefined
+        if (roleCreateUpdateRequest === null || roleCreateUpdateRequest === undefined) {
+            throw new RequiredError("RoleControllerApi", "createRole", "roleCreateUpdateRequest");
         }
 
 
         // Path Params
-        const localVarPath = '/api/teams';
+        const localVarPath = '/api/roles';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -42,7 +42,7 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(teamCreateUpdateRequest, "TeamCreateUpdateRequest", ""),
+            ObjectSerializer.serialize(roleCreateUpdateRequest, "RoleCreateUpdateRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -65,17 +65,17 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param id 
      */
-    public async deleteTeam(id: number, _options?: Configuration): Promise<RequestContext> {
+    public async deleteRole(id: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
-            throw new RequiredError("TeamControllerApi", "deleteTeam", "id");
+            throw new RequiredError("RoleControllerApi", "deleteRole", "id");
         }
 
 
         // Path Params
-        const localVarPath = '/api/teams/{id}'
+        const localVarPath = '/api/roles/{id}'
             .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
 
         // Make Request Context
@@ -101,17 +101,17 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param id 
      */
-    public async getTeam(id: number, _options?: Configuration): Promise<RequestContext> {
+    public async getRole(id: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
-            throw new RequiredError("TeamControllerApi", "getTeam", "id");
+            throw new RequiredError("RoleControllerApi", "getRole", "id");
         }
 
 
         // Path Params
-        const localVarPath = '/api/teams/{id}'
+        const localVarPath = '/api/roles/{id}'
             .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
 
         // Make Request Context
@@ -136,11 +136,11 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async getTeams(_options?: Configuration): Promise<RequestContext> {
+    public async getRoles(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
-        const localVarPath = '/api/teams';
+        const localVarPath = '/api/roles';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -164,25 +164,25 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * @param id 
-     * @param teamCreateUpdateRequest 
+     * @param roleCreateUpdateRequest 
      */
-    public async updateTeam(id: number, teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Promise<RequestContext> {
+    public async updateRole(id: number, roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
-            throw new RequiredError("TeamControllerApi", "updateTeam", "id");
+            throw new RequiredError("RoleControllerApi", "updateRole", "id");
         }
 
 
-        // verify required parameter 'teamCreateUpdateRequest' is not null or undefined
-        if (teamCreateUpdateRequest === null || teamCreateUpdateRequest === undefined) {
-            throw new RequiredError("TeamControllerApi", "updateTeam", "teamCreateUpdateRequest");
+        // verify required parameter 'roleCreateUpdateRequest' is not null or undefined
+        if (roleCreateUpdateRequest === null || roleCreateUpdateRequest === undefined) {
+            throw new RequiredError("RoleControllerApi", "updateRole", "roleCreateUpdateRequest");
         }
 
 
         // Path Params
-        const localVarPath = '/api/teams/{id}/edit'
+        const localVarPath = '/api/roles/{id}/edit'
             .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
 
         // Make Request Context
@@ -196,7 +196,7 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(teamCreateUpdateRequest, "TeamCreateUpdateRequest", ""),
+            ObjectSerializer.serialize(roleCreateUpdateRequest, "RoleCreateUpdateRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -218,31 +218,31 @@ export class TeamControllerApiRequestFactory extends BaseAPIRequestFactory {
 
 }
 
-export class TeamControllerApiResponseProcessor {
+export class RoleControllerApiResponseProcessor {
 
     /**
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to createTeam
+     * @params response Response returned by the server for a request to createRole
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async createTeamWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TeamDto >> {
+     public async createRoleWithHttpInfo(response: ResponseContext): Promise<HttpInfo<RoleDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TeamDto = ObjectSerializer.deserialize(
+            const body: RoleDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TeamDto", ""
-            ) as TeamDto;
+                "RoleDto", ""
+            ) as RoleDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TeamDto = ObjectSerializer.deserialize(
+            const body: RoleDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TeamDto", ""
-            ) as TeamDto;
+                "RoleDto", ""
+            ) as RoleDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -253,10 +253,10 @@ export class TeamControllerApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to deleteTeam
+     * @params response Response returned by the server for a request to deleteRole
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async deleteTeamWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async deleteRoleWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: string = ObjectSerializer.deserialize(
@@ -282,25 +282,25 @@ export class TeamControllerApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getTeam
+     * @params response Response returned by the server for a request to getRole
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getTeamWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TeamDto >> {
+     public async getRoleWithHttpInfo(response: ResponseContext): Promise<HttpInfo<RoleDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TeamDto = ObjectSerializer.deserialize(
+            const body: RoleDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TeamDto", ""
-            ) as TeamDto;
+                "RoleDto", ""
+            ) as RoleDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TeamDto = ObjectSerializer.deserialize(
+            const body: RoleDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TeamDto", ""
-            ) as TeamDto;
+                "RoleDto", ""
+            ) as RoleDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -311,25 +311,25 @@ export class TeamControllerApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getTeams
+     * @params response Response returned by the server for a request to getRoles
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getTeamsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<TeamDto> >> {
+     public async getRolesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<RoleDto> >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<TeamDto> = ObjectSerializer.deserialize(
+            const body: Array<RoleDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<TeamDto>", ""
-            ) as Array<TeamDto>;
+                "Array<RoleDto>", ""
+            ) as Array<RoleDto>;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<TeamDto> = ObjectSerializer.deserialize(
+            const body: Array<RoleDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<TeamDto>", ""
-            ) as Array<TeamDto>;
+                "Array<RoleDto>", ""
+            ) as Array<RoleDto>;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -340,25 +340,25 @@ export class TeamControllerApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to updateTeam
+     * @params response Response returned by the server for a request to updateRole
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async updateTeamWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TeamDto >> {
+     public async updateRoleWithHttpInfo(response: ResponseContext): Promise<HttpInfo<RoleDto >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TeamDto = ObjectSerializer.deserialize(
+            const body: RoleDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TeamDto", ""
-            ) as TeamDto;
+                "RoleDto", ""
+            ) as RoleDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TeamDto = ObjectSerializer.deserialize(
+            const body: RoleDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TeamDto", ""
-            ) as TeamDto;
+                "RoleDto", ""
+            ) as RoleDto;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

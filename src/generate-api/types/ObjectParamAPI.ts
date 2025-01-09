@@ -5,11 +5,13 @@ import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
-import { Permission } from '../models/Permission';
+import { PermissionDto } from '../models/PermissionDto';
 import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
+import { RoleCreateUpdateRequest } from '../models/RoleCreateUpdateRequest';
 import { RoleDto } from '../models/RoleDto';
+import { TeamCreateUpdateRequest } from '../models/TeamCreateUpdateRequest';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
@@ -18,6 +20,8 @@ import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
+import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
+import { WorkTimeDto } from '../models/WorkTimeDto';
 
 import { ObservableAccountControllerApi } from "./ObservableAPI";
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -159,10 +163,185 @@ export class ObjectDataInitializerControllerApi {
 
 }
 
+import { ObservableRoleControllerApi } from "./ObservableAPI";
+import { RoleControllerApiRequestFactory, RoleControllerApiResponseProcessor} from "../apis/RoleControllerApi";
+
+export interface RoleControllerApiCreateRoleRequest {
+    /**
+     * 
+     * @type RoleCreateUpdateRequest
+     * @memberof RoleControllerApicreateRole
+     */
+    roleCreateUpdateRequest: RoleCreateUpdateRequest
+}
+
+export interface RoleControllerApiDeleteRoleRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof RoleControllerApideleteRole
+     */
+    id: number
+}
+
+export interface RoleControllerApiGetRoleRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof RoleControllerApigetRole
+     */
+    id: number
+}
+
+export interface RoleControllerApiGetRolesRequest {
+}
+
+export interface RoleControllerApiUpdateRoleRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof RoleControllerApiupdateRole
+     */
+    id: number
+    /**
+     * 
+     * @type RoleCreateUpdateRequest
+     * @memberof RoleControllerApiupdateRole
+     */
+    roleCreateUpdateRequest: RoleCreateUpdateRequest
+}
+
+export class ObjectRoleControllerApi {
+    private api: ObservableRoleControllerApi
+
+    public constructor(configuration: Configuration, requestFactory?: RoleControllerApiRequestFactory, responseProcessor?: RoleControllerApiResponseProcessor) {
+        this.api = new ObservableRoleControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public createRoleWithHttpInfo(param: RoleControllerApiCreateRoleRequest, options?: Configuration): Promise<HttpInfo<RoleDto>> {
+        return this.api.createRoleWithHttpInfo(param.roleCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public createRole(param: RoleControllerApiCreateRoleRequest, options?: Configuration): Promise<RoleDto> {
+        return this.api.createRole(param.roleCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteRoleWithHttpInfo(param: RoleControllerApiDeleteRoleRequest, options?: Configuration): Promise<HttpInfo<string>> {
+        return this.api.deleteRoleWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteRole(param: RoleControllerApiDeleteRoleRequest, options?: Configuration): Promise<string> {
+        return this.api.deleteRole(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getRoleWithHttpInfo(param: RoleControllerApiGetRoleRequest, options?: Configuration): Promise<HttpInfo<RoleDto>> {
+        return this.api.getRoleWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getRole(param: RoleControllerApiGetRoleRequest, options?: Configuration): Promise<RoleDto> {
+        return this.api.getRole(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getRolesWithHttpInfo(param: RoleControllerApiGetRolesRequest = {}, options?: Configuration): Promise<HttpInfo<Array<RoleDto>>> {
+        return this.api.getRolesWithHttpInfo( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getRoles(param: RoleControllerApiGetRolesRequest = {}, options?: Configuration): Promise<Array<RoleDto>> {
+        return this.api.getRoles( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateRoleWithHttpInfo(param: RoleControllerApiUpdateRoleRequest, options?: Configuration): Promise<HttpInfo<RoleDto>> {
+        return this.api.updateRoleWithHttpInfo(param.id, param.roleCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateRole(param: RoleControllerApiUpdateRoleRequest, options?: Configuration): Promise<RoleDto> {
+        return this.api.updateRole(param.id, param.roleCreateUpdateRequest,  options).toPromise();
+    }
+
+}
+
 import { ObservableTeamControllerApi } from "./ObservableAPI";
 import { TeamControllerApiRequestFactory, TeamControllerApiResponseProcessor} from "../apis/TeamControllerApi";
 
+export interface TeamControllerApiCreateTeamRequest {
+    /**
+     * 
+     * @type TeamCreateUpdateRequest
+     * @memberof TeamControllerApicreateTeam
+     */
+    teamCreateUpdateRequest: TeamCreateUpdateRequest
+}
+
+export interface TeamControllerApiDeleteTeamRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof TeamControllerApideleteTeam
+     */
+    id: number
+}
+
+export interface TeamControllerApiGetTeamRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof TeamControllerApigetTeam
+     */
+    id: number
+}
+
 export interface TeamControllerApiGetTeamsRequest {
+}
+
+export interface TeamControllerApiUpdateTeamRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof TeamControllerApiupdateTeam
+     */
+    id: number
+    /**
+     * 
+     * @type TeamCreateUpdateRequest
+     * @memberof TeamControllerApiupdateTeam
+     */
+    teamCreateUpdateRequest: TeamCreateUpdateRequest
 }
 
 export class ObjectTeamControllerApi {
@@ -170,6 +349,48 @@ export class ObjectTeamControllerApi {
 
     public constructor(configuration: Configuration, requestFactory?: TeamControllerApiRequestFactory, responseProcessor?: TeamControllerApiResponseProcessor) {
         this.api = new ObservableTeamControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public createTeamWithHttpInfo(param: TeamControllerApiCreateTeamRequest, options?: Configuration): Promise<HttpInfo<TeamDto>> {
+        return this.api.createTeamWithHttpInfo(param.teamCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public createTeam(param: TeamControllerApiCreateTeamRequest, options?: Configuration): Promise<TeamDto> {
+        return this.api.createTeam(param.teamCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteTeamWithHttpInfo(param: TeamControllerApiDeleteTeamRequest, options?: Configuration): Promise<HttpInfo<string>> {
+        return this.api.deleteTeamWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteTeam(param: TeamControllerApiDeleteTeamRequest, options?: Configuration): Promise<string> {
+        return this.api.deleteTeam(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getTeamWithHttpInfo(param: TeamControllerApiGetTeamRequest, options?: Configuration): Promise<HttpInfo<TeamDto>> {
+        return this.api.getTeamWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getTeam(param: TeamControllerApiGetTeamRequest, options?: Configuration): Promise<TeamDto> {
+        return this.api.getTeam(param.id,  options).toPromise();
     }
 
     /**
@@ -184,6 +405,20 @@ export class ObjectTeamControllerApi {
      */
     public getTeams(param: TeamControllerApiGetTeamsRequest = {}, options?: Configuration): Promise<Array<TeamDto>> {
         return this.api.getTeams( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateTeamWithHttpInfo(param: TeamControllerApiUpdateTeamRequest, options?: Configuration): Promise<HttpInfo<TeamDto>> {
+        return this.api.updateTeamWithHttpInfo(param.id, param.teamCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateTeam(param: TeamControllerApiUpdateTeamRequest, options?: Configuration): Promise<TeamDto> {
+        return this.api.updateTeam(param.id, param.teamCreateUpdateRequest,  options).toPromise();
     }
 
 }
@@ -590,6 +825,136 @@ export class ObjectUserControllerApi {
      */
     public updateUser(param: UserControllerApiUpdateUserRequest, options?: Configuration): Promise<UserDto> {
         return this.api.updateUser(param.id, param.userCreateUpdateRequest,  options).toPromise();
+    }
+
+}
+
+import { ObservableWorkTimeControllerApi } from "./ObservableAPI";
+import { WorkTimeControllerApiRequestFactory, WorkTimeControllerApiResponseProcessor} from "../apis/WorkTimeControllerApi";
+
+export interface WorkTimeControllerApiCreateWorkTimeRequest {
+    /**
+     * 
+     * @type WorkTimeCreateUpdateRequest
+     * @memberof WorkTimeControllerApicreateWorkTime
+     */
+    workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest
+}
+
+export interface WorkTimeControllerApiDeleteWorkTimeRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof WorkTimeControllerApideleteWorkTime
+     */
+    id: number
+}
+
+export interface WorkTimeControllerApiGetWorkTimeRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof WorkTimeControllerApigetWorkTime
+     */
+    id: number
+}
+
+export interface WorkTimeControllerApiGetWorkTimesRequest {
+}
+
+export interface WorkTimeControllerApiUpdateWorkTimeRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof WorkTimeControllerApiupdateWorkTime
+     */
+    id: number
+    /**
+     * 
+     * @type WorkTimeCreateUpdateRequest
+     * @memberof WorkTimeControllerApiupdateWorkTime
+     */
+    workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest
+}
+
+export class ObjectWorkTimeControllerApi {
+    private api: ObservableWorkTimeControllerApi
+
+    public constructor(configuration: Configuration, requestFactory?: WorkTimeControllerApiRequestFactory, responseProcessor?: WorkTimeControllerApiResponseProcessor) {
+        this.api = new ObservableWorkTimeControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public createWorkTimeWithHttpInfo(param: WorkTimeControllerApiCreateWorkTimeRequest, options?: Configuration): Promise<HttpInfo<WorkTimeDto>> {
+        return this.api.createWorkTimeWithHttpInfo(param.workTimeCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public createWorkTime(param: WorkTimeControllerApiCreateWorkTimeRequest, options?: Configuration): Promise<WorkTimeDto> {
+        return this.api.createWorkTime(param.workTimeCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteWorkTimeWithHttpInfo(param: WorkTimeControllerApiDeleteWorkTimeRequest, options?: Configuration): Promise<HttpInfo<string>> {
+        return this.api.deleteWorkTimeWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteWorkTime(param: WorkTimeControllerApiDeleteWorkTimeRequest, options?: Configuration): Promise<string> {
+        return this.api.deleteWorkTime(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getWorkTimeWithHttpInfo(param: WorkTimeControllerApiGetWorkTimeRequest, options?: Configuration): Promise<HttpInfo<WorkTimeDto>> {
+        return this.api.getWorkTimeWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getWorkTime(param: WorkTimeControllerApiGetWorkTimeRequest, options?: Configuration): Promise<WorkTimeDto> {
+        return this.api.getWorkTime(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getWorkTimesWithHttpInfo(param: WorkTimeControllerApiGetWorkTimesRequest = {}, options?: Configuration): Promise<HttpInfo<Array<WorkTimeDto>>> {
+        return this.api.getWorkTimesWithHttpInfo( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getWorkTimes(param: WorkTimeControllerApiGetWorkTimesRequest = {}, options?: Configuration): Promise<Array<WorkTimeDto>> {
+        return this.api.getWorkTimes( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateWorkTimeWithHttpInfo(param: WorkTimeControllerApiUpdateWorkTimeRequest, options?: Configuration): Promise<HttpInfo<WorkTimeDto>> {
+        return this.api.updateWorkTimeWithHttpInfo(param.id, param.workTimeCreateUpdateRequest,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateWorkTime(param: WorkTimeControllerApiUpdateWorkTimeRequest, options?: Configuration): Promise<WorkTimeDto> {
+        return this.api.updateWorkTime(param.id, param.workTimeCreateUpdateRequest,  options).toPromise();
     }
 
 }

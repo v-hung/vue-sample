@@ -13,25 +13,18 @@
 import { PermissionDto } from '../models/PermissionDto';
 import { HttpFile } from '../http/http';
 
-export class RoleDto {
-    'id': number;
+export class RoleCreateUpdateRequest {
     'name': string;
     'description'?: string;
-    'admin': boolean;
-    'level': number;
-    'permissions': Array<PermissionDto>;
+    'admin'?: boolean;
+    'level'?: number;
+    'permissions'?: Array<PermissionDto>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": "int64"
-        },
         {
             "name": "name",
             "baseName": "name",
@@ -64,7 +57,7 @@ export class RoleDto {
         }    ];
 
     static getAttributeTypeMap() {
-        return RoleDto.attributeTypeMap;
+        return RoleCreateUpdateRequest.attributeTypeMap;
     }
 
     public constructor() {

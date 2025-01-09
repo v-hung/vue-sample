@@ -30,7 +30,6 @@ const request: UserControllerApiCreateUserRequest = {
   
   userCreateUpdateRequest: {
     name: "name_example",
-    username: "username_example",
     email: "email_example",
     password: "password_example",
     position: "DEVELOPER",
@@ -319,7 +318,6 @@ const request: UserControllerApiUpdateUserRequest = {
   
   userCreateUpdateRequest: {
     name: "name_example",
-    username: "username_example",
     email: "email_example",
     password: "password_example",
     position: "DEVELOPER",

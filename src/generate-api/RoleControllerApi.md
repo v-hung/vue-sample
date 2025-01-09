@@ -1,39 +1,47 @@
-# .TeamControllerApi
+# .RoleControllerApi
 
 All URIs are relative to *http://localhost:8085*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createTeam**](TeamControllerApi.md#createTeam) | **POST** /api/teams | 
-[**deleteTeam**](TeamControllerApi.md#deleteTeam) | **DELETE** /api/teams/{id} | 
-[**getTeam**](TeamControllerApi.md#getTeam) | **GET** /api/teams/{id} | 
-[**getTeams**](TeamControllerApi.md#getTeams) | **GET** /api/teams | 
-[**updateTeam**](TeamControllerApi.md#updateTeam) | **PUT** /api/teams/{id}/edit | 
+[**createRole**](RoleControllerApi.md#createRole) | **POST** /api/roles | 
+[**deleteRole**](RoleControllerApi.md#deleteRole) | **DELETE** /api/roles/{id} | 
+[**getRole**](RoleControllerApi.md#getRole) | **GET** /api/roles/{id} | 
+[**getRoles**](RoleControllerApi.md#getRoles) | **GET** /api/roles | 
+[**updateRole**](RoleControllerApi.md#updateRole) | **PUT** /api/roles/{id}/edit | 
 
 
-# **createTeam**
-> TeamDto createTeam(teamCreateUpdateRequest)
+# **createRole**
+> RoleDto createRole(roleCreateUpdateRequest)
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiCreateTeamRequest } from '';
+import { createConfiguration, RoleControllerApi } from '';
+import type { RoleControllerApiCreateRoleRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new RoleControllerApi(configuration);
 
-const request: TeamControllerApiCreateTeamRequest = {
+const request: RoleControllerApiCreateRoleRequest = {
   
-  teamCreateUpdateRequest: {
+  roleCreateUpdateRequest: {
     name: "name_example",
     description: "description_example",
+    admin: true,
+    level: 1,
+    permissions: [
+      {
+        id: 1,
+        name: "USER_VIEW",
+      },
+    ],
   },
 };
 
-const data = await apiInstance.createTeam(request);
+const data = await apiInstance.createRole(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -42,12 +50,12 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamCreateUpdateRequest** | **TeamCreateUpdateRequest**|  |
+ **roleCreateUpdateRequest** | **RoleCreateUpdateRequest**|  |
 
 
 ### Return type
 
-**TeamDto**
+**RoleDto**
 
 ### Authorization
 
@@ -66,26 +74,26 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **deleteTeam**
-> string deleteTeam()
+# **deleteRole**
+> string deleteRole()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiDeleteTeamRequest } from '';
+import { createConfiguration, RoleControllerApi } from '';
+import type { RoleControllerApiDeleteRoleRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new RoleControllerApi(configuration);
 
-const request: TeamControllerApiDeleteTeamRequest = {
+const request: RoleControllerApiDeleteRoleRequest = {
   
   id: 1,
 };
 
-const data = await apiInstance.deleteTeam(request);
+const data = await apiInstance.deleteRole(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -118,26 +126,26 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getTeam**
-> TeamDto getTeam()
+# **getRole**
+> RoleDto getRole()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiGetTeamRequest } from '';
+import { createConfiguration, RoleControllerApi } from '';
+import type { RoleControllerApiGetRoleRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new RoleControllerApi(configuration);
 
-const request: TeamControllerApiGetTeamRequest = {
+const request: RoleControllerApiGetRoleRequest = {
   
   id: 1,
 };
 
-const data = await apiInstance.getTeam(request);
+const data = await apiInstance.getRole(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -151,7 +159,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**TeamDto**
+**RoleDto**
 
 ### Authorization
 
@@ -170,22 +178,22 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getTeams**
-> Array<TeamDto> getTeams()
+# **getRoles**
+> Array<RoleDto> getRoles()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
+import { createConfiguration, RoleControllerApi } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new RoleControllerApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.getTeams(request);
+const data = await apiInstance.getRoles(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -196,7 +204,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Array<TeamDto>**
+**Array<RoleDto>**
 
 ### Authorization
 
@@ -215,31 +223,39 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **updateTeam**
-> TeamDto updateTeam(teamCreateUpdateRequest)
+# **updateRole**
+> RoleDto updateRole(roleCreateUpdateRequest)
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiUpdateTeamRequest } from '';
+import { createConfiguration, RoleControllerApi } from '';
+import type { RoleControllerApiUpdateRoleRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new RoleControllerApi(configuration);
 
-const request: TeamControllerApiUpdateTeamRequest = {
+const request: RoleControllerApiUpdateRoleRequest = {
   
   id: 1,
   
-  teamCreateUpdateRequest: {
+  roleCreateUpdateRequest: {
     name: "name_example",
     description: "description_example",
+    admin: true,
+    level: 1,
+    permissions: [
+      {
+        id: 1,
+        name: "USER_VIEW",
+      },
+    ],
   },
 };
 
-const data = await apiInstance.updateTeam(request);
+const data = await apiInstance.updateRole(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -248,13 +264,13 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamCreateUpdateRequest** | **TeamCreateUpdateRequest**|  |
+ **roleCreateUpdateRequest** | **RoleCreateUpdateRequest**|  |
  **id** | [**number**] |  | defaults to undefined
 
 
 ### Return type
 
-**TeamDto**
+**RoleDto**
 
 ### Authorization
 

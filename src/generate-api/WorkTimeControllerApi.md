@@ -1,39 +1,43 @@
-# .TeamControllerApi
+# .WorkTimeControllerApi
 
 All URIs are relative to *http://localhost:8085*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createTeam**](TeamControllerApi.md#createTeam) | **POST** /api/teams | 
-[**deleteTeam**](TeamControllerApi.md#deleteTeam) | **DELETE** /api/teams/{id} | 
-[**getTeam**](TeamControllerApi.md#getTeam) | **GET** /api/teams/{id} | 
-[**getTeams**](TeamControllerApi.md#getTeams) | **GET** /api/teams | 
-[**updateTeam**](TeamControllerApi.md#updateTeam) | **PUT** /api/teams/{id}/edit | 
+[**createWorkTime**](WorkTimeControllerApi.md#createWorkTime) | **POST** /api/work-times | 
+[**deleteWorkTime**](WorkTimeControllerApi.md#deleteWorkTime) | **DELETE** /api/work-times/{id} | 
+[**getWorkTime**](WorkTimeControllerApi.md#getWorkTime) | **GET** /api/work-times/{id} | 
+[**getWorkTimes**](WorkTimeControllerApi.md#getWorkTimes) | **GET** /api/work-times | 
+[**updateWorkTime**](WorkTimeControllerApi.md#updateWorkTime) | **PUT** /api/work-times/{id}/edit | 
 
 
-# **createTeam**
-> TeamDto createTeam(teamCreateUpdateRequest)
+# **createWorkTime**
+> WorkTimeDto createWorkTime(workTimeCreateUpdateRequest)
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiCreateTeamRequest } from '';
+import { createConfiguration, WorkTimeControllerApi } from '';
+import type { WorkTimeControllerApiCreateWorkTimeRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new WorkTimeControllerApi(configuration);
 
-const request: TeamControllerApiCreateTeamRequest = {
+const request: WorkTimeControllerApiCreateWorkTimeRequest = {
   
-  teamCreateUpdateRequest: {
-    name: "name_example",
-    description: "description_example",
+  workTimeCreateUpdateRequest: {
+    title: "title_example",
+    startTimeMorning: "14:30:00.982",
+    endTimeMorning: "14:30:00.982",
+    startTimeAfternoon: "14:30:00.982",
+    endTimeAfternoon: "14:30:00.982",
+    allowedLateMinutes: 1,
   },
 };
 
-const data = await apiInstance.createTeam(request);
+const data = await apiInstance.createWorkTime(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -42,12 +46,12 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamCreateUpdateRequest** | **TeamCreateUpdateRequest**|  |
+ **workTimeCreateUpdateRequest** | **WorkTimeCreateUpdateRequest**|  |
 
 
 ### Return type
 
-**TeamDto**
+**WorkTimeDto**
 
 ### Authorization
 
@@ -66,26 +70,26 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **deleteTeam**
-> string deleteTeam()
+# **deleteWorkTime**
+> string deleteWorkTime()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiDeleteTeamRequest } from '';
+import { createConfiguration, WorkTimeControllerApi } from '';
+import type { WorkTimeControllerApiDeleteWorkTimeRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new WorkTimeControllerApi(configuration);
 
-const request: TeamControllerApiDeleteTeamRequest = {
+const request: WorkTimeControllerApiDeleteWorkTimeRequest = {
   
   id: 1,
 };
 
-const data = await apiInstance.deleteTeam(request);
+const data = await apiInstance.deleteWorkTime(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -118,26 +122,26 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getTeam**
-> TeamDto getTeam()
+# **getWorkTime**
+> WorkTimeDto getWorkTime()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiGetTeamRequest } from '';
+import { createConfiguration, WorkTimeControllerApi } from '';
+import type { WorkTimeControllerApiGetWorkTimeRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new WorkTimeControllerApi(configuration);
 
-const request: TeamControllerApiGetTeamRequest = {
+const request: WorkTimeControllerApiGetWorkTimeRequest = {
   
   id: 1,
 };
 
-const data = await apiInstance.getTeam(request);
+const data = await apiInstance.getWorkTime(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -151,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**TeamDto**
+**WorkTimeDto**
 
 ### Authorization
 
@@ -170,22 +174,22 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getTeams**
-> Array<TeamDto> getTeams()
+# **getWorkTimes**
+> Array<WorkTimeDto> getWorkTimes()
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
+import { createConfiguration, WorkTimeControllerApi } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new WorkTimeControllerApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.getTeams(request);
+const data = await apiInstance.getWorkTimes(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -196,7 +200,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Array<TeamDto>**
+**Array<WorkTimeDto>**
 
 ### Authorization
 
@@ -215,31 +219,35 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **updateTeam**
-> TeamDto updateTeam(teamCreateUpdateRequest)
+# **updateWorkTime**
+> WorkTimeDto updateWorkTime(workTimeCreateUpdateRequest)
 
 
 ### Example
 
 
 ```typescript
-import { createConfiguration, TeamControllerApi } from '';
-import type { TeamControllerApiUpdateTeamRequest } from '';
+import { createConfiguration, WorkTimeControllerApi } from '';
+import type { WorkTimeControllerApiUpdateWorkTimeRequest } from '';
 
 const configuration = createConfiguration();
-const apiInstance = new TeamControllerApi(configuration);
+const apiInstance = new WorkTimeControllerApi(configuration);
 
-const request: TeamControllerApiUpdateTeamRequest = {
+const request: WorkTimeControllerApiUpdateWorkTimeRequest = {
   
   id: 1,
   
-  teamCreateUpdateRequest: {
-    name: "name_example",
-    description: "description_example",
+  workTimeCreateUpdateRequest: {
+    title: "title_example",
+    startTimeMorning: "14:30:00.982",
+    endTimeMorning: "14:30:00.982",
+    startTimeAfternoon: "14:30:00.982",
+    endTimeAfternoon: "14:30:00.982",
+    allowedLateMinutes: 1,
   },
 };
 
-const data = await apiInstance.updateTeam(request);
+const data = await apiInstance.updateWorkTime(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -248,13 +256,13 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamCreateUpdateRequest** | **TeamCreateUpdateRequest**|  |
+ **workTimeCreateUpdateRequest** | **WorkTimeCreateUpdateRequest**|  |
  **id** | [**number**] |  | defaults to undefined
 
 
 ### Return type
 
-**TeamDto**
+**WorkTimeDto**
 
 ### Authorization
 

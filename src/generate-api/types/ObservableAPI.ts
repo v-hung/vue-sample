@@ -6,11 +6,13 @@ import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
-import { Permission } from '../models/Permission';
+import { PermissionDto } from '../models/PermissionDto';
 import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
+import { RoleCreateUpdateRequest } from '../models/RoleCreateUpdateRequest';
 import { RoleDto } from '../models/RoleDto';
+import { TeamCreateUpdateRequest } from '../models/TeamCreateUpdateRequest';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
@@ -19,6 +21,8 @@ import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
+import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
+import { WorkTimeDto } from '../models/WorkTimeDto';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
 export class ObservableAccountControllerApi {
@@ -215,6 +219,169 @@ export class ObservableDataInitializerControllerApi {
 
 }
 
+import { RoleControllerApiRequestFactory, RoleControllerApiResponseProcessor} from "../apis/RoleControllerApi";
+export class ObservableRoleControllerApi {
+    private requestFactory: RoleControllerApiRequestFactory;
+    private responseProcessor: RoleControllerApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: RoleControllerApiRequestFactory,
+        responseProcessor?: RoleControllerApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new RoleControllerApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new RoleControllerApiResponseProcessor();
+    }
+
+    /**
+     * @param roleCreateUpdateRequest
+     */
+    public createRoleWithHttpInfo(roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<RoleDto>> {
+        const requestContextPromise = this.requestFactory.createRole(roleCreateUpdateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createRoleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param roleCreateUpdateRequest
+     */
+    public createRole(roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Observable<RoleDto> {
+        return this.createRoleWithHttpInfo(roleCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<RoleDto>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteRoleWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<string>> {
+        const requestContextPromise = this.requestFactory.deleteRole(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteRoleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteRole(id: number, _options?: Configuration): Observable<string> {
+        return this.deleteRoleWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public getRoleWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<RoleDto>> {
+        const requestContextPromise = this.requestFactory.getRole(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getRoleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public getRole(id: number, _options?: Configuration): Observable<RoleDto> {
+        return this.getRoleWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<RoleDto>) => apiResponse.data));
+    }
+
+    /**
+     */
+    public getRolesWithHttpInfo(_options?: Configuration): Observable<HttpInfo<Array<RoleDto>>> {
+        const requestContextPromise = this.requestFactory.getRoles(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getRolesWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public getRoles(_options?: Configuration): Observable<Array<RoleDto>> {
+        return this.getRolesWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<RoleDto>>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     * @param roleCreateUpdateRequest
+     */
+    public updateRoleWithHttpInfo(id: number, roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<RoleDto>> {
+        const requestContextPromise = this.requestFactory.updateRole(id, roleCreateUpdateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateRoleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     * @param roleCreateUpdateRequest
+     */
+    public updateRole(id: number, roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Observable<RoleDto> {
+        return this.updateRoleWithHttpInfo(id, roleCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<RoleDto>) => apiResponse.data));
+    }
+
+}
+
 import { TeamControllerApiRequestFactory, TeamControllerApiResponseProcessor} from "../apis/TeamControllerApi";
 export class ObservableTeamControllerApi {
     private requestFactory: TeamControllerApiRequestFactory;
@@ -229,6 +396,93 @@ export class ObservableTeamControllerApi {
         this.configuration = configuration;
         this.requestFactory = requestFactory || new TeamControllerApiRequestFactory(configuration);
         this.responseProcessor = responseProcessor || new TeamControllerApiResponseProcessor();
+    }
+
+    /**
+     * @param teamCreateUpdateRequest
+     */
+    public createTeamWithHttpInfo(teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<TeamDto>> {
+        const requestContextPromise = this.requestFactory.createTeam(teamCreateUpdateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createTeamWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param teamCreateUpdateRequest
+     */
+    public createTeam(teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Observable<TeamDto> {
+        return this.createTeamWithHttpInfo(teamCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<TeamDto>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteTeamWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<string>> {
+        const requestContextPromise = this.requestFactory.deleteTeam(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteTeamWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteTeam(id: number, _options?: Configuration): Observable<string> {
+        return this.deleteTeamWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public getTeamWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<TeamDto>> {
+        const requestContextPromise = this.requestFactory.getTeam(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getTeamWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public getTeam(id: number, _options?: Configuration): Observable<TeamDto> {
+        return this.getTeamWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<TeamDto>) => apiResponse.data));
     }
 
     /**
@@ -256,6 +510,37 @@ export class ObservableTeamControllerApi {
      */
     public getTeams(_options?: Configuration): Observable<Array<TeamDto>> {
         return this.getTeamsWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<TeamDto>>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     * @param teamCreateUpdateRequest
+     */
+    public updateTeamWithHttpInfo(id: number, teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<TeamDto>> {
+        const requestContextPromise = this.requestFactory.updateTeam(id, teamCreateUpdateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateTeamWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     * @param teamCreateUpdateRequest
+     */
+    public updateTeam(id: number, teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Observable<TeamDto> {
+        return this.updateTeamWithHttpInfo(id, teamCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<TeamDto>) => apiResponse.data));
     }
 
 }
@@ -793,6 +1078,169 @@ export class ObservableUserControllerApi {
      */
     public updateUser(id: number, userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Observable<UserDto> {
         return this.updateUserWithHttpInfo(id, userCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<UserDto>) => apiResponse.data));
+    }
+
+}
+
+import { WorkTimeControllerApiRequestFactory, WorkTimeControllerApiResponseProcessor} from "../apis/WorkTimeControllerApi";
+export class ObservableWorkTimeControllerApi {
+    private requestFactory: WorkTimeControllerApiRequestFactory;
+    private responseProcessor: WorkTimeControllerApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: WorkTimeControllerApiRequestFactory,
+        responseProcessor?: WorkTimeControllerApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new WorkTimeControllerApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new WorkTimeControllerApiResponseProcessor();
+    }
+
+    /**
+     * @param workTimeCreateUpdateRequest
+     */
+    public createWorkTimeWithHttpInfo(workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<WorkTimeDto>> {
+        const requestContextPromise = this.requestFactory.createWorkTime(workTimeCreateUpdateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createWorkTimeWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param workTimeCreateUpdateRequest
+     */
+    public createWorkTime(workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Observable<WorkTimeDto> {
+        return this.createWorkTimeWithHttpInfo(workTimeCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<WorkTimeDto>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteWorkTimeWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<string>> {
+        const requestContextPromise = this.requestFactory.deleteWorkTime(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteWorkTimeWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteWorkTime(id: number, _options?: Configuration): Observable<string> {
+        return this.deleteWorkTimeWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public getWorkTimeWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<WorkTimeDto>> {
+        const requestContextPromise = this.requestFactory.getWorkTime(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getWorkTimeWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public getWorkTime(id: number, _options?: Configuration): Observable<WorkTimeDto> {
+        return this.getWorkTimeWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<WorkTimeDto>) => apiResponse.data));
+    }
+
+    /**
+     */
+    public getWorkTimesWithHttpInfo(_options?: Configuration): Observable<HttpInfo<Array<WorkTimeDto>>> {
+        const requestContextPromise = this.requestFactory.getWorkTimes(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getWorkTimesWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public getWorkTimes(_options?: Configuration): Observable<Array<WorkTimeDto>> {
+        return this.getWorkTimesWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<WorkTimeDto>>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     * @param workTimeCreateUpdateRequest
+     */
+    public updateWorkTimeWithHttpInfo(id: number, workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Observable<HttpInfo<WorkTimeDto>> {
+        const requestContextPromise = this.requestFactory.updateWorkTime(id, workTimeCreateUpdateRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateWorkTimeWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     * @param workTimeCreateUpdateRequest
+     */
+    public updateWorkTime(id: number, workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Observable<WorkTimeDto> {
+        return this.updateWorkTimeWithHttpInfo(id, workTimeCreateUpdateRequest, _options).pipe(map((apiResponse: HttpInfo<WorkTimeDto>) => apiResponse.data));
     }
 
 }

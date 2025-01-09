@@ -10,16 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { PermissionDto } from '../models/PermissionDto';
 import { HttpFile } from '../http/http';
 
-export class RoleDto {
+export class PermissionDto {
     'id': number;
-    'name': string;
-    'description'?: string;
-    'admin': boolean;
-    'level': number;
-    'permissions': Array<PermissionDto>;
+    'name': PermissionDtoNameEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -35,38 +30,25 @@ export class RoleDto {
         {
             "name": "name",
             "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "description",
-            "baseName": "description",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "admin",
-            "baseName": "admin",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "level",
-            "baseName": "level",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Array<PermissionDto>",
+            "type": "PermissionDtoNameEnum",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return RoleDto.attributeTypeMap;
+        return PermissionDto.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
+
+export enum PermissionDtoNameEnum {
+    UserView = 'USER_VIEW',
+    UserCreate = 'USER_CREATE',
+    UserUpdate = 'USER_UPDATE',
+    UserDelete = 'USER_DELETE',
+    TimesheetView = 'TIMESHEET_VIEW',
+    TimesheetCreate = 'TIMESHEET_CREATE',
+    TimesheetApproval = 'TIMESHEET_APPROVAL'
+}
+

@@ -314,3 +314,10 @@ onMounted(async () => {
 <!-- https://cdn.dribbble.com/userupload/17081405/file/original-8e02547473083fae57e3299a4305f7bf.png?resize=1024x878&vertical=center -->
 
 <!-- https://cdn.dribbble.com/userupload/6997698/file/original-44bed7c29ca40a49bcac251e2e462deb.png?resize=1024x683&vertical=center -->
+
+<style lang="postcss">
+/* custom select */
+.ant-select-arrow {
+  @apply !pointer-events-auto;
+}
+</style>

@@ -14,9 +14,8 @@ import { ProfileDto } from '../models/ProfileDto';
 import { HttpFile } from '../http/http';
 
 export class UserCreateUpdateRequest {
-    'name'?: string;
-    'username'?: string;
-    'email'?: string;
+    'name': string;
+    'email': string;
     'password'?: string;
     'position'?: UserCreateUpdateRequestPositionEnum;
     'supervisorId'?: number;
@@ -34,12 +33,6 @@ export class UserCreateUpdateRequest {
         {
             "name": "name",
             "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "username",
-            "baseName": "username",
             "type": "string",
             "format": ""
         },

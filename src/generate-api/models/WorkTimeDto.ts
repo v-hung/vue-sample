@@ -10,16 +10,16 @@
  * Do not edit the class manually.
  */
 
-import { PermissionDto } from '../models/PermissionDto';
 import { HttpFile } from '../http/http';
 
-export class RoleDto {
+export class WorkTimeDto {
     'id': number;
-    'name': string;
-    'description'?: string;
-    'admin': boolean;
-    'level': number;
-    'permissions': Array<PermissionDto>;
+    'title': string;
+    'startTimeMorning': string;
+    'endTimeMorning': string;
+    'startTimeAfternoon': string;
+    'endTimeAfternoon': string;
+    'allowedLateMinutes': number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -33,38 +33,44 @@ export class RoleDto {
             "format": "int64"
         },
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "title",
+            "baseName": "title",
             "type": "string",
             "format": ""
         },
         {
-            "name": "description",
-            "baseName": "description",
+            "name": "startTimeMorning",
+            "baseName": "startTimeMorning",
             "type": "string",
-            "format": ""
+            "format": "time"
         },
         {
-            "name": "admin",
-            "baseName": "admin",
-            "type": "boolean",
-            "format": ""
+            "name": "endTimeMorning",
+            "baseName": "endTimeMorning",
+            "type": "string",
+            "format": "time"
         },
         {
-            "name": "level",
-            "baseName": "level",
+            "name": "startTimeAfternoon",
+            "baseName": "startTimeAfternoon",
+            "type": "string",
+            "format": "time"
+        },
+        {
+            "name": "endTimeAfternoon",
+            "baseName": "endTimeAfternoon",
+            "type": "string",
+            "format": "time"
+        },
+        {
+            "name": "allowedLateMinutes",
+            "baseName": "allowedLateMinutes",
             "type": "number",
             "format": "int32"
-        },
-        {
-            "name": "permissions",
-            "baseName": "permissions",
-            "type": "Array<PermissionDto>",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return RoleDto.attributeTypeMap;
+        return WorkTimeDto.attributeTypeMap;
     }
 
     public constructor() {

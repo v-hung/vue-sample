@@ -5,11 +5,13 @@ import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
 import { PageResponseUserDto } from '../models/PageResponseUserDto';
 import { Pageable } from '../models/Pageable';
-import { Permission } from '../models/Permission';
+import { PermissionDto } from '../models/PermissionDto';
 import { ProfileDto } from '../models/ProfileDto';
 import { RefreshRequest } from '../models/RefreshRequest';
 import { RefreshResponse } from '../models/RefreshResponse';
+import { RoleCreateUpdateRequest } from '../models/RoleCreateUpdateRequest';
 import { RoleDto } from '../models/RoleDto';
+import { TeamCreateUpdateRequest } from '../models/TeamCreateUpdateRequest';
 import { TeamDto } from '../models/TeamDto';
 import { TicketDto } from '../models/TicketDto';
 import { TicketRequest } from '../models/TicketRequest';
@@ -18,6 +20,8 @@ import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
 import { WorkTime } from '../models/WorkTime';
+import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
+import { WorkTimeDto } from '../models/WorkTimeDto';
 import { ObservableAccountControllerApi } from './ObservableAPI';
 
 import { AccountControllerApiRequestFactory, AccountControllerApiResponseProcessor} from "../apis/AccountControllerApi";
@@ -151,6 +155,105 @@ export class PromiseDataInitializerControllerApi {
 
 
 
+import { ObservableRoleControllerApi } from './ObservableAPI';
+
+import { RoleControllerApiRequestFactory, RoleControllerApiResponseProcessor} from "../apis/RoleControllerApi";
+export class PromiseRoleControllerApi {
+    private api: ObservableRoleControllerApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: RoleControllerApiRequestFactory,
+        responseProcessor?: RoleControllerApiResponseProcessor
+    ) {
+        this.api = new ObservableRoleControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param roleCreateUpdateRequest
+     */
+    public createRoleWithHttpInfo(roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<RoleDto>> {
+        const result = this.api.createRoleWithHttpInfo(roleCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param roleCreateUpdateRequest
+     */
+    public createRole(roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Promise<RoleDto> {
+        const result = this.api.createRole(roleCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteRoleWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<string>> {
+        const result = this.api.deleteRoleWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteRole(id: number, _options?: Configuration): Promise<string> {
+        const result = this.api.deleteRole(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getRoleWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<RoleDto>> {
+        const result = this.api.getRoleWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getRole(id: number, _options?: Configuration): Promise<RoleDto> {
+        const result = this.api.getRole(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getRolesWithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<RoleDto>>> {
+        const result = this.api.getRolesWithHttpInfo(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getRoles(_options?: Configuration): Promise<Array<RoleDto>> {
+        const result = this.api.getRoles(_options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     * @param roleCreateUpdateRequest
+     */
+    public updateRoleWithHttpInfo(id: number, roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<RoleDto>> {
+        const result = this.api.updateRoleWithHttpInfo(id, roleCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     * @param roleCreateUpdateRequest
+     */
+    public updateRole(id: number, roleCreateUpdateRequest: RoleCreateUpdateRequest, _options?: Configuration): Promise<RoleDto> {
+        const result = this.api.updateRole(id, roleCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
 import { ObservableTeamControllerApi } from './ObservableAPI';
 
 import { TeamControllerApiRequestFactory, TeamControllerApiResponseProcessor} from "../apis/TeamControllerApi";
@@ -166,6 +269,54 @@ export class PromiseTeamControllerApi {
     }
 
     /**
+     * @param teamCreateUpdateRequest
+     */
+    public createTeamWithHttpInfo(teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<TeamDto>> {
+        const result = this.api.createTeamWithHttpInfo(teamCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param teamCreateUpdateRequest
+     */
+    public createTeam(teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Promise<TeamDto> {
+        const result = this.api.createTeam(teamCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteTeamWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<string>> {
+        const result = this.api.deleteTeamWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteTeam(id: number, _options?: Configuration): Promise<string> {
+        const result = this.api.deleteTeam(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getTeamWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<TeamDto>> {
+        const result = this.api.getTeamWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getTeam(id: number, _options?: Configuration): Promise<TeamDto> {
+        const result = this.api.getTeam(id, _options);
+        return result.toPromise();
+    }
+
+    /**
      */
     public getTeamsWithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<TeamDto>>> {
         const result = this.api.getTeamsWithHttpInfo(_options);
@@ -176,6 +327,24 @@ export class PromiseTeamControllerApi {
      */
     public getTeams(_options?: Configuration): Promise<Array<TeamDto>> {
         const result = this.api.getTeams(_options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     * @param teamCreateUpdateRequest
+     */
+    public updateTeamWithHttpInfo(id: number, teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<TeamDto>> {
+        const result = this.api.updateTeamWithHttpInfo(id, teamCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     * @param teamCreateUpdateRequest
+     */
+    public updateTeam(id: number, teamCreateUpdateRequest: TeamCreateUpdateRequest, _options?: Configuration): Promise<TeamDto> {
+        const result = this.api.updateTeam(id, teamCreateUpdateRequest, _options);
         return result.toPromise();
     }
 
@@ -495,6 +664,105 @@ export class PromiseUserControllerApi {
      */
     public updateUser(id: number, userCreateUpdateRequest: UserCreateUpdateRequest, _options?: Configuration): Promise<UserDto> {
         const result = this.api.updateUser(id, userCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableWorkTimeControllerApi } from './ObservableAPI';
+
+import { WorkTimeControllerApiRequestFactory, WorkTimeControllerApiResponseProcessor} from "../apis/WorkTimeControllerApi";
+export class PromiseWorkTimeControllerApi {
+    private api: ObservableWorkTimeControllerApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: WorkTimeControllerApiRequestFactory,
+        responseProcessor?: WorkTimeControllerApiResponseProcessor
+    ) {
+        this.api = new ObservableWorkTimeControllerApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param workTimeCreateUpdateRequest
+     */
+    public createWorkTimeWithHttpInfo(workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<WorkTimeDto>> {
+        const result = this.api.createWorkTimeWithHttpInfo(workTimeCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param workTimeCreateUpdateRequest
+     */
+    public createWorkTime(workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Promise<WorkTimeDto> {
+        const result = this.api.createWorkTime(workTimeCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteWorkTimeWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<string>> {
+        const result = this.api.deleteWorkTimeWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteWorkTime(id: number, _options?: Configuration): Promise<string> {
+        const result = this.api.deleteWorkTime(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getWorkTimeWithHttpInfo(id: number, _options?: Configuration): Promise<HttpInfo<WorkTimeDto>> {
+        const result = this.api.getWorkTimeWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public getWorkTime(id: number, _options?: Configuration): Promise<WorkTimeDto> {
+        const result = this.api.getWorkTime(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getWorkTimesWithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<WorkTimeDto>>> {
+        const result = this.api.getWorkTimesWithHttpInfo(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public getWorkTimes(_options?: Configuration): Promise<Array<WorkTimeDto>> {
+        const result = this.api.getWorkTimes(_options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     * @param workTimeCreateUpdateRequest
+     */
+    public updateWorkTimeWithHttpInfo(id: number, workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Promise<HttpInfo<WorkTimeDto>> {
+        const result = this.api.updateWorkTimeWithHttpInfo(id, workTimeCreateUpdateRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     * @param workTimeCreateUpdateRequest
+     */
+    public updateWorkTime(id: number, workTimeCreateUpdateRequest: WorkTimeCreateUpdateRequest, _options?: Configuration): Promise<WorkTimeDto> {
+        const result = this.api.updateWorkTime(id, workTimeCreateUpdateRequest, _options);
         return result.toPromise();
     }
 
