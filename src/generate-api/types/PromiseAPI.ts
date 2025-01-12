@@ -19,6 +19,7 @@ import { TimesheetDto } from '../models/TimesheetDto';
 import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
+import { UserSearchResponse } from '../models/UserSearchResponse';
 import { WorkTime } from '../models/WorkTime';
 import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
 import { WorkTimeDto } from '../models/WorkTimeDto';
@@ -635,17 +636,19 @@ export class PromiseUserControllerApi {
 
     /**
      * @param pageable
+     * @param model
      */
-    public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Promise<HttpInfo<PageResponseUserDto>> {
-        const result = this.api.getUsersWithHttpInfo(pageable, _options);
+    public getUsersWithHttpInfo(pageable: Pageable, model: UserSearchResponse, _options?: Configuration): Promise<HttpInfo<PageResponseUserDto>> {
+        const result = this.api.getUsersWithHttpInfo(pageable, model, _options);
         return result.toPromise();
     }
 
     /**
      * @param pageable
+     * @param model
      */
-    public getUsers(pageable: Pageable, _options?: Configuration): Promise<PageResponseUserDto> {
-        const result = this.api.getUsers(pageable, _options);
+    public getUsers(pageable: Pageable, model: UserSearchResponse, _options?: Configuration): Promise<PageResponseUserDto> {
+        const result = this.api.getUsers(pageable, model, _options);
         return result.toPromise();
     }
 

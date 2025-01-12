@@ -13,6 +13,7 @@ import { Pageable } from '../models/Pageable';
 import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
+import { UserSearchResponse } from '../models/UserSearchResponse';
 
 /**
  * no description
@@ -175,13 +176,20 @@ export class UserControllerApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * @param pageable 
+     * @param model 
      */
-    public async getUsers(pageable: Pageable, _options?: Configuration): Promise<RequestContext> {
+    public async getUsers(pageable: Pageable, model: UserSearchResponse, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'pageable' is not null or undefined
         if (pageable === null || pageable === undefined) {
             throw new RequiredError("UserControllerApi", "getUsers", "pageable");
+        }
+
+
+        // verify required parameter 'model' is not null or undefined
+        if (model === null || model === undefined) {
+            throw new RequiredError("UserControllerApi", "getUsers", "model");
         }
 
 
@@ -195,6 +203,14 @@ export class UserControllerApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (pageable !== undefined) {
             const serializedParams = ObjectSerializer.serialize(pageable, "Pageable", "");
+            for (const key of Object.keys(serializedParams)) {
+                requestContext.setQueryParam(key, serializedParams[key]);
+            }
+        }
+
+        // Query Params
+        if (model !== undefined) {
+            const serializedParams = ObjectSerializer.serialize(model, "UserSearchResponse", "");
             for (const key of Object.keys(serializedParams)) {
                 requestContext.setQueryParam(key, serializedParams[key]);
             }

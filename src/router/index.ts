@@ -3,6 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import { useAppStore } from '@/stores/app'
 import { useAccountStore } from '@/stores/account'
 import LayoutDefault from '@/layouts/LayoutDefault.vue'
+import { defineComponent } from 'vue'
+
+const EmptyComponent = defineComponent({})
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -111,22 +114,15 @@ const router = createRouter({
         },
         {
           path: '/work-times',
+          component: () => import('../views/WorkTimeView.vue'),
           meta: {
             requiresAuth: true,
           },
           children: [
             {
-              path: '',
-              name: 'work-times',
-              component: () => import('../views/EmployeeView.vue'),
-              meta: {
-                requiresAuth: true,
-              },
-            },
-            {
               path: 'create',
               name: 'work-times-create',
-              component: () => import('../views/EmployeeCreateEditView.vue'),
+              component: EmptyComponent,
               meta: {
                 requiresAuth: true,
               },
@@ -134,7 +130,7 @@ const router = createRouter({
             {
               path: ':id',
               name: 'work-times-edit',
-              component: () => import('../views/EmployeeCreateEditView.vue'),
+              component: EmptyComponent,
               meta: {
                 requiresAuth: true,
               },

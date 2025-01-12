@@ -263,6 +263,16 @@ const request: UserControllerApiGetUsersRequest = {
       "sort_example",
     ],
   },
+  
+  model: {
+    id: 1,
+    name: "name_example",
+    email: "email_example",
+    position: "DEVELOPER",
+    status: "ACTIVE",
+    leaveHours: 1,
+    firstLogin: true,
+  },
 };
 
 const data = await apiInstance.getUsers(request);
@@ -275,6 +285,7 @@ console.log('API called successfully. Returned data:', data);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageable** | **Pageable** |  | defaults to undefined
+ **model** | **UserSearchResponse** |  | defaults to undefined
 
 
 ### Return type

@@ -19,6 +19,7 @@ import { TimesheetDto } from '../models/TimesheetDto';
 import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
+import { UserSearchResponse } from '../models/UserSearchResponse';
 import { WorkTime } from '../models/WorkTime';
 import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
 import { WorkTimeDto } from '../models/WorkTimeDto';
@@ -718,6 +719,13 @@ export interface UserControllerApiGetUsersRequest {
      * @memberof UserControllerApigetUsers
      */
     pageable: Pageable
+    /**
+     * 
+     * Defaults to: undefined
+     * @type UserSearchResponse
+     * @memberof UserControllerApigetUsers
+     */
+    model: UserSearchResponse
 }
 
 export interface UserControllerApiUpdateUserRequest {
@@ -803,14 +811,14 @@ export class ObjectUserControllerApi {
      * @param param the request object
      */
     public getUsersWithHttpInfo(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<HttpInfo<PageResponseUserDto>> {
-        return this.api.getUsersWithHttpInfo(param.pageable,  options).toPromise();
+        return this.api.getUsersWithHttpInfo(param.pageable, param.model,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
     public getUsers(param: UserControllerApiGetUsersRequest, options?: Configuration): Promise<PageResponseUserDto> {
-        return this.api.getUsers(param.pageable,  options).toPromise();
+        return this.api.getUsers(param.pageable, param.model,  options).toPromise();
     }
 
     /**

@@ -1,5 +1,5 @@
 import { ApiException } from '@/generate-api'
-import { getMessageError } from '@/utils/api'
+import { getMessageError } from '@/utils/apiUtil'
 import { notification } from 'ant-design-vue'
 
 type SuccessResult<T> = T | null

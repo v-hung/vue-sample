@@ -14,14 +14,14 @@ import { UserDto } from '../models/UserDto';
 import { HttpFile } from '../http/http';
 
 export class PageResponseUserDto {
-    'content'?: Array<UserDto>;
-    'pageNumber'?: number;
-    'pageSize'?: number;
-    'totalElements'?: number;
-    'totalPages'?: number;
-    'first'?: boolean;
-    'last'?: boolean;
-    'empty'?: boolean;
+    'content': Array<UserDto>;
+    'pageNumber': number;
+    'pageSize': number;
+    'totalElements': number;
+    'totalPages': number;
+    'first': boolean;
+    'last': boolean;
+    'empty': boolean;
 
     static readonly discriminator: string | undefined = undefined;
 

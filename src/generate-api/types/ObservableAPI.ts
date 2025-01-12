@@ -20,6 +20,7 @@ import { TimesheetDto } from '../models/TimesheetDto';
 import { UserCreateUpdateRequest } from '../models/UserCreateUpdateRequest';
 import { UserDto } from '../models/UserDto';
 import { UserFullDto } from '../models/UserFullDto';
+import { UserSearchResponse } from '../models/UserSearchResponse';
 import { WorkTime } from '../models/WorkTime';
 import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
 import { WorkTimeDto } from '../models/WorkTimeDto';
@@ -1022,9 +1023,10 @@ export class ObservableUserControllerApi {
 
     /**
      * @param pageable
+     * @param model
      */
-    public getUsersWithHttpInfo(pageable: Pageable, _options?: Configuration): Observable<HttpInfo<PageResponseUserDto>> {
-        const requestContextPromise = this.requestFactory.getUsers(pageable, _options);
+    public getUsersWithHttpInfo(pageable: Pageable, model: UserSearchResponse, _options?: Configuration): Observable<HttpInfo<PageResponseUserDto>> {
+        const requestContextPromise = this.requestFactory.getUsers(pageable, model, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1044,9 +1046,10 @@ export class ObservableUserControllerApi {
 
     /**
      * @param pageable
+     * @param model
      */
-    public getUsers(pageable: Pageable, _options?: Configuration): Observable<PageResponseUserDto> {
-        return this.getUsersWithHttpInfo(pageable, _options).pipe(map((apiResponse: HttpInfo<PageResponseUserDto>) => apiResponse.data));
+    public getUsers(pageable: Pageable, model: UserSearchResponse, _options?: Configuration): Observable<PageResponseUserDto> {
+        return this.getUsersWithHttpInfo(pageable, model, _options).pipe(map((apiResponse: HttpInfo<PageResponseUserDto>) => apiResponse.data));
     }
 
     /**

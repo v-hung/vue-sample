@@ -30,9 +30,12 @@ const loading = ref(false)
 onMounted(async () => {
   loading.value = true
 
-  const body = await userApi.getUsers({
-    page: 1,
-  })
+  const body = await userApi.getUsers(
+    {
+      page: 1,
+    },
+    {},
+  )
 
   loading.value = false
 
@@ -146,6 +149,30 @@ onMounted(async () => {
 <!-- https://cdn.dribbble.com/userupload/6997698/file/original-44bed7c29ca40a49bcac251e2e462deb.png?resize=1024x683&vertical=center -->
 
 <style lang="postcss">
+.ant-spin-nested-loading,
+.ant-spin-container,
+.ant-table-container {
+  height: 100%;
+}
+
+.ant-spin-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+
+  .ant-table {
+    /* flex: 0 1 auto; */
+    overflow-y: auto;
+  }
+  .ant-pagination {
+    flex: none;
+  }
+}
+
+.ant-table-body {
+  max-height: calc(100% - 55px);
+}
+
 .tab-title {
   @apply min-w-20 cursor-pointer whitespace-nowrap rounded-md px-3 py-1.5 text-center text-sm font-medium text-gray-700 hover:text-primary-500;
 }

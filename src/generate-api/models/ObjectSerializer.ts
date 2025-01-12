@@ -16,6 +16,7 @@ export * from '../models/TimesheetDto';
 export * from '../models/UserCreateUpdateRequest';
 export * from '../models/UserDto';
 export * from '../models/UserFullDto';
+export * from '../models/UserSearchResponse';
 export * from '../models/WorkTime';
 export * from '../models/WorkTimeCreateUpdateRequest';
 export * from '../models/WorkTimeDto';
@@ -38,6 +39,7 @@ import { TimesheetDto } from '../models/TimesheetDto';
 import { UserCreateUpdateRequest   , UserCreateUpdateRequestPositionEnum       , UserCreateUpdateRequestStatusEnum   } from '../models/UserCreateUpdateRequest';
 import { UserDto   , UserDtoPositionEnum    , UserDtoStatusEnum      } from '../models/UserDto';
 import { UserFullDto   , UserFullDtoPositionEnum    , UserFullDtoStatusEnum        } from '../models/UserFullDto';
+import { UserSearchResponse   , UserSearchResponsePositionEnum  , UserSearchResponseStatusEnum     } from '../models/UserSearchResponse';
 import { WorkTime } from '../models/WorkTime';
 import { WorkTimeCreateUpdateRequest } from '../models/WorkTimeCreateUpdateRequest';
 import { WorkTimeDto } from '../models/WorkTimeDto';
@@ -65,6 +67,8 @@ let enumsMap: Set<string> = new Set<string>([
     "UserDtoStatusEnum",
     "UserFullDtoPositionEnum",
     "UserFullDtoStatusEnum",
+    "UserSearchResponsePositionEnum",
+    "UserSearchResponseStatusEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
@@ -86,6 +90,7 @@ let typeMap: {[index: string]: any} = {
     "UserCreateUpdateRequest": UserCreateUpdateRequest,
     "UserDto": UserDto,
     "UserFullDto": UserFullDto,
+    "UserSearchResponse": UserSearchResponse,
     "WorkTime": WorkTime,
     "WorkTimeCreateUpdateRequest": WorkTimeCreateUpdateRequest,
     "WorkTimeDto": WorkTimeDto,

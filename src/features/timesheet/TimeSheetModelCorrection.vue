@@ -2,12 +2,12 @@
 import { TicketRequestTypeEnum, type UserDto } from '@/generate-api'
 import { approvalApi, ticketApi } from '@/lib/api'
 import { useTimesheetStore } from '@/stores/timesheet'
-import { getMessageError } from '@/utils/api'
+import { getMessageError } from '@/utils/apiUtil'
+import { formatDate } from '@/utils/dateUtil'
 import {
-  formatDate,
   timesheetDisabledTime,
   timesheetValidateTime,
-} from '@/utils/dateUtil'
+} from '@/utils/timeSheetUtil'
 import { notification } from 'ant-design-vue'
 import DatePicker from 'ant-design-vue/es/date-picker/date-fns'
 import TimePicker from 'ant-design-vue/es/time-picker/date-fns'
@@ -111,6 +111,7 @@ onUpdated(() => {
           </template>
         </a-select>
       </a-form-item>
+
       <a-form-item
         label="Correction date"
         name="correctionDate"
@@ -122,6 +123,7 @@ onUpdated(() => {
           v-model:value="formState.correctionDate"
         />
       </a-form-item>
+
       <div class="flex gap-4">
         <a-form-item
           label="Start time"
@@ -145,6 +147,7 @@ onUpdated(() => {
             class="w-full"
           />
         </a-form-item>
+
         <a-form-item
           label="End time"
           class="w-1/2"

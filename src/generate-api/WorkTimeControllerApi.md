@@ -29,10 +29,10 @@ const request: WorkTimeControllerApiCreateWorkTimeRequest = {
   
   workTimeCreateUpdateRequest: {
     title: "title_example",
-    startTimeMorning: "14:30:00.982",
-    endTimeMorning: "14:30:00.982",
-    startTimeAfternoon: "14:30:00.982",
-    endTimeAfternoon: "14:30:00.982",
+    startTimeMorning: "14:30:00",
+    endTimeMorning: "14:30:00",
+    startTimeAfternoon: "14:30:00",
+    endTimeAfternoon: "14:30:00",
     allowedLateMinutes: 1,
   },
 };
@@ -239,10 +239,10 @@ const request: WorkTimeControllerApiUpdateWorkTimeRequest = {
   
   workTimeCreateUpdateRequest: {
     title: "title_example",
-    startTimeMorning: "14:30:00.982",
-    endTimeMorning: "14:30:00.982",
-    startTimeAfternoon: "14:30:00.982",
-    endTimeAfternoon: "14:30:00.982",
+    startTimeMorning: "14:30:00",
+    endTimeMorning: "14:30:00",
+    startTimeAfternoon: "14:30:00",
+    endTimeAfternoon: "14:30:00",
     allowedLateMinutes: 1,
   },
 };

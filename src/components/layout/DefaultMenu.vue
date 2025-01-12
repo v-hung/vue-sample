@@ -32,7 +32,9 @@ const getOpenKeys = (path: string) => {
       continue
     }
 
-    const child = parent.children?.find(c => c.path === path)
+    const child = parent.children?.find(
+      c => c.path === path.split('/').slice(0, 2).join('/'),
+    )
     if (child) {
       return [parent.path]
     }
@@ -42,8 +44,6 @@ const getOpenKeys = (path: string) => {
 
 const selectedKeys = ref(getSelectedKeys(router.currentRoute.value.path))
 const openKeys = ref<Key[]>(getOpenKeys(router.currentRoute.value.path))
-
-console.log(selectedKeys.value)
 
 watch(
   () => router.currentRoute.value.path,

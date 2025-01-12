@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import {
+  RoleDto,
   UserCreateUpdateRequest,
   UserDtoPositionEnum,
   UserDtoStatusEnum,
   type TeamDto,
 } from '@/generate-api'
-import { teamApi, userApi } from '@/lib/api'
+import { roleApi, teamApi, userApi } from '@/lib/api'
 import { onMounted, reactive, ref, watch } from 'vue'
 import DatePicker from 'ant-design-vue/es/date-picker/date-fns'
 import { useRoute, useRouter } from 'vue-router'
+import SupervisorSelect from '@/features/employee/SupervisorSelect.vue'
 
 const route = useRoute()
 const router = useRouter()
 
 // Stages
-const loadingConfirm = ref<boolean>(false)
-const loadingDetails = ref<boolean>(true)
+const loading = ref<boolean>(false)
 const teams = ref<TeamDto[]>([])
+const roles = ref<RoleDto[]>([])
 const formRef = ref()
-const formState = reactive<UserCreateUpdateRequest>({
+const formState = reactive<
+  UserCreateUpdateRequest & { id: number | undefined }
+>({
+  id: undefined,
   name: '',
   email: '',
   teamId: undefined,
@@ -42,9 +47,17 @@ const formState = reactive<UserCreateUpdateRequest>({
 // Methods
 const handelSubmit = async () => {
   formRef.value.validate().then(async () => {
-    loadingConfirm.value = true
+    loading.value = true
 
-    // await userApi.updateUser({})
+    if (formState.id) {
+      await userApi.updateUser(formState.id, formState)
+    } else {
+      await userApi.createUser(formState)
+    }
+
+    loading.value = false
+
+    router.push('/employee')
   })
 }
 
@@ -71,10 +84,11 @@ watch(
 
 const loadDataDetail = async () => {
   try {
-    loadingDetails.value = true
+    loading.value = true
     const body = await userApi.getUserDetails(+route.params.id)
 
     Object.assign(formState, {
+      id: body.id,
       name: body.name,
       email: body.email,
       teamId: body.team?.id,
@@ -92,7 +106,7 @@ const loadDataDetail = async () => {
       },
     })
 
-    loadingDetails.value = false
+    loading.value = false
   } catch (error) {
     console.error(error)
   }
@@ -101,8 +115,10 @@ const loadDataDetail = async () => {
 // Lifecycle
 onMounted(async () => {
   try {
-    const body = await teamApi.getTeams()
-    teams.value = body || []
+    const body = await Promise.all([teamApi.getTeams(), roleApi.getRoles()])
+
+    teams.value = body[0]
+    roles.value = body[1]
 
     if (route.name == 'employee-edit') {
       loadDataDetail()
@@ -122,19 +138,14 @@ onMounted(async () => {
       class="!bg-white"
     >
       <template #extra>
-        <a-button type="primary" @click="router.push('/employee/create')"
-          >Save Employee</a-button
-        >
+        <a-button type="primary" @click="handelSubmit">Save Employee</a-button>
       </template>
     </a-page-header>
 
     <div class="header-divine" />
   </div>
 
-  <div
-    v-if="loadingDetails"
-    class="grid flex-grow place-items-center bg-white/20"
-  >
+  <div v-if="loading" class="grid flex-grow place-items-center bg-white/20">
     <i-bx-loader-alt class="animate-spin text-blue-500" />
   </div>
 
@@ -144,9 +155,11 @@ onMounted(async () => {
         <a-form-item label="Name" name="name" class="col-span-6">
           <a-input v-model:value="formState.name" />
         </a-form-item>
+
         <a-form-item label="Email" name="email" class="col-span-6">
           <a-input v-model:value="formState.email" />
         </a-form-item>
+
         <a-form-item label="BirthDate" name="birthDate" class="col-span-6">
           <DatePicker
             v-model:value="formState.profile!.birthDate"
@@ -154,15 +167,18 @@ onMounted(async () => {
             class="w-full"
           />
         </a-form-item>
+
         <a-form-item label="Phone" name="phone" class="col-span-6">
           <a-input v-model:value="formState.profile!.phone" />
         </a-form-item>
+
         <a-form-item label="Gender" name="username" class="col-span-6">
           <a-radio-group v-model:value="formState.profile!.gender">
             <a-radio :value="1">Male</a-radio>
             <a-radio :value="0">Female</a-radio>
           </a-radio-group>
         </a-form-item>
+
         <a-form-item
           label="Remaining leave hours"
           name="phone"
@@ -170,6 +186,7 @@ onMounted(async () => {
         >
           <a-input-number class="w-full" />
         </a-form-item>
+
         <a-form-item
           label="Permanent address"
           name="username"
@@ -181,6 +198,7 @@ onMounted(async () => {
             v-model:value="formState.profile!.permanentAddress"
           />
         </a-form-item>
+
         <a-form-item
           label="Contact address"
           name="username"
@@ -192,29 +210,17 @@ onMounted(async () => {
             v-model:value="formState.profile!.contactAddress"
           />
         </a-form-item>
+
         <a-form-item
           label="supervisor"
           name="supervisorId"
+          help="Press to search..."
           class="col-span-6"
-          :rules="[{ required: true, message: 'Please choose supervisor!' }]"
         >
-          <a-select
-            placeholder="please choose supervisors"
-            v-model:value="formState.supervisorId"
-          >
-            <template v-for="team in teams">
-              <a-select-option :value="team.id">{{
-                team.name
-              }}</a-select-option>
-            </template>
-          </a-select>
+          <SupervisorSelect v-model:value="formState.supervisorId" />
         </a-form-item>
-        <a-form-item
-          label="Team"
-          name="TeamId"
-          class="col-span-6"
-          :rules="[{ required: true, message: 'Please choose Team!' }]"
-        >
+
+        <a-form-item label="Team" name="teamId" class="col-span-6">
           <a-select
             placeholder="please choose Teams"
             v-model:value="formState.teamId"
@@ -226,9 +232,10 @@ onMounted(async () => {
             </template>
           </a-select>
         </a-form-item>
+
         <a-form-item
           label="Position"
-          name="PositionId"
+          name="position"
           class="col-span-6"
           :rules="[{ required: true, message: 'Please choose Position!' }]"
         >
@@ -236,14 +243,15 @@ onMounted(async () => {
             placeholder="please choose Positions"
             v-model:value="formState.position"
           >
-            <template v-for="p in UserDtoPositionEnum">
-              <a-select-option :value="p">{{ p }}</a-select-option>
+            <template v-for="(v, k) in UserDtoPositionEnum">
+              <a-select-option :value="v">{{ k }}</a-select-option>
             </template>
           </a-select>
         </a-form-item>
+
         <a-form-item
           label="Role"
-          name="RoleId"
+          name="roleIds"
           class="col-span-6"
           :rules="[{ required: true, message: 'Please choose Role!' }]"
         >
@@ -252,17 +260,13 @@ onMounted(async () => {
             mode="multiple"
             v-model:value="formState.roleIds"
           >
-            <template v-for="p in UserDtoStatusEnum">
-              <a-select-option :value="p">{{ p }}</a-select-option>
+            <template v-for="r in roles">
+              <a-select-option :value="r.id">{{ r.name }}</a-select-option>
             </template>
           </a-select>
         </a-form-item>
-        <a-form-item
-          label="WorkTime"
-          name="WorkTimeId"
-          class="col-span-6"
-          :rules="[{ required: true, message: 'Please choose WorkTime!' }]"
-        >
+
+        <a-form-item label="WorkTime" name="workTimeId" class="col-span-6">
           <a-select
             placeholder="please choose WorkTimes"
             v-model:value="formState.workTimeId"
@@ -272,14 +276,15 @@ onMounted(async () => {
                 class="hover:text-black"
                 @click="() => console.log('click')"
             /></template>
-            <template v-for="p in UserDtoStatusEnum">
-              <a-select-option :value="p">{{ p }}</a-select-option>
+            <template v-for="(v, k) in UserDtoStatusEnum">
+              <a-select-option :value="v">{{ k }}</a-select-option>
             </template>
           </a-select>
         </a-form-item>
+
         <a-form-item
           label="Status"
-          name="StatusId"
+          name="status"
           class="col-span-6"
           :rules="[{ required: true, message: 'Please choose Status!' }]"
         >
@@ -287,12 +292,13 @@ onMounted(async () => {
             placeholder="please choose Status"
             v-model:value="formState.status"
           >
-            <template v-for="s in UserDtoStatusEnum">
-              <a-select-option :value="s">{{ s }}</a-select-option>
+            <template v-for="(v, k) in UserDtoStatusEnum">
+              <a-select-option :value="v">{{ k }}</a-select-option>
             </template>
           </a-select>
         </a-form-item>
       </div>
+
       <a-collapse ghost class="drawer-employee-collapse">
         <a-collapse-panel header="Advance">
           <div class="grid grid-cols-12 gap-x-6">

@@ -47,6 +47,7 @@ models/TimesheetDto.ts
 models/UserCreateUpdateRequest.ts
 models/UserDto.ts
 models/UserFullDto.ts
+models/UserSearchResponse.ts
 models/WorkTime.ts
 models/WorkTimeCreateUpdateRequest.ts
 models/WorkTimeDto.ts
