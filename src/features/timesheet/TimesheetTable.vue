@@ -11,6 +11,7 @@ import { useElementSize } from '@vueuse/core'
 import { isSameMonth } from 'date-fns'
 import { formatDate } from '@/utils/dateUtil'
 import { useTimesheetStore } from '@/stores/timesheet'
+
 const columns = [
   { title: 'Date', dataIndex: 'date', key: 'date' },
   { title: 'User', dataIndex: 'user', key: 'user' },
@@ -41,7 +42,7 @@ watch(month, async newMonth => {
     ),
   })
 
-  data.value = timesheets ? timesheets : []
+  data.value = timesheets ?? []
 
   loading.value = false
 })
@@ -54,7 +55,7 @@ onMounted(async () => {
     callback: timesheetApi.getMonthlyTimesheets(),
   })
 
-  data.value = timesheets ? timesheets : []
+  data.value = timesheets ?? []
 
   loading.value = false
 })

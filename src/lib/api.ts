@@ -30,7 +30,7 @@ const baseServer = server1
 // Create configuration parameter object
 const configurationParameters: ConfigurationParameters = {
   baseServer: baseServer,
-  httpApi: new FetchHttpLibrary(), //only in develop mode
+  httpApi: new FetchHttpLibrary(),
 }
 
 // Convert to actual configuration

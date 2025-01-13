@@ -25,3 +25,27 @@
 .ant-page-header-heading-sub-title {
   @apply hidden md:inline;
 }
+
+.ant-table-custom {
+  .ant-spin-nested-loading,
+  .ant-spin-container,
+  .ant-table-container {
+    height: 100%;
+  }
+
+  .ant-spin-container {
+    display: flex;
+    flex-direction: column;
+
+    .ant-table {
+      overflow-y: auto;
+    }
+    .ant-pagination {
+      flex: none;
+    }
+  }
+
+  .ant-table-body {
+    max-height: calc(100% - 55px);
+  }
+}

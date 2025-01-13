@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { h, onMounted, ref } from 'vue'
+import { h, onMounted, ref, defineAsyncComponent } from 'vue'
 import { PlusOutlined } from '@ant-design/icons-vue'
 import type { ColumnType } from 'ant-design-vue/es/table'
 import type { WorkTimeDto } from '@/generate-api'
 import { workTimeApi } from '@/lib/api'
 import { useRouter } from 'vue-router'
-import { defineAsyncComponent } from 'vue'
 
 const WorkTimeDrawerLazy = defineAsyncComponent(
   () => import('@/features/workTime/WorkTimeDrawer.vue'),
@@ -86,21 +85,7 @@ onMounted(async () => {
       class="mx-6 min-h-0 flex-grow"
     >
       <template #bodyCell="{ column, record }">
-        <template
-          v-if="
-            [
-              'startTimeMorning',
-              'endTimeMorning',
-              'startTimeAfternoon',
-              'endTimeAfternoon',
-            ].includes(column.key?.toString() ?? '')
-          "
-        >
-          <span>
-            {{ record[column.key!]?.split('.')[0] }}
-          </span>
-        </template>
-        <template v-else-if="column.key === 'action'">
+        <template v-if="column.key === 'action'">
           <span>
             <a @click="router.push('/work-times/' + record.id)">Edit</a>
           </span>
